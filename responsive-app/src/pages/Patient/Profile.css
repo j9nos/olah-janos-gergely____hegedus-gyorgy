@@ -1,0 +1,4 @@
+.patient-profile-contents {
+    display:flex;
+    justify-content: space-evenly;
+}

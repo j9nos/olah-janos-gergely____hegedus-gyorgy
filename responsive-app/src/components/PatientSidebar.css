@@ -1,0 +1,63 @@
+.PatientSidebar {
+  width: 70px;
+  height: 100vh;
+  background: rgb(102, 255, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-right: 2px solid black;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  position: fixed;
+}
+.PatientSidebar-mid-container {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  justify-content: space-between;
+  overflow: auto;
+}
+.PatientSidebar-mid-container > button {
+  font-size: 50px;
+  background: none;
+  border: none;
+  outline: none;
+  transition: all 0.3s;
+}
+.PatientSidebar-mid-container > button:hover {
+  cursor: pointer;
+  color: rgb(51, 51, 51);
+  transition: all 0.3s;
+}
+.PatientSidebar-icon {
+  width: 50px;
+  height: auto;
+  margin-top: 10px;
+}
+
+.PatientSidebar-bot-container > button {
+  font-size: 50px;
+  background: none;
+  border: none;
+  outline: none;
+}
+.PatientSidebar-bot-container > button :hover {
+  cursor: pointer;
+}
+
+.PatientSidebar-mid-container::-webkit-scrollbar-track {
+  box-shadow: black;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+.PatientSidebar-mid-container::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+.PatientSidebar-mid-container::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border: 2px solid #555555;
+}
