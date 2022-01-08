@@ -70,7 +70,7 @@ const PatientBloodTestVisualization = (props) => {
   return (
     <div className="patient-blood-test-visualization">
       <div className="patient-blood-test-visualization-container">
-      <div style={{color: isOutOfRange() ? "rgb(255,50,50)" : "rgb(0, 255, 50)"}}>{props.incomingData.blood_test_component_abbreviation}</div>
+      <h3 style={{color: isOutOfRange() ? "rgb(255,50,50)" : "rgb(0, 255, 50)"}}>{props.incomingData.blood_test_component_abbreviation}</h3>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             layout="vertical"

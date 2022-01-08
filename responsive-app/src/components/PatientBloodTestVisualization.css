@@ -8,6 +8,7 @@
 }
 .patient-blood-test-visualization-container {
   display: flex;
+  align-items: center;
   width: 500px;
   height: 30px;
 }
