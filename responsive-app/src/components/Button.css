@@ -1,0 +1,14 @@
+.Button {
+  padding: 4px;
+  background: none;
+  backdrop-filter: blur(8px);
+  border-radius: 5px;
+  border: 2px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 35px;
+}
+.Button:hover {
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(50px);
+}

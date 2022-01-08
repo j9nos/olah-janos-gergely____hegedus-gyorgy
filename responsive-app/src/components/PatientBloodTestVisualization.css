@@ -1,0 +1,10 @@
+.patient-blood-test-visualization {
+  width: fit-content;
+  background: none;
+  margin: 15px 0;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+}

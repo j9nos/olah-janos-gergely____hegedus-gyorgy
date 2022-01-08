@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import API from "../../utils/API";
+import Button from "../../components/Button";
+import PatientBloodTestModal from "../../components/PatientBloodTestModal";
 
 const BloodTest = () => {
+  useEffect(() => {
+    API.get("/patientBloodTestDates").then((result) =>
+      setBloodTestsDate(result.data)
+    );
+  }, []);
+  const [bloodTestsDate, setBloodTestsDate] = useState([]);
+
+  function renderBloodTestModal(selectedDate) {
+    ReactDOM.render(
+      <PatientBloodTestModal selectedDate={selectedDate} />,
+      document.getElementById("patientBloodTestModal")
+    );
+  }
+
   return (
     <div className="patient-page-container">
       <div className="patient-content-container">
-        <h1>Blood Tests</h1>
+        <h1>Vérvételeid</h1>
+        {bloodTestsDate.map((e) => {
+          return (
+            <Button
+              key={e.blood_tests_taken_date}
+              onClick={() => {
+                renderBloodTestModal(e.blood_tests_taken_date.split("T")[0]);
+              }}
+              text={e.blood_tests_taken_date.split("T")[0]}
+            />
+          );
+        })}
       </div>
     </div>
   );

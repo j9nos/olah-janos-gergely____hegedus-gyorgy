@@ -27,6 +27,7 @@ const db = mysql.createConnection({
   host: "localhost",
   password: "",
   database: "medicloud",
+  timezone: "+00:00",
 });
 
 /*
@@ -86,6 +87,22 @@ app.get("/basicPatientData", verifyToken, (req, res) => {
   const selectCOMMAND = "SELECT * FROM patients WHERE patient_id = ?;";
   db.query(selectCOMMAND, [req.patientId], (err, result) => {
     res.send(result[0]);
+  });
+});
+
+app.get("/patientBloodTestDates", verifyToken, (req, res) => {
+  const selectCOMMAND =
+    "SELECT blood_tests_taken_date FROM blood_tests_taken WHERE blood_tests_taken_from_id = ? GROUP BY blood_tests_taken_date;";
+  db.query(selectCOMMAND, [req.patientId], (err, result) => {
+    res.send(result);
+  });
+});
+
+app.post("/patientBloodTestResults", verifyToken, (req, res) => {
+  const selectCOMMAND =
+    "SELECT blood_test_components.blood_test_component_abbreviation, blood_test_components.blood_test_component_name, blood_test_components.blood_test_component_measurement, blood_test_components.blood_test_component_normal_range, blood_test_components.blood_test_component_description, blood_tests_taken.blood_tests_component_value, doctors.doctor_name FROM blood_test_components INNER JOIN blood_tests_taken ON blood_test_components.blood_test_component_id = blood_tests_taken.blood_tests_component_id INNER JOIN doctors ON blood_tests_taken.blood_tests_taken_by_id = doctors.doctor_id WHERE blood_tests_taken.blood_tests_taken_from_id = ? AND blood_tests_taken.blood_tests_taken_date = '2021-12-01';";
+  db.query(selectCOMMAND, [req.patientId, req.body.date], (err, result) => {
+    res.send(result);
   });
 });
 

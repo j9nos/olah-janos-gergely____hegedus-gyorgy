@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import "./Profile.css";
 
-import Card from "../../components/Card";
 
 const Profile = () => {
   useEffect(() => {
@@ -20,7 +19,6 @@ const Profile = () => {
           Üdvözlünk, {basicPatientData.patient_name}
         </h1>
         <div className="patient-profile-content">
-          <Card title="Alap adatok" />
         </div>
       </div>
     </div>

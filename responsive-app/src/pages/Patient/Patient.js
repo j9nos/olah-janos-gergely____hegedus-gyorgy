@@ -29,7 +29,6 @@ const Patient = () => {
   }
   function logout() {
     removeToken();
-    localStorage.clear();
     window.location.reload();
   }
   return (
