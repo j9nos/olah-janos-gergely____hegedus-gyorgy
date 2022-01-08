@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import "./PatientBloodTestModal.css";
 import PatientBloodTestVisualization from "./PatientBloodTestVisualization";
 import API from "../utils/API";
+import { IoIosArrowBack } from "react-icons/io";
+
 const PatientBloodTestModal = (props) => {
   useEffect(() => {
     API.post("/patientBloodTestResults", { date: props.selectedDate }).then(
@@ -16,23 +18,26 @@ const PatientBloodTestModal = (props) => {
       document.getElementById("patientBloodTestModal")
     );
   }
-
-  function logstuff() {
-    console.log(bloodTestResults[0]);
-  }
   return (
     <div className="patient-blood-test-modal">
-      {props.selectedDate}
-      <button onClick={closeModal}>X</button>
-      <button onClick={logstuff}>log</button>
-      {bloodTestResults.map((e) => {
-        return (
-          <PatientBloodTestVisualization
-            key={e.blood_test_component_abbreviation}
-            incomingData={e}
-          />
-        );
-      })}
+      <div className="patient-blood-test-modal-container">
+        <button onClick={closeModal} className="patient-blood-test-modal-quit">
+          <IoIosArrowBack />
+        </button>
+        <h1 className="patient-blood-test-modal-date">
+          {props.selectedDate}
+        </h1>
+        <div className="patient-blood-test-blood-test-container">
+          {bloodTestResults.map((e) => {
+            return (
+              <PatientBloodTestVisualization
+                key={e.blood_test_component_abbreviation}
+                incomingData={e}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
