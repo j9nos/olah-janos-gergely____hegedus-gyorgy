@@ -8,10 +8,11 @@ import API from "../utils/API";
 const Login = () => {
   const [enteredTAJ, setEnteredTAJ] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("...");
 
   function handleLogin(e) {
     e.preventDefault();
+    setErrorMessage("...");
     API.post("/patientLogin", {
       taj: enteredTAJ,
       password: enteredPassword,
@@ -52,7 +53,7 @@ const Login = () => {
           <div className="Login-bot-container">
             <input type="submit" value="Belépés" />
           </div>
-          {errorMessage}
+          <p>{errorMessage}</p>
         </form>
       </div>
     </div>
