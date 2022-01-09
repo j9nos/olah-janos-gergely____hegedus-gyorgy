@@ -3,11 +3,11 @@
   z-index: 1;
   height: 100vh;
   width: 100%;
-  background: rgba(25,25,25, 0.9);
-  backdrop-filter: blur(50px);
+  background: rgb(25,25,25);
   color: white;
   overflow: auto;
 }
+
 .patient-blood-test-modal-date{
   text-align: center;
   margin-bottom: 50px;
@@ -17,14 +17,14 @@
   flex-direction: column;
 }
 .patient-blood-test-modal-quit {
-  color: red;
+  color: rgb(102, 255, 0);
   font-size: 50px;
   width: fit-content;
   height: fit-content;
   background: none;
   border:none;
-  border-right: 3px solid red;
-  border-bottom: 3px solid red;
+  border-right: 3px solid rgb(102, 255, 0);
+  border-bottom: 3px solid rgb(102, 255, 0);
   border-bottom-right-radius: 5px;
   top: 0;
   position: -webkit-sticky;
@@ -32,6 +32,7 @@
 }
 .patient-blood-test-modal-quit:hover {
   cursor: pointer;
+  background-color: rgb(102,255,0,0.05);
 }
 .patient-blood-test-blood-test-container {
   display: flex;
