@@ -24,9 +24,12 @@ const PatientBloodTestModal = (props) => {
         <button onClick={closeModal} className="patient-blood-test-modal-quit">
           <IoIosArrowBack />
         </button>
-        <h1 className="patient-blood-test-modal-date">
-          {props.selectedDate}
-        </h1>
+        <div className="patient-blood-test-modal-date">
+          <b>Vérvétel időpontja : </b>
+          <i>
+            <u>{props.selectedDate}</u>
+          </i>
+        </div>
         <div className="patient-blood-test-blood-test-container">
           {bloodTestResults.map((e) => {
             return (

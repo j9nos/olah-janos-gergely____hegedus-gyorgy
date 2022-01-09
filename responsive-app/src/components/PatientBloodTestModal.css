@@ -3,7 +3,7 @@
   z-index: 1;
   height: 100vh;
   width: 100%;
-  background: rgb(35,35,35);
+  background: rgb(35,45,35);
   color: white;
   overflow: auto;
 }
@@ -11,6 +11,9 @@
 .patient-blood-test-modal-date{
   text-align: center;
   margin-bottom: 50px;
+  padding-bottom: 10px;
+  color:rgb(102, 255, 0);
+  border-bottom: 5px solid rgba(0, 0, 0, 0.2);
 }
 .patient-blood-test-modal-container {
   display: flex;
@@ -29,6 +32,7 @@
   top: 0;
   position: -webkit-sticky;
   position: sticky;
+  backdrop-filter: blur(50px);
 }
 .patient-blood-test-modal-quit:hover {
   cursor: pointer;

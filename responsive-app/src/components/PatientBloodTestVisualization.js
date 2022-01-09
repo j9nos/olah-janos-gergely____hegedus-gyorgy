@@ -116,7 +116,7 @@ const PatientBloodTestVisualization = (props) => {
               radius={[10, 0, 0, 10]}
               stackId="a"
             />
-            <Bar dataKey="good" fill="rgb(0,255,50)" stackId="a" />
+            <Bar dataKey="good" fill="rgb(0,200,50)" stackId="a" />
             <Bar
               dataKey="max"
               fill="url(#right)"
