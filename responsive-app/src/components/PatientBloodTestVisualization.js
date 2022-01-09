@@ -94,8 +94,8 @@ const PatientBloodTestVisualization = (props) => {
                 y2="0"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stopColor="red" />
-                <stop offset="1" stopColor="orange" />
+                <stop offset="0" stopColor="rgb(255,50,50)" />
+                <stop offset="1" stopColor="rgb(255, 135, 50)" />
               </linearGradient>
               <linearGradient
                 id="right"
@@ -105,8 +105,8 @@ const PatientBloodTestVisualization = (props) => {
                 y2="0"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stopColor="orange" />
-                <stop offset="1" stopColor="red" />
+                <stop offset="0" stopColor="rgb(255, 135, 50)" />
+                <stop offset="1" stopColor="rgb(255,50,50)" />
               </linearGradient>
             </defs>
             <Tooltip wrapperStyle={{zIndex: 1000}} cursor={{ fill: "none" }} content={TooltipContent} />
