@@ -95,7 +95,7 @@ const PatientBloodTestVisualization = (props) => {
                 spreadMethod="reflect"
               >
                 <stop offset="0" stopColor="rgb(255,50,50)" />
-                <stop offset="1" stopColor="rgb(255, 135, 50)" />
+                <stop offset="1" stopColor="rgb(255, 173, 50)" />
               </linearGradient>
               <linearGradient
                 id="right"
@@ -105,7 +105,7 @@ const PatientBloodTestVisualization = (props) => {
                 y2="0"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stopColor="rgb(255, 135, 50)" />
+                <stop offset="0" stopColor="rgb(255, 173, 50)" />
                 <stop offset="1" stopColor="rgb(255,50,50)" />
               </linearGradient>
             </defs>
