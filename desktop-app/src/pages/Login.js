@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import MEDICLOUD_LOGO from "../assets/medicloud-text-white.png";
 import "./Login.css";
 import Modal from "../components/Modal";
 
 function Login() {
-
   return (
     <div className="Login-page">
       <div className="Login">
@@ -18,29 +17,17 @@ function Login() {
           </div>
 
           <div className="Login-mid-container">
-            <input
-              type="number"
-              placeholder="Felhasználónév"
-            />
-            <input
-              type="password"
-              placeholder="Jelszó"
-            />
+            <input type="number" placeholder="Felhasználónév" />
+            <input type="password" placeholder="Jelszó" />
           </div>
-          
+
           <div className="Login-bot-container">
             <input type="submit" value="Belépés" />
-            
           </div>
           <Modal />
-            
-            
-          
         </div>
       </div>
     </div>
-
-
   );
 }
 
