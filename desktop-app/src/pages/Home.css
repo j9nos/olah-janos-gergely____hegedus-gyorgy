@@ -1,0 +1,5 @@
+.home{
+    background: url("../assets/background.png");
+    background-size: cover;
+    min-height: 100vh;
+}
