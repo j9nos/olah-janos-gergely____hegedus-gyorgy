@@ -1,0 +1,91 @@
+.Login-page {
+    background: url("../assets/background.png");
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .Login {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .Login-form {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 500px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: space-around;
+  }
+  .Login-top-container {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+  }
+  .Login-logo {
+    width: 70%;
+    height: auto;
+  }
+  
+  .Login-mid-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .Login-mid-container > input::-webkit-outer-spin-button,
+  .Login-mid-container > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .Login-mid-container > input::placeholder {
+    color: white;
+    font-weight: bold;
+  }
+  .Login-mid-container > input {
+    margin: 10px 0;
+    height: 50px;
+    outline: none;
+    border: none;
+    width: 50%;
+    padding-left: 10px;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 2%;
+    border: 2px solid rgb(136, 255, 0);
+    color: white;
+    font-weight: bold;
+  }
+  .Login-mid-container > input:focus {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .Login-bot-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .Login-bot-container > input {
+    height: 50px;
+    width: 50%;
+    border: none;
+    border-radius: 2%;
+    font-weight: bold;
+    background: rgb(136, 255, 0);
+    color: white;
+  }
+  .Login-bot-container > input:hover {
+    cursor: pointer;
+  }
+  .Login-form > button:hover{
+    cursor: pointer;
+  }
+  
+  @media (max-width: 576px) {
+    .Login-form {
+      width: 100%;
+    }
+  }

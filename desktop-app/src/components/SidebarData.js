@@ -24,7 +24,7 @@ export const SidebarData = [
   },
   {
     title: 'Exit',
-    path: '/exit',
+    path: '/login',
     icon: <MdIcons.MdExitToApp/>,
     cName: 'nav-text'
   }

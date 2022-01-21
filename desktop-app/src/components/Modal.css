@@ -1,0 +1,61 @@
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.btn-modal {
+    height: 50px;
+    width: 50%;
+    border: none;
+    border-radius: 2%;
+    font-weight: bold;
+    background: rgb(136, 255, 0);
+    color: white;
+}
+.btn-modal > input:hover {
+    cursor: pointer;
+    }
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.7);
+}
+.modal-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: url("../assets/background.png");
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px;
+    color: white;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+    background-color: rgb(136, 255, 0);
+    border: none;
+    border-radius: 2%;
+    font-weight: bold;
+    background: rgb(136, 255, 0);
+    color: white;
+    height: 15%;
+    width: 5%;
+}
+.modal-content > button:hover{
+    cursor: pointer;
+}
