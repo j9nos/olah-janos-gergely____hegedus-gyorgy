@@ -10,6 +10,8 @@ body.active-modal {
     font-weight: bold;
     background: rgb(136, 255, 0);
     color: white;
+    cursor: pointer;
+    font-size: 19px;
 }
 .btn-modal > input:hover {
     cursor: pointer;

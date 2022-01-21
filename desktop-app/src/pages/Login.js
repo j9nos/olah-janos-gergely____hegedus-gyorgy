@@ -22,9 +22,10 @@ function Login() {
           </div>
 
           <div className="Login-bot-container">
-            <input type="submit" value="Belépés" />
+            <button className="LoginBtn" type="submit" value="Belépés" >Belépés</button>
+            <Modal />
           </div>
-          <Modal />
+          
         </div>
       </div>
     </div>
