@@ -16,27 +16,10 @@ function Home() {
           </p>
         </div>
         <div className="home-bot-container">
-          <button
-            className="homeBtn"
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "http://localhost:3000/patients";
-            }}
-          >
-            Paciensek
-          </button>
-          <Button/>
-          <button
-            className="homeBtn"
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "http://localhost:3000/doctors";
-            }}
-          >
-            Doktorok
-          </button>
+          
+          <Button value='Doktorok'/>
+          <Button value='Website'/>
+          <Button value='Paciensek'/>
         </div>
       </div>
     </div>
