@@ -1,9 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import "./Home.css";
 import Button from "../components/Button";
 
 function Home() {
+
+  let navigate = useNavigate();
+  
+  function navigateToDoctors(){
+    navigate("./doctors")
+  }
+  function navigateToPatients(){
+    navigate("./patients")
+  }
+
   return (
     <div className="home">
       <div className="home-main-container">
@@ -16,10 +26,17 @@ function Home() {
           </p>
         </div>
         <div className="home-bot-container">
-          
-          <Button value='Doktorok'/>
-          <Button value='Website'/>
-          <Button value='Paciensek'/>
+          <Button title="Doktorok" onClick={navigateToDoctors}/>
+          <Button
+            title="Website"
+            className="LinkBtn"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "";
+            }}
+          />
+          <Button title="Paciensek" onClick={navigateToPatients}/>
         </div>
       </div>
     </div>
