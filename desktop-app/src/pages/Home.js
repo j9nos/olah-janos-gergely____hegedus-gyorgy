@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import Button from "../components/Button";
 
 function Home() {
   return (
@@ -25,16 +26,7 @@ function Home() {
           >
             Paciensek
           </button>
-          <button
-            className="homeBtn"
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "";
-            }}
-          >
-            Weboldal
-          </button>
+          <Button/>
           <button
             className="homeBtn"
             type="button"
