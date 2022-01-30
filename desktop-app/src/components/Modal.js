@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Modal.css";
+import Button from "./Button";
 
 export default function Modal() {
     const [modal, setModal] = useState(false);
@@ -9,9 +10,7 @@ export default function Modal() {
     };
     return (
         <>
-        <button onClick={toggleModal} className="btn-modal">
-            Regisztráció
-        </button>
+       <Button title='Regisztráció' onClick={toggleModal}/>
 
         {modal && (
             <div className="modal">
@@ -27,6 +26,7 @@ export default function Modal() {
                 <button className="close-modal" onClick={toggleModal}>
                 X
                 </button>
+                
             </div>
             </div>
         )}
