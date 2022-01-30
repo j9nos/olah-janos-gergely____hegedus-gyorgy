@@ -27,4 +27,25 @@
   align-items: center;
   justify-content: center;
 }
+@media (max-width:1300px){
+  .home-top-container {
+    text-align: center;
+    height: 150px;
+    width: 2000px;
+    font-size: 21px;
+    color: white;
+  }
+  .title {
+    font-size: 50px;
+    margin: 20px;
+    color: white;
+  }
+  .home-bot-container {
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
 

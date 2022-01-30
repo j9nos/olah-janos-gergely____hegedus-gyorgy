@@ -29,7 +29,7 @@ return (
                         type="button"
                         onClick={(e) => {
                         e.preventDefault();
-                        window.location.href='https://github.com/olahjg';
+                        window.location.href='https://github.com/j9nos';
                         }}>Oláh János Gergely
                     </button>
                     </div>

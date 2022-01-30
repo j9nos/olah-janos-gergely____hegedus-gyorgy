@@ -86,9 +86,27 @@
   margin: 20px;
   font-size: 19px;
 }
-
-@media (max-width: 576px) {
+@media(max-height:780px){
   .Login-form {
-    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 500px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: space-around;
+  }
+}
+@media(max-height:720px){
+  .Login-form {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 500px;
+    height: 390px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: space-around;
   }
 }

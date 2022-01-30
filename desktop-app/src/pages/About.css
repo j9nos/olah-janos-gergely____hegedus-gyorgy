@@ -70,6 +70,58 @@
 .icon-text{
     color: white;
     font-size: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align:justify;
 }
+@media(max-width:1700px){
+    .bot-left-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 750px;
+    }
+    .bot-right-container{
+        
+        width: 50%;
+        height: 750px;
+        background-color: rgba(0, 0, 0, 0.5);
+        margin-top: 85px;
+        border-radius: 40px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+    .logo-about{
+        height: 25%;
+        margin-top: 100px;
+    }
+    
+}
+@media(max-width:1300px){
+    .bot-left-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 750px;
+    }
+    .bot-right-container{
+        
+        width: 50%;
+        height: 1000px;
+        background-color: rgba(0, 0, 0, 0.5);
+        margin-top: 85px;
+        border-radius: 40px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+    .logo-about{
+        height: 18%;
+        margin-top: 100px;
+    }
+}
+
+
