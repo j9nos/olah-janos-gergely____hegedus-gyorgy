@@ -18,12 +18,6 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Doktorok',
-    path: '/doctors',
-    icon: <GiIcons.GiDoctorFace />,
-    cName: 'nav-text'
-  },
-  {
     title: 'Github',
     path: '/github',
     icon: <AiIcons.AiFillGithub />,

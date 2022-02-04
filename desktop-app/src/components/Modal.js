@@ -19,10 +19,10 @@ export default function Modal() {
                 <h2>Figyelem</h2>
                 <br/>
                 <p>
-                Az admin felületre csak a program jelenlegi fejlesztőinek van jogsultsága új admin felhasználókat létrehozni.
+                Ezen a felületen a regesztráció nem engedélyezett. Orvosokat csak a program üzemeltetőinek van jogosultsága hozzáadni.
                 </p>
                 <br/>
-                <p>Ha új admint szeretne felvenni további információkért kérjük forduljon a fejlesztőkhöz.</p>
+                <p>Ha új orvost  szeretne regisztrálni a rendszerbe további információkért kérjük forduljon a fejlesztőkhöz.</p>
                 <button className="close-modal" onClick={toggleModal}>
                 X
                 </button>

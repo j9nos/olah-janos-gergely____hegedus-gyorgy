@@ -18,15 +18,13 @@ function Home() {
     <div className="home">
       <div className="home-main-container">
         <div className="home-top-container">
-          <h1 className="title">Udvozoljuk a Medicloud Admin feluleten</h1>
-          <p>Itt kezelheti a doktorok es a pacienkse adatait egyarant</p>
+          <h1 className="title">Üdvözöljük a Medicloud felületén</h1>
+          <p>Orvosként hozzáférése van a páciensek adataihoz</p>
           <p>
-            Lehetosege van a paciensek es a doktorok adatainak
-            modositasara,torlesere, es uj adata felvetelere.
+            Lehetőságe van a páciensek adatainak a módositására, törlésére, es új adat felvételére. Valamint a vérvételek kezelésére.
           </p>
         </div>
         <div className="home-bot-container">
-          <Button title="Doktorok" onClick={navigateToDoctors}/>
           <Button
             title="Website"
             className="LinkBtn"
@@ -36,7 +34,7 @@ function Home() {
               window.location.href = "";
             }}
           />
-          <Button title="Paciensek" onClick={navigateToPatients}/>
+          <Button title="Páciensek" onClick={navigateToPatients}/>
         </div>
       </div>
     </div>

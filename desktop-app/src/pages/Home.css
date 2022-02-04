@@ -11,7 +11,7 @@
 .home-top-container {
   text-align: center;
   height: 230px;
-  width: 2000px;
+  width: 1900px;
   font-size: 25px;
   color: white;
 }
@@ -31,8 +31,8 @@
   .home-top-container {
     text-align: center;
     height: 150px;
-    width: 2000px;
-    font-size: 21px;
+    width: 900px;
+    font-size: 18px;
     color: white;
   }
   .title {
