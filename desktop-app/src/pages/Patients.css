@@ -1,5 +1,200 @@
-.patients{
-    background: url("../assets/background.png");
-    background-size: cover;
-    min-height: 100vh;
+.patients {
+  background: url("../assets/background.png");
+  background-size: cover;
+  min-height: 100vh;
+}
+.patients-mid-container {
+  display: flex;
+  flex-direction: row;
+}
+.patients-right {
+  width: 100px;
+}
+.patients-left {
+  width: 100px;
+}
+.patients-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.patients-top-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 150px;
+}
+.patients-top-right {
+  display: flex;
+  margin: 20px;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-around;
+}
+.patients-top-left {
+    width: 50%;
+  }
+.blood-selection {
+  margin-bottom: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-align: center;
+  width: 230px;
+  height: 55px;
+  text-decoration: none;
+  border-radius: 40px;
+  font-weight: bold;
+  border: 2px solid rgb(136, 255, 0);
+  background: transparent;
+  color: white;
+  font-size: 19px;
+}
+option{
+    background:rgb(136, 255, 0);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input::placeholder {
+  color: white;
+  font-weight: bold;
+}
+input {
+  height: 50px;
+  margin-top: 3px;
+  outline: none;
+  border: none;
+  width: 300px;
+  padding-left: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2%;
+  border: 2px solid rgb(136, 255, 0);
+  color: white;
+  font-weight: bold;
+}
+input:focus {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patients-table-container {
+  max-height: 100vh;
+  width: 100%;
+  overflow: auto;
+  border: 2px solid rgb(136, 255, 0);
+  height: 700px;
+}
+
+.patients-table-container thead th {
+  /*position: sticky;
+  top: 0;*/
+  background-color: rgb(136, 255, 0);
+  color: white;
+  font-size: 20px;
+}
+th,
+td {
+  border: 3px solid rgb(136, 255, 0);
+  padding: 10px 10px;
+  font-size: 15px;
+  color: white;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+tr:hover td {
+  color: white;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.tableBtn {
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  text-decoration: none;
+  border-radius: 40px;
+  font-weight: bold;
+  border: 2px solid rgb(136, 255, 0);
+  background: transparent;
+  color: white;
+  font-size: 15px;
+  transition: ease-out 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.tableBtn:hover {
+  color: white;
+  cursor: pointer;
+}
+.tableBtn:before {
+  transition: 0.5s all ease;
+  position: absolute;
+  border-radius: 40px;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  opacity: 0;
+  content: "";
+  background-color: rgb(136, 255, 0);
+}
+.tableBtn:hover:before {
+  transition: 0.5s all ease;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  z-index: -1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px black;
+}
+@media (max-width: 1200px) {
+  .patients-right {
+    width: 20px;
+  }
+  .patients-left {
+    width: 20px;
+  }
+  .patients-top-right {
+    display: flex;
+    margin: 20px;
+    flex-direction: row;
+    width: 900px;
+    justify-content: space-around;
+  }
+  .patients-top-left {
+      width: 200px;
+    }
+}
+@media (max-height: 800px) {
+  .patients-table-container {
+    max-height: 100vh;
+    width: 100%;
+    overflow: auto;
+    border: 2px solid rgb(136, 255, 0);
+    height: 380px;
+  }
 }
