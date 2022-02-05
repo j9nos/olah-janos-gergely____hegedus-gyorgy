@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../components/Button";
+import ModalData from "../components/ModalData";
 import "./Patients.css";
 
 function Patients() {
@@ -10,19 +11,19 @@ function Patients() {
         <div className="patients-top-container">
           <div className="patients-top-left"></div>
           <div className="patients-top-right">
-            <Button title="Uj felvetel" />
+            <button className="NewPatientBtn">Uj felvetel</button>
             <select name="cars" className="blood-selection">
-              <option value="volvo">Valassz vertipust</option>
-              <option value="volvo">A+</option>
-              <option value="volvo">A-</option>
-              <option value="saab">B-</option>
-              <option value="opel">B+</option>
-              <option value="audi">AB_</option>
-              <option value="audi">AB+</option>
-              <option value="audi">B-</option>
-              <option value="audi">B+</option>
-              <option value="audi">0-</option>
-              <option value="audi">0+</option>
+              <option value="Valassz vertipust">Valassz vertipust</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B-">B-</option>
+              <option value="B+">B+</option>
+              <option value="AB-">AB-</option>
+              <option value="AB+">AB+</option>
+              <option value="B-">B-</option>
+              <option value="B+">B+</option>
+              <option value="0-">0-</option>
+              <option value="0+">0+</option>
             </select>
             <input placeholder="Kereses" />
           </div>
@@ -41,7 +42,7 @@ function Patients() {
                   <th>Lakcim</th>
                   <th>Telefonszám</th>
                   <th>Emailcim</th>
-                  <th>Verveteli adatok</th>
+                  <th>Adatok</th>
                   <th>Törlés</th>
                 </tr>
               </thead>
@@ -56,7 +57,7 @@ function Patients() {
                   <td>sadsad</td>
                   <td>sadsad</td>
                   <td>
-                    <button className="tableBtn">Adatok</button>
+                    <ModalData/>
                   </td>
                   <td>
                     <button className="tableBtn">Torles</button>
