@@ -5,8 +5,16 @@ const mysql = require("mysql");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+
+/*
+    //////////////////////////////
+        SETUP
+    //////////////////////////////
+*/
+
 const COOKIE_LIFE_EXPECTANCY = 3600000;
-const TOKEN_SECRET = ")J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$BE)H+MbQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9y$B&E)H@McQfTjWmZq4t7w!z%C*F-JaNdRgUkXp2r5u8x/A?D(G+KbPeShVmYq3t6v9y$B&E)H@McQfTjWnZr4u7x!z%C*F-JaNdRgUkXp2s5v8y/B?D(G+KbPeShVmYq3t6w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThWmZq4t6w9z$C&F)J@NcRfUjXn2r5u8x!A%D*G-KaPdSgVkYp3s6v9y$B?E(H+MbQeThWmZq4t7w!z%C*F";
+const TOKEN_SECRET =
+  ")J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$BE)H+MbQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9y$B&E)H@McQfTjWmZq4t7w!z%C*F-JaNdRgUkXp2r5u8x/A?D(G+KbPeShVmYq3t6v9y$B&E)H@McQfTjWnZr4u7x!z%C*F-JaNdRgUkXp2s5v8y/B?D(G+KbPeShVmYq3t6w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThWmZq4t6w9z$C&F)J@NcRfUjXn2r5u8x!A%D*G-KaPdSgVkYp3s6v9y$B?E(H+MbQeThWmZq4t7w!z%C*F";
 const PORT = 3001;
 
 const app = express();
@@ -30,15 +38,38 @@ const db = mysql.createConnection({
 });
 
 /*
-    //
-        API REQUESTS
-    //
+    //////////////////////////////
+        VERIFICATIONS
+    //////////////////////////////
 */
 
-app.post("/patientLogin", (req, res) => {
+function verifyToken(req, res, next) {
+  const token = cookieParser.JSONCookies(req.cookies).token;
+  if (!token) {
+    res.send("need a token");
+  } else {
+    jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: "Failed" });
+      } else {
+        req.patientId = decoded.patientId;
+        next();
+      }
+    });
+  }
+}
+
+/*
+    //////////////////////////////
+        API REQUESTS
+    //////////////////////////////
+*/
+
+app.post("/patient-authentication", (req, res) => {
   const taj = req.body.taj;
   const password = req.body.password;
-  const authCOMMAND = "SELECT * FROM patients WHERE patient_taj = ?;";
+  const authCOMMAND =
+    "SELECT patients.patient_id, patient_authentication.patient_password FROM patient_authentication INNER JOIN patients ON patient_authentication.patient_authentication_fid = patients.patient_id WHERE patients.patient_taj = ?;";
   db.query(authCOMMAND, taj, (err, result) => {
     if (err) {
       res.send({ err: err });
@@ -66,21 +97,12 @@ app.post("/patientLogin", (req, res) => {
   });
 });
 
-function verifyToken(req, res, next) {
-  const token = cookieParser.JSONCookies(req.cookies).token;
-  if (!token) {
-    res.send("need a token");
-  } else {
-    jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
-      if (err) {
-        res.json({ auth: false, message: "Failed" });
-      } else {
-        req.patientId = decoded.patientId;
-        next();
-      }
-    });
-  }
-}
+app.get("/patient-profile-data", verifyToken, (req, res) => {
+  const selectCOMMAND = "SELECT * FROM patients WHERE patient_id = ?;";
+  db.query(selectCOMMAND, [req.patientId], (err, result) => {
+    res.send(result[0]);
+  });
+});
 
 app.get("/basicPatientData", verifyToken, (req, res) => {
   const selectCOMMAND = "SELECT * FROM patients WHERE patient_id = ?;";
@@ -89,7 +111,7 @@ app.get("/basicPatientData", verifyToken, (req, res) => {
   });
 });
 
-app.get("/patientBloodTestDates", verifyToken, (req, res) => {
+app.get("/patient-bloodtest-dates", verifyToken, (req, res) => {
   const selectCOMMAND =
     "SELECT blood_tests_taken_date FROM blood_tests_taken WHERE blood_tests_taken_from_id = ? GROUP BY blood_tests_taken_date;";
   db.query(selectCOMMAND, [req.patientId], (err, result) => {
@@ -99,7 +121,7 @@ app.get("/patientBloodTestDates", verifyToken, (req, res) => {
 
 app.post("/patientBloodTestResults", verifyToken, (req, res) => {
   const selectCOMMAND =
-    "SELECT blood_test_components.blood_test_component_abbreviation, blood_test_components.blood_test_component_name, blood_test_components.blood_test_component_measurement, blood_test_components.blood_test_component_normal_range, blood_test_components.blood_test_component_description, blood_tests_taken.blood_tests_component_value, doctors.doctor_name FROM blood_test_components INNER JOIN blood_tests_taken ON blood_test_components.blood_test_component_id = blood_tests_taken.blood_tests_component_id INNER JOIN doctors ON blood_tests_taken.blood_tests_taken_by_id = doctors.doctor_id WHERE blood_tests_taken.blood_tests_taken_from_id = ? AND blood_tests_taken.blood_tests_taken_date = ?;";
+    "SELECT blood_test_components.blood_test_component_name, blood_test_components.blood_test_component_measurement, blood_test_components.blood_test_component_normal_range, blood_test_components.blood_test_component_description, blood_tests_taken.blood_tests_component_value, doctors.doctor_name FROM blood_test_components INNER JOIN blood_tests_taken ON blood_test_components.blood_test_component_id = blood_tests_taken.blood_tests_component_id INNER JOIN doctors ON blood_tests_taken.blood_tests_taken_by_id = doctors.doctor_id WHERE blood_tests_taken.blood_tests_taken_from_id = ? AND blood_tests_taken.blood_tests_taken_date = ?;";
   db.query(selectCOMMAND, [req.patientId, req.body.date], (err, result) => {
     res.send(result);
   });
@@ -111,5 +133,7 @@ app.get("/showmecookie", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`FUT : http://localhost:${PORT}/`);
+  console.log(`////////////////////////////////////////////////////////////\n
+  A SZERVER ITT FUT\thttp://localhost:${PORT}/
+  \n////////////////////////////////////////////////////////////`);
 });

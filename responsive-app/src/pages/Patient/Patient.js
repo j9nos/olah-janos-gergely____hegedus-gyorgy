@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import PatientSidebar from "../../components/PatientSidebar";
 
 import Profile from "./Profile";
-import BloodTest from "./BloodTest";
-import Appointment from "./Appointment";
-import Medication from "./Medication";
+import Bloodtest from "./Bloodtests/Bloodtest";
 import Settings from "./Settings";
 import { removeToken } from "../../utils/authorization";
 
@@ -16,13 +14,7 @@ const Patient = () => {
     setPage("profile");
   }
   function renderBloodtest() {
-    setPage("blood-test");
-  }
-  function renderAppointment() {
-    setPage("appointment");
-  }
-  function renderMedication() {
-    setPage("medication");
+    setPage("bloodtests");
   }
   function renderSettings() {
     setPage("settings");
@@ -36,34 +28,16 @@ const Patient = () => {
       <PatientSidebar
         handleRenderProfile={renderProfile}
         handleRenderBloodtest={renderBloodtest}
-        handleRenderAppointment={renderAppointment}
-        handleRenderMedication={renderMedication}
         handleRenderSettings={renderSettings}
         handleLogout={logout}
       />
       {page === "profile" ? (
-        <Profile key={1} />
-      ) : (
-        [
-          page === "blood-test" ? (
-            <BloodTest key={2} />
-          ) : (
-            [
-              page === "appointment" ? (
-                <Appointment key={3} />
-              ) : (
-                [
-                  page === "medication" ? (
-                    <Medication key={4} />
-                  ) : (
-                    [page === "settings" ? <Settings key={5} /> : null]
-                  ),
-                ]
-              ),
-            ]
-          ),
-        ]
-      )}
+        <Profile />
+      ) : page === "bloodtests" ? (
+        <Bloodtest />
+      ) : page === "settings" ? (
+        <Settings />
+      ) : null}
     </>
   );
 };

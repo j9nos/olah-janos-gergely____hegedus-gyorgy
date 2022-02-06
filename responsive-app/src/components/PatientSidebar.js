@@ -2,14 +2,12 @@ import React from "react";
 
 import SNAKE_ICON from "../assets/icon.png";
 
-import {
-  MdBloodtype,
-  MdMedication,
-  MdLogout,
-  MdSettings,
-} from "react-icons/md";
-import { BsCalendar3 } from "react-icons/bs";
+import { MdBloodtype, MdLogout, MdSettings } from "react-icons/md";
 import { RiProfileFill } from "react-icons/ri";
+import { BiTestTube, BiSliderAlt, BiIdCard, BiExit } from "react-icons/bi";
+
+import { CgLogOut } from "react-icons/cg";
+import { AiOutlineProfile } from "react-icons/ai";
 
 import "./PatientSidebar.css";
 
@@ -19,26 +17,22 @@ const PatientSidebar = (props) => {
       <div className="PatientSidebar-top-container">
         <img src={SNAKE_ICON} className="PatientSidebar-icon" />
       </div>
+
       <div className="PatientSidebar-mid-container">
         <button onClick={props.handleRenderProfile}>
-          <RiProfileFill />
+          <BiIdCard />
         </button>
         <button onClick={props.handleRenderBloodtest}>
-          <MdBloodtype />
-        </button>
-        <button onClick={props.handleRenderAppointment}>
-          <BsCalendar3 />
-        </button>
-        <button onClick={props.handleRenderMedication}>
-          <MdMedication />
+          <BiTestTube />
         </button>
         <button onClick={props.handleRenderSettings}>
-          <MdSettings />
+          <BiSliderAlt />
         </button>
       </div>
+
       <div className="PatientSidebar-bot-container">
         <button onClick={props.handleLogout}>
-          <MdLogout />
+          <BiExit />
         </button>
       </div>
     </div>
