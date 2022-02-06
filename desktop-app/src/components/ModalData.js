@@ -18,29 +18,26 @@ export default function ModalData() {
         <div className="modalData">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modalData-content">
+            <h1>Hegedus Gyorgy</h1>
             <button className="close-modalData" onClick={toggleModal}>
               X
             </button>
-            
+
             <div className="Modal-container">
-              <div className="input-left">
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-              </div>
-              <div className="input-right">
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                <input placeholder="Kereses" />
-                </div>  
+              <label>Vercsoport</label>
+              <input></input>
+              <label>Verosszetetel</label>
+              <input></input>
+              <label>Verosszetetel erteke</label>
+              <input></input>
+              <label>Vert vevo orvos neve</label>
+              <input></input>
+              <label>Vervetel ideje</label>
+              <input></input>
             </div>
+            <button className="ModalModifyBtn">Hozzaadas</button>
             <button className="ModalModifyBtn">Modositas</button>
+            <button className="ModalModifyBtn">Torles</button>
           </div>
         </div>
       )}

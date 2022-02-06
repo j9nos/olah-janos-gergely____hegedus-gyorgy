@@ -35,7 +35,6 @@ function Patients() {
               <thead>
                 <tr>
                   <th>Név</th>
-                  <th>Vértipus</th>
                   <th>Nem</th>
                   <th>Taj</th>
                   <th>Születési idő</th>
@@ -43,24 +42,19 @@ function Patients() {
                   <th>Telefonszám</th>
                   <th>Emailcim</th>
                   <th>Adatok</th>
-                  <th>Törlés</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>asdasds</td>
-                  <td>asdsad</td>
-                  <td>asdasds</td>
-                  <td>sadsad</td>
-                  <td>sadsad</td>
-                  <td>sadsad</td>
-                  <td>sadsad</td>
-                  <td>sadsad</td>
+                  <td>Hegedus Gyorgy Karoly</td>
+                  <td>Ferfi</td>
+                  <td>111111111</td>
+                  <td>2022.12.12</td>
+                  <td>2750 Miskolc Tapolca Lencses Vilagos dulo 4</td>
+                  <td>06301234545</td>
+                  <td>ezegynagyonhosszudetenylegnagyonhosszu@emailcimlesz.hu</td>
                   <td>
                     <ModalData/>
-                  </td>
-                  <td>
-                    <button className="tableBtn">Torles</button>
                   </td>
                 </tr>
               </tbody>
