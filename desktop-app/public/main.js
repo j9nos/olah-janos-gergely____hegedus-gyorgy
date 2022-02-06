@@ -7,8 +7,10 @@ require('@electron/remote/main').initialize()
 function createWindow () {
 
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1900,
+    height: 940,
+    minHeight: 600,
+    minWidth: 1000,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       enableRemoteModule: true

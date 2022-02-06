@@ -1,0 +1,111 @@
+
+.ModalDataBtn {
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: bold;
+    border: 2px solid rgb(136, 255, 0);
+    background: transparent;
+    color: white;
+    font-size: 15px;
+    transition: ease-out 0.3s;
+    /*position: relative;*/
+    z-index: 1;
+  }
+  .ModalDataBtn:hover {
+    color: white;
+    cursor: pointer;
+  }
+  .ModalDataBtn:before {
+    transition: 0.5s all ease;
+    /*position: absolute;*/
+    border-radius: 40px;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: rgb(136, 255, 0);
+  }
+  .ModalDataBtn:hover:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+  }
+  .Modal-container{
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    width: 1200px;
+    justify-content: center;
+  }
+  .input-right{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    margin-left: 50px;
+    margin-top: 50px;
+  }
+  .input-left{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    margin-right: 50px;
+    margin-top: 50px;
+  }
+  body.active-modal {
+    overflow-y: hidden;
+}
+.input-left > input,.input-right > input{
+  margin: 10px;
+}
+.modalData, .overlayData {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlayData {
+    background: rgba(0,0,0,0.7);
+}
+.modalData-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: url("../assets/background.png");
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 2000px;
+    min-width: 300px;
+    color: white;
+    cursor: auto;
+}
+
+.close-modalData {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+    background-color: rgb(136, 255, 0);
+    border: none;
+    border-radius: 2%;
+    font-weight: bold;
+    background: rgb(136, 255, 0);
+    color: white;
+    height: 15%;
+    width: 5%;
+    cursor: pointer;
+}

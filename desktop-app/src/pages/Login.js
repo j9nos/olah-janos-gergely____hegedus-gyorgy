@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MEDICLOUD_LOGO from "../assets/medicloud-text-white.png";
 import "./Login.css";
 import Modal from "../components/Modal";
+import Button from "../components/Button";
 
 function Login() {
   return (
@@ -22,7 +23,7 @@ function Login() {
           </div>
 
           <div className="Login-bot-container">
-            <button className="LoginBtn" type="submit" value="Belépés" >Belépés</button>
+            <Button title='Belépés'/>
             <Modal />
           </div>
           

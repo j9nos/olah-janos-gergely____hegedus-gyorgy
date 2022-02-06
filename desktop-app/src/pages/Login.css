@@ -33,7 +33,7 @@
 }
 
 .Login-mid-container {
-  margin-bottom: -45px;
+  margin-bottom: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -74,21 +74,15 @@
   align-items: center;
   width: 100%;
 }
-.LoginBtn {
-  height: 50px;
-  width: 50%;
-  border: none;
-  border-radius: 2%;
-  font-weight: bold;
-  background: rgb(136, 255, 0);
-  color: white;
-  cursor: pointer;
-  margin: 20px;
-  font-size: 19px;
-}
-
-@media (max-width: 576px) {
+@media(max-height:780px){
   .Login-form {
-    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 500px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    justify-content: space-around;
   }
 }
