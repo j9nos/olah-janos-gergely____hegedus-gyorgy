@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2022 at 12:05 PM
+-- Generation Time: Feb 06, 2022 at 11:51 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -20,20 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `medicloud`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `appointments`
---
-
-CREATE TABLE `appointments` (
-  `appointment_id` int(11) NOT NULL,
-  `appointment_date` datetime DEFAULT NULL,
-  `appointment_taken_by_id` int(11) DEFAULT NULL,
-  `appointment_taken_from_id` int(11) DEFAULT NULL,
-  `appointment_comment` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2479,7 +2465,8 @@ INSERT INTO `blood_tests_taken` (`blood_tests_taken_id`, `blood_tests_component_
 (2422, 24, 0, 98, 1, '2021-12-01'),
 (2423, 24, 2, 99, 1, '2021-12-01'),
 (2424, 24, 1, 100, 1, '2021-12-01'),
-(2425, 24, 0, 101, 1, '2021-12-01');
+(2425, 24, 0, 101, 1, '2021-12-01'),
+(2426, 1, 5000, 101, 1, '2022-02-15');
 
 -- --------------------------------------------------------
 
@@ -2489,7 +2476,6 @@ INSERT INTO `blood_tests_taken` (`blood_tests_taken_id`, `blood_tests_component_
 
 CREATE TABLE `blood_test_components` (
   `blood_test_component_id` int(11) NOT NULL,
-  `blood_test_component_abbreviation` varchar(25) DEFAULT NULL,
   `blood_test_component_name` varchar(75) DEFAULT NULL,
   `blood_test_component_measurement` varchar(10) DEFAULT NULL,
   `blood_test_component_normal_range` varchar(20) DEFAULT NULL,
@@ -2500,31 +2486,31 @@ CREATE TABLE `blood_test_components` (
 -- Dumping data for table `blood_test_components`
 --
 
-INSERT INTO `blood_test_components` (`blood_test_component_id`, `blood_test_component_abbreviation`, `blood_test_component_name`, `blood_test_component_measurement`, `blood_test_component_normal_range`, `blood_test_component_description`) VALUES
-(1, 'FVS', 'Fehérvérsejtszám', 'ml', '4300-11000', 'A fehérvérsejtek a szervezet védekező rendszerének tagjai, a csontvelőben termelődnek, a vérben és a nyirokutakban keringenek. Feladatuk az idegen anyagok (baktériumok, vírusok) elpusztítása. Nem csak a fehérvérsejtek számát, hanem egyes - részben más-más feladattal bíró fajtáinak arányát is mérik, és értékelik a vizsgálat során.'),
-(2, 'VVT', 'Vörösvértest', 'T/l', '4-6', 'A vörösvértestek kör alakú, közepükön lapos, sejtmag nélküli sejtek, melyek a vörös csontvelőben képződnek. Élettartama 120 nap, majd a lépben történik a lebomlás. A vörösvértest a vérgázok szállításában nagy szerepet játszik.'),
-(3, 'Htc', 'Hematokrit', '%', '35-50', 'Százalékos érték, mely a kifejezi a vörösvértestek térfogatát a teljes vérmennyiségben.'),
-(4, 'Hgb', 'Hemoglobin', 'g/l', '120-170', 'A hemoglobin a vörösvértestben található molekula, melyekhez kötődik az oxigén, így fontos szerepet játszik annak szállításában.'),
-(5, 'MCV', 'Mean Cellular Volume', 'fl', '80-95', 'Átlagos sejttérfogat, vörösvértestek átlagos térfogata.'),
-(6, 'MCH', 'Mean Corpuscular Hemaglobin', 'pg/sejt', '28-33', 'Egy vörösvértestre számított hemoglobinmennyiség.'),
-(7, 'RDW', 'Red blood cell Distribution Width', '%', '11.5-14.5', 'Az RDW meghatározására a rutin laborvizsgálat keretein belül kerül sor, több más paraméterrel együtt.'),
-(8, 'PLT', 'Trombocita', 'G/l', '150-400 ', 'A csontvelő termeli, sejtmag nélküli elemek. A véralvadásban van szerepe.'),
-(9, 'ALT', 'Alanin Amino-Transzferáz', 'IU/l', '10-35', 'Az ALT több szövetben is megtalálható, de legnagyobb mennyiségben a máj termeli, így a jelentős emelkedés a májszövet szétesésére utal.'),
-(10, 'Albumin', 'Albumin', 'g/l', '35-52', 'Az albumin a májban képződik, és nagyon érzékeny a májkárosodásra. A máj- és a vesebetegségek szűrésére, valamint táplálkozási állapot becslésére használják.'),
-(11, 'Összfehérje', 'Összfehérje', 'g/l', '60-80', 'A fehérjék minden sejt és szövet építőelemei, a vérben a véralvadási rendszer tagjai, hormonok, szállítómolekulák, enzimek, az immunrendszer működésében résztvevő antitestek lehetnek.'),
-(12, 'ALP', 'Alkalikus Foszfatáz', 'IU/L', '44-147', 'Az alkalikus foszfatáz a fehérjék lebontását és a sejtek anyagcsere folyamatait elősegítő enzim. Az emberi test minden egyes szövetében megtalálható, nagyobb mennyiségben azonban a belekben, a májban, a csontokban és a vesében, várandós nők esetében pedig a méhlepényben is jelen van.'),
-(13, 'Bilirubin', 'Bilirubin', 'mg/l', '0-10', 'A bilirubin a vérfesték lebontási terméke, szintje a vörös vértestek fokozott lebomlása, májbetegségek és epeelfolyási akadály esetén emelkedhet.'),
-(14, 'BUN', 'Karbamid (urea)', 'mmol/l', '3.6-7.2', 'A karbamid vagy urea a szervezetben lévő fehérje nitrogéntartalmának lebomlási terméke, mely a májban képződik és a vesén keresztül ürül ki. Felhalmozódása a sejtek számára mérgező lehet. A vérben laboratóriumi módszerekkel mérhető szintjét a veseműködés vizsgálatára használják.'),
-(15, 'Ca', 'Kálcium', 'mg/dL', '8-11', 'A vérben az elem három formában van jelen, plazmafehérjékhez kötve, más ionokhoz kötve (citrát- és foszfát-komplexekben), illetve szabad, ionizált formában. Az ionizált forma felelős az ideg- és az izomszövet ingerlékenységéért. A kalciumion mennyiségét a vérben emeli a mellékpajzsmirigy-hormon (parathormon, PTH) és a vesében aktiválódó D-vitamin. Csökkenti a kalciumszintet a pajzsmirigyben termelődő kalcitonin.'),
-(16, 'Cl-', 'Klorid', 'mmol/l', '99-111', 'A klorid az elektrolitok közé tartozik. Negatív töltésű molekula, amely más elektrolitokkal együtt együtt segít szabályozni a folyadék mennyiségét a szervezetben, és fenntartani a sav-bázis egyensúlyt.'),
-(17, 'Crea', 'Kreatinin', 'µm/l', '55-103', 'A kreatinin az izomanyagcsere végterméke: az izmokban megtalálható kreatin nevű fehérjetermészetű anyag bomlási terméke, amely a vesén keresztül távozik a szervezetből. A kreatinin vérszintje a veseműködés jelzője, segítségével ellenőrizhető a vese szűrletképző működése.'),
-(18, 'OGTT', 'Terheléses vércukorvizsgálat', 'mmol/l', '7.8-11.0', 'A vizsgálat a panaszokat még nem okozó cukorbetegség, az azt megelőző állapot (az úgynevezett csökkent glükóztolerancia, IGT) és a terhességi cukorbetegség felismerésére szolgál.'),
-(19, 'P', 'Foszfor', 'mg/dL', '2-7', 'A foszfátok nélkülözhetetlenek az energiatermeléshez, izom- és idegműködéshez, csontnövekedéshez. Pufferként fontos szerepük van a szervezet sav-bázis egyensúlyának fenntartásában. A foszforvizsgálat különösen fontos azoknál, akik alultápláltak vagy akiket ketoacidózissal kezelnek.'),
-(20, 'K', 'Kálium', 'mmol/l', '3.5-5.0', 'A szérum káliumion koncentráció mérése fontos információt szolgáltathat a folyadékháztartásról, hormonális hatásokról, számos betegségben alkalmazott terápia hatásosságáról. A lelet helyes értékeléséhez az orvosnak számos szempontot mérlegelnie kell.'),
-(21, 'Na', 'Nátrium', 'mmol/l', '135-145', 'A szérum nátriumion koncentráció mérése fontos információt szolgáltathat a folyadékháztartásról, hormonális hatásokról, számos betegségben az alkalmazott kezelés hatásosságáról. A lelet helyes értékeléséhez az orvosnak számos szempontot kell mérlegelnie.'),
-(22, 'Összkoleszterin', 'Összkoleszterin', 'mmol/l', '0-5', 'Ha túl nagy a koleszterinkínálat és a sejtek a rendelkezésre álló mennyiséget nem tudják felhasználni, az egyensúly eltolódik, és a felesleges koleszterin a perifériás vérben kering és az erek falában rakódik le. A lerakódott koleszterin következtében nő az érelmeszesedés, a szív- és érrendszeri betegségek és a stroke kialakulásának kockázata.'),
-(23, 'HDL', 'Nagy Sűrűségű Lipoprotein', 'mmol/l', '0.9-999', 'A HDL koleszterin az ún. \"jó\" koleszterin. Alacsony szintje esetén nő az érelmeszesedés, a szívinfarktus és az agyvérzés kockázata.'),
-(24, 'LDL', 'Alacsony Sűrűségű Lipoprotein', 'mmol/l', '0-3', 'Az LDL (low density lipoprotein – alacsony sűrűségű lipoprotein) funkcióját tekintve a koleszterin szállítását végzi a májból a sejtek irányába. Bár az LDL jelentős része visszakerül újra a májba, illetve azok a sejtek veszik fel, melyek koleszterint igényelnek, kisebb része - falósejtek közvetítésével - az érfalba épül be.');
+INSERT INTO `blood_test_components` (`blood_test_component_id`, `blood_test_component_name`, `blood_test_component_measurement`, `blood_test_component_normal_range`, `blood_test_component_description`) VALUES
+(1, 'Fehérvérsejtszám', 'ml', '4300-11000', 'A fehérvérsejtek a szervezet védekező rendszerének tagjai, a csontvelőben termelődnek, a vérben és a nyirokutakban keringenek. Feladatuk az idegen anyagok (baktériumok, vírusok) elpusztítása. Nem csak a fehérvérsejtek számát, hanem egyes - részben más-más feladattal bíró fajtáinak arányát is mérik, és értékelik a vizsgálat során.'),
+(2, 'Vörösvértest', 'T/l', '4-6', 'A vörösvértestek kör alakú, közepükön lapos, sejtmag nélküli sejtek, melyek a vörös csontvelőben képződnek. Élettartama 120 nap, majd a lépben történik a lebomlás. A vörösvértest a vérgázok szállításában nagy szerepet játszik.'),
+(3, 'Hematokrit', '%', '35-50', 'Százalékos érték, mely a kifejezi a vörösvértestek térfogatát a teljes vérmennyiségben.'),
+(4, 'Hemoglobin', 'g/l', '120-170', 'A hemoglobin a vörösvértestben található molekula, melyekhez kötődik az oxigén, így fontos szerepet játszik annak szállításában.'),
+(5, 'Mean Cellular Volume', 'fl', '80-95', 'Átlagos sejttérfogat, vörösvértestek átlagos térfogata.'),
+(6, 'Mean Corpuscular Hemaglobin', 'pg/sejt', '28-33', 'Egy vörösvértestre számított hemoglobinmennyiség.'),
+(7, 'Red blood cell Distribution Width', '%', '11.5-14.5', 'Az RDW meghatározására a rutin laborvizsgálat keretein belül kerül sor, több más paraméterrel együtt.'),
+(8, 'Trombocita', 'G/l', '150-400 ', 'A csontvelő termeli, sejtmag nélküli elemek. A véralvadásban van szerepe.'),
+(9, 'Alanin Amino-Transzferáz', 'IU/l', '10-35', 'Az ALT több szövetben is megtalálható, de legnagyobb mennyiségben a máj termeli, így a jelentős emelkedés a májszövet szétesésére utal.'),
+(10, 'Albumin', 'g/l', '35-52', 'Az albumin a májban képződik, és nagyon érzékeny a májkárosodásra. A máj- és a vesebetegségek szűrésére, valamint táplálkozási állapot becslésére használják.'),
+(11, 'Összfehérje', 'g/l', '60-80', 'A fehérjék minden sejt és szövet építőelemei, a vérben a véralvadási rendszer tagjai, hormonok, szállítómolekulák, enzimek, az immunrendszer működésében résztvevő antitestek lehetnek.'),
+(12, 'Alkalikus Foszfatáz', 'IU/L', '44-147', 'Az alkalikus foszfatáz a fehérjék lebontását és a sejtek anyagcsere folyamatait elősegítő enzim. Az emberi test minden egyes szövetében megtalálható, nagyobb mennyiségben azonban a belekben, a májban, a csontokban és a vesében, várandós nők esetében pedig a méhlepényben is jelen van.'),
+(13, 'Bilirubin', 'mg/l', '0-10', 'A bilirubin a vérfesték lebontási terméke, szintje a vörös vértestek fokozott lebomlása, májbetegségek és epeelfolyási akadály esetén emelkedhet.'),
+(14, 'Karbamid (urea)', 'mmol/l', '3.6-7.2', 'A karbamid vagy urea a szervezetben lévő fehérje nitrogéntartalmának lebomlási terméke, mely a májban képződik és a vesén keresztül ürül ki. Felhalmozódása a sejtek számára mérgező lehet. A vérben laboratóriumi módszerekkel mérhető szintjét a veseműködés vizsgálatára használják.'),
+(15, 'Kálcium', 'mg/dL', '8-11', 'A vérben az elem három formában van jelen, plazmafehérjékhez kötve, más ionokhoz kötve (citrát- és foszfát-komplexekben), illetve szabad, ionizált formában. Az ionizált forma felelős az ideg- és az izomszövet ingerlékenységéért. A kalciumion mennyiségét a vérben emeli a mellékpajzsmirigy-hormon (parathormon, PTH) és a vesében aktiválódó D-vitamin. Csökkenti a kalciumszintet a pajzsmirigyben termelődő kalcitonin.'),
+(16, 'Klorid', 'mmol/l', '99-111', 'A klorid az elektrolitok közé tartozik. Negatív töltésű molekula, amely más elektrolitokkal együtt együtt segít szabályozni a folyadék mennyiségét a szervezetben, és fenntartani a sav-bázis egyensúlyt.'),
+(17, 'Kreatinin', 'µm/l', '55-103', 'A kreatinin az izomanyagcsere végterméke: az izmokban megtalálható kreatin nevű fehérjetermészetű anyag bomlási terméke, amely a vesén keresztül távozik a szervezetből. A kreatinin vérszintje a veseműködés jelzője, segítségével ellenőrizhető a vese szűrletképző működése.'),
+(18, 'Terheléses vércukorvizsgálat', 'mmol/l', '7.8-11.0', 'A vizsgálat a panaszokat még nem okozó cukorbetegség, az azt megelőző állapot (az úgynevezett csökkent glükóztolerancia, IGT) és a terhességi cukorbetegség felismerésére szolgál.'),
+(19, 'Foszfor', 'mg/dL', '2-7', 'A foszfátok nélkülözhetetlenek az energiatermeléshez, izom- és idegműködéshez, csontnövekedéshez. Pufferként fontos szerepük van a szervezet sav-bázis egyensúlyának fenntartásában. A foszforvizsgálat különösen fontos azoknál, akik alultápláltak vagy akiket ketoacidózissal kezelnek.'),
+(20, 'Kálium', 'mmol/l', '3.5-5.0', 'A szérum káliumion koncentráció mérése fontos információt szolgáltathat a folyadékháztartásról, hormonális hatásokról, számos betegségben alkalmazott terápia hatásosságáról. A lelet helyes értékeléséhez az orvosnak számos szempontot mérlegelnie kell.'),
+(21, 'Nátrium', 'mmol/l', '135-145', 'A szérum nátriumion koncentráció mérése fontos információt szolgáltathat a folyadékháztartásról, hormonális hatásokról, számos betegségben az alkalmazott kezelés hatásosságáról. A lelet helyes értékeléséhez az orvosnak számos szempontot kell mérlegelnie.'),
+(22, 'Összkoleszterin', 'mmol/l', '0-5', 'Ha túl nagy a koleszterinkínálat és a sejtek a rendelkezésre álló mennyiséget nem tudják felhasználni, az egyensúly eltolódik, és a felesleges koleszterin a perifériás vérben kering és az erek falában rakódik le. A lerakódott koleszterin következtében nő az érelmeszesedés, a szív- és érrendszeri betegségek és a stroke kialakulásának kockázata.'),
+(23, 'Nagy Sűrűségű Lipoprotein', 'mmol/l', '0.9-999', 'A HDL koleszterin az ún. \"jó\" koleszterin. Alacsony szintje esetén nő az érelmeszesedés, a szívinfarktus és az agyvérzés kockázata.'),
+(24, 'Alacsony Sűrűségű Lipoprotein', 'mmol/l', '0-3', 'Az LDL (low density lipoprotein – alacsony sűrűségű lipoprotein) funkcióját tekintve a koleszterin szállítását végzi a májból a sejtek irányába. Bár az LDL jelentős része visszakerül újra a májba, illetve azok a sejtek veszik fel, melyek koleszterint igényelnek, kisebb része - falósejtek közvetítésével - az érfalba épül be.');
 
 -- --------------------------------------------------------
 
@@ -2536,7 +2522,6 @@ CREATE TABLE `doctors` (
   `doctor_id` int(11) NOT NULL,
   `doctor_name` varchar(50) DEFAULT NULL,
   `doctor_license` varchar(10) DEFAULT NULL,
-  `doctor_password` varchar(50) DEFAULT NULL,
   `doctor_phone` varchar(15) DEFAULT NULL,
   `doctor_email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -2545,22 +2530,27 @@ CREATE TABLE `doctors` (
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`doctor_id`, `doctor_name`, `doctor_license`, `doctor_password`, `doctor_phone`, `doctor_email`) VALUES
-(1, 'Cseh András', 'admin', 'admin', '0933333', 'cshndrs@medicloud.hu');
+INSERT INTO `doctors` (`doctor_id`, `doctor_name`, `doctor_license`, `doctor_phone`, `doctor_email`) VALUES
+(1, 'Cseh András', 'csh1982', '0933333', 'cshndrs@medicloud.hu');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medications`
+-- Table structure for table `doctor_authentication`
 --
 
-CREATE TABLE `medications` (
-  `medication_id` int(11) NOT NULL,
-  `medication_name` varchar(50) DEFAULT NULL,
-  `medication_taken_by_id` int(11) DEFAULT NULL,
-  `medication_taken_from_id` int(11) DEFAULT NULL,
-  `medication_comment` text DEFAULT NULL
+CREATE TABLE `doctor_authentication` (
+  `doctor_authentication_id` int(11) NOT NULL,
+  `doctor_password` varchar(64) DEFAULT NULL,
+  `doctor_authentication_fid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `doctor_authentication`
+--
+
+INSERT INTO `doctor_authentication` (`doctor_authentication_id`, `doctor_password`, `doctor_authentication_fid`) VALUES
+(1, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 1);
 
 -- --------------------------------------------------------
 
@@ -2574,7 +2564,6 @@ CREATE TABLE `patients` (
   `patient_blood_type` varchar(5) DEFAULT NULL,
   `patient_gender` varchar(5) DEFAULT NULL,
   `patient_taj` varchar(9) DEFAULT NULL,
-  `patient_password` varchar(64) DEFAULT NULL,
   `patient_birthdate` date DEFAULT NULL,
   `patient_address` varchar(200) DEFAULT NULL,
   `patient_phone` varchar(15) DEFAULT NULL,
@@ -2585,120 +2574,231 @@ CREATE TABLE `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`patient_id`, `patient_name`, `patient_blood_type`, `patient_gender`, `patient_taj`, `patient_password`, `patient_birthdate`, `patient_address`, `patient_phone`, `patient_email`) VALUES
-(1, 'Faragó Dominik', 'A+', 'ferfi', '196833791', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1987-02-11', 'Szentendre, Hangár utca 90.', '064515678', 'faragodominik@medmail.hu'),
-(2, 'Miksa Pál', 'A+', 'ferfi', '704639392', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1936-04-07', 'Kecskemét, Akác utca 26.', '064357059', 'miksapal@medmail.hu'),
-(3, 'Nemes Gergő', 'A-', 'ferfi', '711630477', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1937-05-27', 'Szombathely, Stefánia utca 149.', '066677819', 'nemesgergo@medmail.hu'),
-(4, 'Simon Patrik', 'B+', 'ferfi', '674512626', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1957-08-10', 'Szombathely, Hal utca 124.', '061896941', 'simonpatrik@medmail.hu'),
-(5, 'Máté Botond', 'B+', 'ferfi', '554597945', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1935-02-05', 'Szeged, Hal utca 131.', '066728129', 'matebotond@medmail.hu'),
-(6, 'Zobor Ármin', 'AB-', 'ferfi', '168354748', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1964-02-02', 'Nyíregyháza, Kard utca 9.', '068033228', 'zoborarmin@medmail.hu'),
-(7, 'Veres Benjámin', 'AB-', 'ferfi', '788677178', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1930-04-26', 'Kecskemét, Akác utca 99.', '065869253', 'veresbenjamin@medmail.hu'),
-(8, 'Tamás Soma', 'B+', 'ferfi', '310921389', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1986-08-12', 'Budapest, Stefánia utca 110.', '063012532', 'tamassoma@medmail.hu'),
-(9, 'Balázs István', '0+', 'ferfi', '980410294', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1939-10-21', 'Debrecen, Tüske utca 170.', '066120003', 'balazsistvan@medmail.hu'),
-(10, 'Fazekas Krisztofer', 'AB-', 'ferfi', '551292823', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1961-09-12', 'Miskolc, Hangár utca 104.', '064740318', 'fazekaskrisztofer@medmail.hu'),
-(11, 'Kapolcs Renátó', 'AB+', 'ferfi', '348557993', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1955-12-02', 'Pécs, Asztal utca 162.', '065342632', 'kapolcsrenato@medmail.hu'),
-(12, 'Bács Péter', 'A+', 'ferfi', '890566349', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1978-01-02', 'Debrecen, Ág utca 21.', '066214620', 'bacspeter@medmail.hu'),
-(13, 'Kozma Róbert', 'A+', 'ferfi', '341577199', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1974-06-16', 'Pécs, Hangár utca 50.', '061565928', 'kozmarobert@medmail.hu'),
-(14, 'Fekete Zsombor', 'B+', 'ferfi', '125449412', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1948-11-09', 'Debrecen, Hal utca 85.', '066711550', 'feketezsombor@medmail.hu'),
-(15, 'Fehér Gábor', 'AB-', 'ferfi', '530198453', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1959-08-01', 'Nyíregyháza, Mogyoró utca 25.', '065671592', 'fehergabor@medmail.hu'),
-(16, 'Papp Ferenc', 'B+', 'ferfi', '128391171', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1965-01-24', 'Debrecen, Észak utca 79.', '064347289', 'pappferenc@medmail.hu'),
-(17, 'Vass Áron', 'A-', 'ferfi', '330751623', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1942-07-19', 'Budapest, Zebra utca 137.', '063381967', 'vassaron@medmail.hu'),
-(18, 'Antal Bendegúz', 'B+', 'ferfi', '379618831', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1968-06-20', 'Pécs, Tenger utca 118.', '062246853', 'antalbendeguz@medmail.hu'),
-(19, 'Fülöp Csaba', '0-', 'ferfi', '992280908', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1962-04-29', 'Kecskemét, Hangár utca 6.', '065349569', 'fulopcsaba@medmail.hu'),
-(20, 'Veres Zalán', 'AB+', 'ferfi', '853561933', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1945-03-28', 'Győr, Akác utca 62.', '068023854', 'vereszalan@medmail.hu'),
-(21, 'Szőke Arnold', 'AB-', 'ferfi', '562648138', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2011-01-14', 'Székesfehérvár, Somlói utca 31.', '061296704', 'szokearnold@medmail.hu'),
-(22, 'Deák Vilmos', 'B+', 'ferfi', '810938303', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1932-02-13', 'Budapest, Hal utca 24.', '068699130', 'deakvilmos@medmail.hu'),
-(23, 'Gulyás Olivér', 'B+', 'ferfi', '768709666', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1992-05-19', 'Székesfehérvár, Asztal utca 80.', '063646489', 'gulyasoliver@medmail.hu'),
-(24, 'Orosz Gergő', 'AB+', 'ferfi', '214564397', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1939-11-20', 'Győr, Cápa utca 188.', '062095643', 'oroszgergo@medmail.hu'),
-(25, 'Szilágyi Márió', 'A+', 'ferfi', '841661116', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2004-02-15', 'Pécs, Észak utca 62.', '066954911', 'szilagyimario@medmail.hu'),
-(26, 'Szalai István', 'A+', 'ferfi', '990394746', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2002-07-30', 'Szeged, Kard utca 146.', '063222471', 'szalaiistvan@medmail.hu'),
-(27, 'Pál Péter', 'AB+', 'ferfi', '982128593', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1951-01-27', 'Szeged, Ág utca 55.', '061266909', 'palpeter@medmail.hu'),
-(28, 'Csatár Flórián', 'AB-', 'ferfi', '757529779', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1993-01-23', 'Székesfehérvár, Kard utca 21.', '061046921', 'csatarflorian@medmail.hu'),
-(29, 'Székely Albert', 'A+', 'ferfi', '275782642', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '0000-00-00', 'Nagykőrös, Hegesztő utca 195.', '067787248', 'szekelyalbert@medmail.hu'),
-(30, 'Nemes György', '0-', 'ferfi', '230306186', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1962-07-07', 'Kecskemét, Stefánia utca 102.', '062740320', 'nemesgyorgy@medmail.hu'),
-(31, 'Gulyás Géza', 'A-', 'ferfi', '892791896', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1994-03-02', 'Győr, Stefánia utca 44.', '066535994', 'gulyasgeza@medmail.hu'),
-(32, 'Virág Kálmán', 'AB+', 'ferfi', '472698458', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1978-01-11', 'Miskolc, Tüske utca 102.', '062079938', 'viragkalman@medmail.hu'),
-(33, 'Bakos Vince', 'AB-', 'ferfi', '970902158', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1987-06-23', 'Miskolc, Hattyú utca 157.', '062982610', 'bakosvince@medmail.hu'),
-(34, 'Varga Albert', '0+', 'ferfi', '400782693', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1945-07-17', 'Miskolc, Asztal utca 156.', '066652253', 'vargaalbert@medmail.hu'),
-(35, 'Sípos Márió', '0+', 'ferfi', '475977365', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1954-10-05', 'Szentendre, Cápa utca 36.', '068485280', 'siposmario@medmail.hu'),
-(36, 'Rácz Mihály', 'A+', 'ferfi', '295601149', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1985-09-24', 'Nagykőrös, Vágó utca 180.', '068421793', 'raczmihaly@medmail.hu'),
-(37, 'Pásztor Bence', 'B-', 'ferfi', '346697424', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1936-04-30', 'Budapest, Ág utca 95.', '064398121', 'pasztorbence@medmail.hu'),
-(38, 'Egyed Márkó', 'AB+', 'ferfi', '485609493', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1950-03-28', 'Pécs, Hattyú utca 149.', '068096945', 'egyedmarko@medmail.hu'),
-(39, 'Pál Renátó', '0-', 'ferfi', '642926497', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2006-11-16', 'Szeged, Vágó utca 20.', '064315387', 'palrenato@medmail.hu'),
-(40, 'Jakab Botond', '0-', 'ferfi', '264817671', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1975-05-26', 'Nagykőrös, Akác utca 22.', '062320085', 'jakabbotond@medmail.hu'),
-(41, 'Vass Bence', 'B+', 'ferfi', '856287249', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1984-12-01', 'Székesfehérvár, Hattyú utca 193.', '061960831', 'vassbence@medmail.hu'),
-(42, 'Németh Benjámin', 'B+', 'ferfi', '226352423', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1953-12-27', 'Győr, Tüske utca 124.', '062871730', 'nemethbenjamin@medmail.hu'),
-(43, 'Papp Kevin', 'B-', 'ferfi', '960846811', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1935-01-30', 'Debrecen, Dohány utca 109.', '068470604', 'pappkevin@medmail.hu'),
-(44, 'Pásztor Albert', 'B+', 'ferfi', '550533665', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1994-08-12', 'Nyíregyháza, Hegesztő utca 30.', '066718030', 'pasztoralbert@medmail.hu'),
-(45, 'Biró Miklós', 'AB-', 'ferfi', '405908428', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1951-06-28', 'Miskolc, Dohány utca 108.', '066377799', 'biromiklos@medmail.hu'),
-(46, 'Szekeres Gyula', 'B+', 'ferfi', '242354993', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2002-11-08', 'Kecskemét, Hatvan utca 16.', '065022414', 'szekeresgyula@medmail.hu'),
-(47, 'Kelemen Tamás', '0+', 'ferfi', '605405538', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1976-10-17', 'Budapest, Tüske utca 43.', '067918452', 'kelementamas@medmail.hu'),
-(48, 'Bodnár Ármin', 'A+', 'ferfi', '879153487', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1995-03-31', 'Kecskemét, Hegesztő utca 151.', '064754642', 'bodnararmin@medmail.hu'),
-(49, 'Pintér Viktor', 'B-', 'ferfi', '361862279', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1939-05-14', 'Szombathely, Akác utca 124.', '062175738', 'pinterviktor@medmail.hu'),
-(50, 'Lengyel Levente', 'A+', 'ferfi', '972643972', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1995-10-12', 'Kecskemét, Hattyú utca 91.', '064112868', 'lengyellevente@medmail.hu'),
-(51, 'Gáspár Renáta', 'AB-', 'no', '744749849', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2012-03-11', 'Pécs, Tüske utca 34.', '067126030', 'gasparrenata@medmail.hu'),
-(52, 'Borbély Adél', '0+', 'no', '895913489', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1965-05-21', 'Budapest, Hegyes utca 36.', '069017418', 'borbelyadel@medmail.hu'),
-(53, 'Simon Lili', 'AB-', 'no', '847656279', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2011-11-09', 'Székesfehérvár, Mogyoró utca 28.', '067215709', 'simonlili@medmail.hu'),
-(54, 'Kis Vanda', 'B-', 'no', '630943849', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1974-12-27', 'Szentendre, Somlói utca 14.', '066849416', 'kisvanda@medmail.hu'),
-(55, 'Barna Bianka', '0+', 'no', '313254686', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1940-02-02', 'Nagykőrös, Séta utca 153.', '067596079', 'barnabianka@medmail.hu'),
-(56, 'Bálint Beatrix', 'A-', 'no', '868887290', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2005-06-07', 'Miskolc, Akác utca 4.', '061783638', 'balintbeatrix@medmail.hu'),
-(57, 'Barta Krisztina', 'AB+', 'no', '380867659', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1980-08-27', 'Debrecen, Somlói utca 16.', '064598816', 'bartakrisztina@medmail.hu'),
-(58, 'Kovács Brigitta', 'A-', 'no', '139794564', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1996-09-19', 'Szombathely, Somlói utca 13.', '063591052', 'kovacsbrigitta@medmail.hu'),
-(59, 'Vörös Georgina', 'B-', 'no', '738333595', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2010-12-24', 'Miskolc, Cápa utca 8.', '064244832', 'vorosgeorgina@medmail.hu'),
-(60, 'Farkas Elizabet', '0+', 'no', '883214138', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2003-04-09', 'Debrecen, Ág utca 141.', '063632666', 'farkaselizabet@medmail.hu'),
-(61, 'Szücs Kata', 'A+', 'no', '770201334', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1963-03-31', 'Miskolc, Zebra utca 199.', '066269507', 'szucskata@medmail.hu'),
-(62, 'Borbély Ágnes', 'AB+', 'no', '148482865', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1948-02-10', 'Szentendre, Hal utca 81.', '068986221', 'borbelyagnes@medmail.hu'),
-(63, 'Mészáros Vanda', 'AB-', 'no', '873851986', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2009-05-15', 'Szombathely, Tenger utca 15.', '067634243', 'meszarosvanda@medmail.hu'),
-(64, 'Varga Zsanett', 'A-', 'no', '875122991', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1969-04-26', 'Szeged, Hegyes utca 93.', '061545362', 'vargazsanett@medmail.hu'),
-(65, 'Oláh Mária', '0+', 'no', '347106145', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2003-03-07', 'Székesfehérvár, Vágó utca 23.', '063716499', 'olahmaria@medmail.hu'),
-(66, 'Juhász Eszter', 'A-', 'no', '332653769', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1987-04-04', 'Miskolc, Mogyoró utca 82.', '062214822', 'juhaszeszter@medmail.hu'),
-(67, 'Major Orsolya', '0+', 'no', '311172972', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1986-12-01', 'Győr, Hangár utca 185.', '064036528', 'majororsolya@medmail.hu'),
-(68, 'Bognár Regina', '0-', 'no', '172939102', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2008-01-21', 'Debrecen, Dohány utca 98.', '066328837', 'bognarregina@medmail.hu'),
-(69, 'Takács Kinga', '0+', 'no', '434674501', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1940-04-11', 'Szentendre, Akác utca 59.', '067250303', 'takacskinga@medmail.hu'),
-(70, 'Németh Dorina', 'AB-', 'no', '981633176', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2002-07-05', 'Miskolc, Hal utca 53.', '068060550', 'nemethdorina@medmail.hu'),
-(71, 'Vass Dorottya', 'B-', 'no', '726526114', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1970-02-02', 'Pécs, Tüske utca 148.', '061662513', 'vassdorottya@medmail.hu'),
-(72, 'Rácz Edina', 'AB-', 'no', '433522768', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1983-12-24', 'Szombathely, Észak utca 167.', '068552072', 'raczedina@medmail.hu'),
-(73, 'Török Zsuzsanna', 'B-', 'no', '868620183', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1944-01-12', 'Miskolc, Hal utca 152.', '061862160', 'torokzsuzsanna@medmail.hu'),
-(74, 'Kapolcs Bettina', 'B-', 'no', '533765705', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1939-06-16', 'Szeged, Mogyoró utca 122.', '062230105', 'kapolcsbettina@medmail.hu'),
-(75, 'Simon Andrea', 'A-', 'no', '963233360', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2012-03-24', 'Győr, Tenger utca 184.', '061840506', 'simonandrea@medmail.hu'),
-(76, 'Pap Orsolya', '0+', 'no', '284221928', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2011-04-10', 'Debrecen, Észak utca 180.', '066013090', 'paporsolya@medmail.hu'),
-(77, 'Dobos Dorina', 'AB+', 'no', '602394232', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1959-12-14', 'Debrecen, Cápa utca 55.', '061740513', 'dobosdorina@medmail.hu'),
-(78, 'Varga Annamária', '0+', 'no', '493521512', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1991-04-20', 'Szentendre, Hatvan utca 120.', '068443497', 'vargaannamaria@medmail.hu'),
-(79, 'Mezei Viktória', 'B+', 'no', '666459607', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1989-11-03', 'Miskolc, Mogyoró utca 121.', '063287840', 'mezeiviktoria@medmail.hu'),
-(80, 'Faragó Borbála', '0+', 'no', '168701700', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2009-09-21', 'Szeged, Cápa utca 127.', '065253155', 'faragoborbala@medmail.hu'),
-(81, 'Szilágyi Beatrix', 'B-', 'no', '914165502', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1983-10-13', 'Székesfehérvár, Dohány utca 145.', '064695182', 'szilagyibeatrix@medmail.hu'),
-(82, 'Tamás Ágnes', 'AB-', 'no', '115647308', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1995-08-08', 'Debrecen, Hegyes utca 178.', '061828363', 'tamasagnes@medmail.hu'),
-(83, 'Budai Kitti', 'B+', 'no', '805384675', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1975-03-14', 'Szombathely, Cápa utca 134.', '068557033', 'budaikitti@medmail.hu'),
-(84, 'Fodor Melinda', 'A+', 'no', '856552437', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1990-05-31', 'Kecskemét, Hal utca 25.', '068962959', 'fodormelinda@medmail.hu'),
-(85, 'Szabó Petra', 'B+', 'no', '628681864', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1955-11-07', 'Szombathely, Hegyes utca 118.', '068149583', 'szabopetra@medmail.hu'),
-(86, 'Katona Liliána', 'A-', 'no', '665872862', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1940-04-14', 'Nyíregyháza, Hatvan utca 19.', '061749296', 'katonaliliana@medmail.hu'),
-(87, 'Novák Szimonetta', 'A-', 'no', '243967773', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1983-07-27', 'Szentendre, Hangár utca 196.', '067577024', 'novakszimonetta@medmail.hu'),
-(88, 'Mezei Flóra', 'A-', 'no', '450273100', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1965-06-28', 'Debrecen, Hattyú utca 197.', '063066190', 'mezeiflora@medmail.hu'),
-(89, 'Deák Klaudia', '0-', 'no', '857761458', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2004-03-27', 'Szombathely, Hattyú utca 20.', '065467597', 'deakklaudia@medmail.hu'),
-(90, 'Szekeres Dorottya', 'A-', 'no', '135844638', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2000-11-03', 'Székesfehérvár, Hegesztő utca 6.', '068526354', 'szekeresdorottya@medmail.hu'),
-(91, 'Fekete Panna', 'A+', 'no', '874932121', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1984-07-10', 'Miskolc, Mogyoró utca 73.', '063666048', 'feketepanna@medmail.hu'),
-(92, 'Váradi Barbara', 'AB+', 'no', '501882107', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2008-04-25', 'Szentendre, Tenger utca 178.', '063556212', 'varadibarbara@medmail.hu'),
-(93, 'Pataki Henrietta', 'B+', 'no', '816523176', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1989-01-13', 'Kecskemét, Zebra utca 95.', '061079195', 'patakihenrietta@medmail.hu'),
-(94, 'Csonka Brigitta', 'A+', 'no', '192947314', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1981-06-02', 'Pécs, Mogyoró utca 162.', '067269155', 'csonkabrigitta@medmail.hu'),
-(95, 'Soós Dóra', 'AB+', 'no', '426326757', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1968-02-19', 'Szentendre, Asztal utca 144.', '068889861', 'soosdora@medmail.hu'),
-(96, 'Székely Blanka', 'AB-', 'no', '568107352', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1985-08-23', 'Győr, Somlói utca 156.', '065166365', 'szekelyblanka@medmail.hu'),
-(97, 'Kovács Noémi', 'A-', 'no', '467872897', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1943-06-28', 'Kecskemét, Vágó utca 18.', '064650198', 'kovacsnoemi@medmail.hu'),
-(98, 'Németh Nóra', '0+', 'no', '980702596', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1984-08-12', 'Szombathely, Séta utca 172.', '065814119', 'nemethnora@medmail.hu'),
-(99, 'Balog Bettina', 'A+', 'no', '111515891', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '1976-07-11', 'Miskolc, Hegyes utca 152.', '061030346', 'balogbettina@medmail.hu'),
-(100, 'Vörös Renáta', 'B-', 'no', '615630362', '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', '2008-04-22', 'Székesfehérvár, Észak utca 73.', '067320156', 'vorosrenata@medmail.hu'),
-(101, 'Oláh János Gergely', '0+', 'ferfi', '123', '$2b$10$wBJonrmTggzTjwWIXHKEkeYOo0fUk35RSAV.Pra5mLacini6rmot2', '2000-02-25', 'Szentendre', '06202933866', 'olah.janos.gergely@gmail.com');
+INSERT INTO `patients` (`patient_id`, `patient_name`, `patient_blood_type`, `patient_gender`, `patient_taj`, `patient_birthdate`, `patient_address`, `patient_phone`, `patient_email`) VALUES
+(1, 'Faragó Dominik', 'A+', 'ferfi', '196833791', '1987-02-11', 'Szentendre, Hangár utca 90.', '064515678', 'faragodominik@medmail.hu'),
+(2, 'Miksa Pál', 'A+', 'ferfi', '704639392', '1936-04-07', 'Kecskemét, Akác utca 26.', '064357059', 'miksapal@medmail.hu'),
+(3, 'Nemes Gergő', 'A-', 'ferfi', '711630477', '1937-05-27', 'Szombathely, Stefánia utca 149.', '066677819', 'nemesgergo@medmail.hu'),
+(4, 'Simon Patrik', 'B+', 'ferfi', '674512626', '1957-08-10', 'Szombathely, Hal utca 124.', '061896941', 'simonpatrik@medmail.hu'),
+(5, 'Máté Botond', 'B+', 'ferfi', '554597945', '1935-02-05', 'Szeged, Hal utca 131.', '066728129', 'matebotond@medmail.hu'),
+(6, 'Zobor Ármin', 'AB-', 'ferfi', '168354748', '1964-02-02', 'Nyíregyháza, Kard utca 9.', '068033228', 'zoborarmin@medmail.hu'),
+(7, 'Veres Benjámin', 'AB-', 'ferfi', '788677178', '1930-04-26', 'Kecskemét, Akác utca 99.', '065869253', 'veresbenjamin@medmail.hu'),
+(8, 'Tamás Soma', 'B+', 'ferfi', '310921389', '1986-08-12', 'Budapest, Stefánia utca 110.', '063012532', 'tamassoma@medmail.hu'),
+(9, 'Balázs István', '0+', 'ferfi', '980410294', '1939-10-21', 'Debrecen, Tüske utca 170.', '066120003', 'balazsistvan@medmail.hu'),
+(10, 'Fazekas Krisztofer', 'AB-', 'ferfi', '551292823', '1961-09-12', 'Miskolc, Hangár utca 104.', '064740318', 'fazekaskrisztofer@medmail.hu'),
+(11, 'Kapolcs Renátó', 'AB+', 'ferfi', '348557993', '1955-12-02', 'Pécs, Asztal utca 162.', '065342632', 'kapolcsrenato@medmail.hu'),
+(12, 'Bács Péter', 'A+', 'ferfi', '890566349', '1978-01-02', 'Debrecen, Ág utca 21.', '066214620', 'bacspeter@medmail.hu'),
+(13, 'Kozma Róbert', 'A+', 'ferfi', '341577199', '1974-06-16', 'Pécs, Hangár utca 50.', '061565928', 'kozmarobert@medmail.hu'),
+(14, 'Fekete Zsombor', 'B+', 'ferfi', '125449412', '1948-11-09', 'Debrecen, Hal utca 85.', '066711550', 'feketezsombor@medmail.hu'),
+(15, 'Fehér Gábor', 'AB-', 'ferfi', '530198453', '1959-08-01', 'Nyíregyháza, Mogyoró utca 25.', '065671592', 'fehergabor@medmail.hu'),
+(16, 'Papp Ferenc', 'B+', 'ferfi', '128391171', '1965-01-24', 'Debrecen, Észak utca 79.', '064347289', 'pappferenc@medmail.hu'),
+(17, 'Vass Áron', 'A-', 'ferfi', '330751623', '1942-07-19', 'Budapest, Zebra utca 137.', '063381967', 'vassaron@medmail.hu'),
+(18, 'Antal Bendegúz', 'B+', 'ferfi', '379618831', '1968-06-20', 'Pécs, Tenger utca 118.', '062246853', 'antalbendeguz@medmail.hu'),
+(19, 'Fülöp Csaba', '0-', 'ferfi', '992280908', '1962-04-29', 'Kecskemét, Hangár utca 6.', '065349569', 'fulopcsaba@medmail.hu'),
+(20, 'Veres Zalán', 'AB+', 'ferfi', '853561933', '1945-03-28', 'Győr, Akác utca 62.', '068023854', 'vereszalan@medmail.hu'),
+(21, 'Szőke Arnold', 'AB-', 'ferfi', '562648138', '2011-01-14', 'Székesfehérvár, Somlói utca 31.', '061296704', 'szokearnold@medmail.hu'),
+(22, 'Deák Vilmos', 'B+', 'ferfi', '810938303', '1932-02-13', 'Budapest, Hal utca 24.', '068699130', 'deakvilmos@medmail.hu'),
+(23, 'Gulyás Olivér', 'B+', 'ferfi', '768709666', '1992-05-19', 'Székesfehérvár, Asztal utca 80.', '063646489', 'gulyasoliver@medmail.hu'),
+(24, 'Orosz Gergő', 'AB+', 'ferfi', '214564397', '1939-11-20', 'Győr, Cápa utca 188.', '062095643', 'oroszgergo@medmail.hu'),
+(25, 'Szilágyi Márió', 'A+', 'ferfi', '841661116', '2004-02-15', 'Pécs, Észak utca 62.', '066954911', 'szilagyimario@medmail.hu'),
+(26, 'Szalai István', 'A+', 'ferfi', '990394746', '2002-07-30', 'Szeged, Kard utca 146.', '063222471', 'szalaiistvan@medmail.hu'),
+(27, 'Pál Péter', 'AB+', 'ferfi', '982128593', '1951-01-27', 'Szeged, Ág utca 55.', '061266909', 'palpeter@medmail.hu'),
+(28, 'Csatár Flórián', 'AB-', 'ferfi', '757529779', '1993-01-23', 'Székesfehérvár, Kard utca 21.', '061046921', 'csatarflorian@medmail.hu'),
+(29, 'Székely Albert', 'A+', 'ferfi', '275782642', '0000-00-00', 'Nagykőrös, Hegesztő utca 195.', '067787248', 'szekelyalbert@medmail.hu'),
+(30, 'Nemes György', '0-', 'ferfi', '230306186', '1962-07-07', 'Kecskemét, Stefánia utca 102.', '062740320', 'nemesgyorgy@medmail.hu'),
+(31, 'Gulyás Géza', 'A-', 'ferfi', '892791896', '1994-03-02', 'Győr, Stefánia utca 44.', '066535994', 'gulyasgeza@medmail.hu'),
+(32, 'Virág Kálmán', 'AB+', 'ferfi', '472698458', '1978-01-11', 'Miskolc, Tüske utca 102.', '062079938', 'viragkalman@medmail.hu'),
+(33, 'Bakos Vince', 'AB-', 'ferfi', '970902158', '1987-06-23', 'Miskolc, Hattyú utca 157.', '062982610', 'bakosvince@medmail.hu'),
+(34, 'Varga Albert', '0+', 'ferfi', '400782693', '1945-07-17', 'Miskolc, Asztal utca 156.', '066652253', 'vargaalbert@medmail.hu'),
+(35, 'Sípos Márió', '0+', 'ferfi', '475977365', '1954-10-05', 'Szentendre, Cápa utca 36.', '068485280', 'siposmario@medmail.hu'),
+(36, 'Rácz Mihály', 'A+', 'ferfi', '295601149', '1985-09-24', 'Nagykőrös, Vágó utca 180.', '068421793', 'raczmihaly@medmail.hu'),
+(37, 'Pásztor Bence', 'B-', 'ferfi', '346697424', '1936-04-30', 'Budapest, Ág utca 95.', '064398121', 'pasztorbence@medmail.hu'),
+(38, 'Egyed Márkó', 'AB+', 'ferfi', '485609493', '1950-03-28', 'Pécs, Hattyú utca 149.', '068096945', 'egyedmarko@medmail.hu'),
+(39, 'Pál Renátó', '0-', 'ferfi', '642926497', '2006-11-16', 'Szeged, Vágó utca 20.', '064315387', 'palrenato@medmail.hu'),
+(40, 'Jakab Botond', '0-', 'ferfi', '264817671', '1975-05-26', 'Nagykőrös, Akác utca 22.', '062320085', 'jakabbotond@medmail.hu'),
+(41, 'Vass Bence', 'B+', 'ferfi', '856287249', '1984-12-01', 'Székesfehérvár, Hattyú utca 193.', '061960831', 'vassbence@medmail.hu'),
+(42, 'Németh Benjámin', 'B+', 'ferfi', '226352423', '1953-12-27', 'Győr, Tüske utca 124.', '062871730', 'nemethbenjamin@medmail.hu'),
+(43, 'Papp Kevin', 'B-', 'ferfi', '960846811', '1935-01-30', 'Debrecen, Dohány utca 109.', '068470604', 'pappkevin@medmail.hu'),
+(44, 'Pásztor Albert', 'B+', 'ferfi', '550533665', '1994-08-12', 'Nyíregyháza, Hegesztő utca 30.', '066718030', 'pasztoralbert@medmail.hu'),
+(45, 'Biró Miklós', 'AB-', 'ferfi', '405908428', '1951-06-28', 'Miskolc, Dohány utca 108.', '066377799', 'biromiklos@medmail.hu'),
+(46, 'Szekeres Gyula', 'B+', 'ferfi', '242354993', '2002-11-08', 'Kecskemét, Hatvan utca 16.', '065022414', 'szekeresgyula@medmail.hu'),
+(47, 'Kelemen Tamás', '0+', 'ferfi', '605405538', '1976-10-17', 'Budapest, Tüske utca 43.', '067918452', 'kelementamas@medmail.hu'),
+(48, 'Bodnár Ármin', 'A+', 'ferfi', '879153487', '1995-03-31', 'Kecskemét, Hegesztő utca 151.', '064754642', 'bodnararmin@medmail.hu'),
+(49, 'Pintér Viktor', 'B-', 'ferfi', '361862279', '1939-05-14', 'Szombathely, Akác utca 124.', '062175738', 'pinterviktor@medmail.hu'),
+(50, 'Lengyel Levente', 'A+', 'ferfi', '972643972', '1995-10-12', 'Kecskemét, Hattyú utca 91.', '064112868', 'lengyellevente@medmail.hu'),
+(51, 'Gáspár Renáta', 'AB-', 'no', '744749849', '2012-03-11', 'Pécs, Tüske utca 34.', '067126030', 'gasparrenata@medmail.hu'),
+(52, 'Borbély Adél', '0+', 'no', '895913489', '1965-05-21', 'Budapest, Hegyes utca 36.', '069017418', 'borbelyadel@medmail.hu'),
+(53, 'Simon Lili', 'AB-', 'no', '847656279', '2011-11-09', 'Székesfehérvár, Mogyoró utca 28.', '067215709', 'simonlili@medmail.hu'),
+(54, 'Kis Vanda', 'B-', 'no', '630943849', '1974-12-27', 'Szentendre, Somlói utca 14.', '066849416', 'kisvanda@medmail.hu'),
+(55, 'Barna Bianka', '0+', 'no', '313254686', '1940-02-02', 'Nagykőrös, Séta utca 153.', '067596079', 'barnabianka@medmail.hu'),
+(56, 'Bálint Beatrix', 'A-', 'no', '868887290', '2005-06-07', 'Miskolc, Akác utca 4.', '061783638', 'balintbeatrix@medmail.hu'),
+(57, 'Barta Krisztina', 'AB+', 'no', '380867659', '1980-08-27', 'Debrecen, Somlói utca 16.', '064598816', 'bartakrisztina@medmail.hu'),
+(58, 'Kovács Brigitta', 'A-', 'no', '139794564', '1996-09-19', 'Szombathely, Somlói utca 13.', '063591052', 'kovacsbrigitta@medmail.hu'),
+(59, 'Vörös Georgina', 'B-', 'no', '738333595', '2010-12-24', 'Miskolc, Cápa utca 8.', '064244832', 'vorosgeorgina@medmail.hu'),
+(60, 'Farkas Elizabet', '0+', 'no', '883214138', '2003-04-09', 'Debrecen, Ág utca 141.', '063632666', 'farkaselizabet@medmail.hu'),
+(61, 'Szücs Kata', 'A+', 'no', '770201334', '1963-03-31', 'Miskolc, Zebra utca 199.', '066269507', 'szucskata@medmail.hu'),
+(62, 'Borbély Ágnes', 'AB+', 'no', '148482865', '1948-02-10', 'Szentendre, Hal utca 81.', '068986221', 'borbelyagnes@medmail.hu'),
+(63, 'Mészáros Vanda', 'AB-', 'no', '873851986', '2009-05-15', 'Szombathely, Tenger utca 15.', '067634243', 'meszarosvanda@medmail.hu'),
+(64, 'Varga Zsanett', 'A-', 'no', '875122991', '1969-04-26', 'Szeged, Hegyes utca 93.', '061545362', 'vargazsanett@medmail.hu'),
+(65, 'Oláh Mária', '0+', 'no', '347106145', '2003-03-07', 'Székesfehérvár, Vágó utca 23.', '063716499', 'olahmaria@medmail.hu'),
+(66, 'Juhász Eszter', 'A-', 'no', '332653769', '1987-04-04', 'Miskolc, Mogyoró utca 82.', '062214822', 'juhaszeszter@medmail.hu'),
+(67, 'Major Orsolya', '0+', 'no', '311172972', '1986-12-01', 'Győr, Hangár utca 185.', '064036528', 'majororsolya@medmail.hu'),
+(68, 'Bognár Regina', '0-', 'no', '172939102', '2008-01-21', 'Debrecen, Dohány utca 98.', '066328837', 'bognarregina@medmail.hu'),
+(69, 'Takács Kinga', '0+', 'no', '434674501', '1940-04-11', 'Szentendre, Akác utca 59.', '067250303', 'takacskinga@medmail.hu'),
+(70, 'Németh Dorina', 'AB-', 'no', '981633176', '2002-07-05', 'Miskolc, Hal utca 53.', '068060550', 'nemethdorina@medmail.hu'),
+(71, 'Vass Dorottya', 'B-', 'no', '726526114', '1970-02-02', 'Pécs, Tüske utca 148.', '061662513', 'vassdorottya@medmail.hu'),
+(72, 'Rácz Edina', 'AB-', 'no', '433522768', '1983-12-24', 'Szombathely, Észak utca 167.', '068552072', 'raczedina@medmail.hu'),
+(73, 'Török Zsuzsanna', 'B-', 'no', '868620183', '1944-01-12', 'Miskolc, Hal utca 152.', '061862160', 'torokzsuzsanna@medmail.hu'),
+(74, 'Kapolcs Bettina', 'B-', 'no', '533765705', '1939-06-16', 'Szeged, Mogyoró utca 122.', '062230105', 'kapolcsbettina@medmail.hu'),
+(75, 'Simon Andrea', 'A-', 'no', '963233360', '2012-03-24', 'Győr, Tenger utca 184.', '061840506', 'simonandrea@medmail.hu'),
+(76, 'Pap Orsolya', '0+', 'no', '284221928', '2011-04-10', 'Debrecen, Észak utca 180.', '066013090', 'paporsolya@medmail.hu'),
+(77, 'Dobos Dorina', 'AB+', 'no', '602394232', '1959-12-14', 'Debrecen, Cápa utca 55.', '061740513', 'dobosdorina@medmail.hu'),
+(78, 'Varga Annamária', '0+', 'no', '493521512', '1991-04-20', 'Szentendre, Hatvan utca 120.', '068443497', 'vargaannamaria@medmail.hu'),
+(79, 'Mezei Viktória', 'B+', 'no', '666459607', '1989-11-03', 'Miskolc, Mogyoró utca 121.', '063287840', 'mezeiviktoria@medmail.hu'),
+(80, 'Faragó Borbála', '0+', 'no', '168701700', '2009-09-21', 'Szeged, Cápa utca 127.', '065253155', 'faragoborbala@medmail.hu'),
+(81, 'Szilágyi Beatrix', 'B-', 'no', '914165502', '1983-10-13', 'Székesfehérvár, Dohány utca 145.', '064695182', 'szilagyibeatrix@medmail.hu'),
+(82, 'Tamás Ágnes', 'AB-', 'no', '115647308', '1995-08-08', 'Debrecen, Hegyes utca 178.', '061828363', 'tamasagnes@medmail.hu'),
+(83, 'Budai Kitti', 'B+', 'no', '805384675', '1975-03-14', 'Szombathely, Cápa utca 134.', '068557033', 'budaikitti@medmail.hu'),
+(84, 'Fodor Melinda', 'A+', 'no', '856552437', '1990-05-31', 'Kecskemét, Hal utca 25.', '068962959', 'fodormelinda@medmail.hu'),
+(85, 'Szabó Petra', 'B+', 'no', '628681864', '1955-11-07', 'Szombathely, Hegyes utca 118.', '068149583', 'szabopetra@medmail.hu'),
+(86, 'Katona Liliána', 'A-', 'no', '665872862', '1940-04-14', 'Nyíregyháza, Hatvan utca 19.', '061749296', 'katonaliliana@medmail.hu'),
+(87, 'Novák Szimonetta', 'A-', 'no', '243967773', '1983-07-27', 'Szentendre, Hangár utca 196.', '067577024', 'novakszimonetta@medmail.hu'),
+(88, 'Mezei Flóra', 'A-', 'no', '450273100', '1965-06-28', 'Debrecen, Hattyú utca 197.', '063066190', 'mezeiflora@medmail.hu'),
+(89, 'Deák Klaudia', '0-', 'no', '857761458', '2004-03-27', 'Szombathely, Hattyú utca 20.', '065467597', 'deakklaudia@medmail.hu'),
+(90, 'Szekeres Dorottya', 'A-', 'no', '135844638', '2000-11-03', 'Székesfehérvár, Hegesztő utca 6.', '068526354', 'szekeresdorottya@medmail.hu'),
+(91, 'Fekete Panna', 'A+', 'no', '874932121', '1984-07-10', 'Miskolc, Mogyoró utca 73.', '063666048', 'feketepanna@medmail.hu'),
+(92, 'Váradi Barbara', 'AB+', 'no', '501882107', '2008-04-25', 'Szentendre, Tenger utca 178.', '063556212', 'varadibarbara@medmail.hu'),
+(93, 'Pataki Henrietta', 'B+', 'no', '816523176', '1989-01-13', 'Kecskemét, Zebra utca 95.', '061079195', 'patakihenrietta@medmail.hu'),
+(94, 'Csonka Brigitta', 'A+', 'no', '192947314', '1981-06-02', 'Pécs, Mogyoró utca 162.', '067269155', 'csonkabrigitta@medmail.hu'),
+(95, 'Soós Dóra', 'AB+', 'no', '426326757', '1968-02-19', 'Szentendre, Asztal utca 144.', '068889861', 'soosdora@medmail.hu'),
+(96, 'Székely Blanka', 'AB-', 'no', '568107352', '1985-08-23', 'Győr, Somlói utca 156.', '065166365', 'szekelyblanka@medmail.hu'),
+(97, 'Kovács Noémi', 'A-', 'no', '467872897', '1943-06-28', 'Kecskemét, Vágó utca 18.', '064650198', 'kovacsnoemi@medmail.hu'),
+(98, 'Németh Nóra', '0+', 'no', '980702596', '1984-08-12', 'Szombathely, Séta utca 172.', '065814119', 'nemethnora@medmail.hu'),
+(99, 'Balog Bettina', 'A+', 'no', '111515891', '1976-07-11', 'Miskolc, Hegyes utca 152.', '061030346', 'balogbettina@medmail.hu'),
+(100, 'Vörös Renáta', 'B-', 'no', '615630362', '2008-04-22', 'Székesfehérvár, Észak utca 73.', '067320156', 'vorosrenata@medmail.hu'),
+(101, 'Oláh János Gergely', '0+', 'ferfi', '123', '2000-02-25', 'Szentendre', '06202933866', 'olah.janos.gergely@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patient_authentication`
+--
+
+CREATE TABLE `patient_authentication` (
+  `patient_authentication_id` int(11) NOT NULL,
+  `patient_password` varchar(64) DEFAULT NULL,
+  `patient_authentication_fid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `patient_authentication`
+--
+
+INSERT INTO `patient_authentication` (`patient_authentication_id`, `patient_password`, `patient_authentication_fid`) VALUES
+(1, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 1),
+(2, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 2),
+(3, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 3),
+(4, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 4),
+(5, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 5),
+(6, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 6),
+(7, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 7),
+(8, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 8),
+(9, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 9),
+(10, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 10),
+(11, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 11),
+(12, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 12),
+(13, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 13),
+(14, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 14),
+(15, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 15),
+(16, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 16),
+(17, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 17),
+(18, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 18),
+(19, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 19),
+(20, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 20),
+(21, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 21),
+(22, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 22),
+(23, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 23),
+(24, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 24),
+(25, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 25),
+(26, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 26),
+(27, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 27),
+(28, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 28),
+(29, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 29),
+(30, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 30),
+(31, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 31),
+(32, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 32),
+(33, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 33),
+(34, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 34),
+(35, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 35),
+(36, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 36),
+(37, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 37),
+(38, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 38),
+(39, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 39),
+(40, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 40),
+(41, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 41),
+(42, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 42),
+(43, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 43),
+(44, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 44),
+(45, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 45),
+(46, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 46),
+(47, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 47),
+(48, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 48),
+(49, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 49),
+(50, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 50),
+(51, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 51),
+(52, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 52),
+(53, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 53),
+(54, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 54),
+(55, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 55),
+(56, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 56),
+(57, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 57),
+(58, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 58),
+(59, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 59),
+(60, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 60),
+(61, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 61),
+(62, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 62),
+(63, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 63),
+(64, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 64),
+(65, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 65),
+(66, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 66),
+(67, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 67),
+(68, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 68),
+(69, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 69),
+(70, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 70),
+(71, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 71),
+(72, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 72),
+(73, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 73),
+(74, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 74),
+(75, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 75),
+(76, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 76),
+(77, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 77),
+(78, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 78),
+(79, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 79),
+(80, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 80),
+(81, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 81),
+(82, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 82),
+(83, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 83),
+(84, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 84),
+(85, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 85),
+(86, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 86),
+(87, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 87),
+(88, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 88),
+(89, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 89),
+(90, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 90),
+(91, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 91),
+(92, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 92),
+(93, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 93),
+(94, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 94),
+(95, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 95),
+(96, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 96),
+(97, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 97),
+(98, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 98),
+(99, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 99),
+(100, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 100),
+(101, '$2b$10$juGduZi.0GMXBIE0iteUZONQpa7k/bQWVMW7AjKZ1Cr./KK8KZNeq', 101);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `appointments`
---
-ALTER TABLE `appointments`
-  ADD PRIMARY KEY (`appointment_id`),
-  ADD KEY `appointment_taken_by_id` (`appointment_taken_by_id`),
-  ADD KEY `appointment_taken_from_id` (`appointment_taken_from_id`);
 
 --
 -- Indexes for table `blood_tests_taken`
@@ -2722,12 +2822,11 @@ ALTER TABLE `doctors`
   ADD PRIMARY KEY (`doctor_id`);
 
 --
--- Indexes for table `medications`
+-- Indexes for table `doctor_authentication`
 --
-ALTER TABLE `medications`
-  ADD PRIMARY KEY (`medication_id`),
-  ADD KEY `medication_taken_by_id` (`medication_taken_by_id`),
-  ADD KEY `medication_taken_from_id` (`medication_taken_from_id`);
+ALTER TABLE `doctor_authentication`
+  ADD PRIMARY KEY (`doctor_authentication_id`),
+  ADD KEY `doctor_authentication_fid` (`doctor_authentication_fid`);
 
 --
 -- Indexes for table `patients`
@@ -2737,20 +2836,21 @@ ALTER TABLE `patients`
   ADD KEY `blood_type_id` (`patient_blood_type`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `patient_authentication`
 --
+ALTER TABLE `patient_authentication`
+  ADD PRIMARY KEY (`patient_authentication_id`),
+  ADD KEY `patient_authentication_fid` (`patient_authentication_fid`);
 
 --
--- AUTO_INCREMENT for table `appointments`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `blood_tests_taken`
 --
 ALTER TABLE `blood_tests_taken`
-  MODIFY `blood_tests_taken_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2426;
+  MODIFY `blood_tests_taken_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2427;
 
 --
 -- AUTO_INCREMENT for table `blood_test_components`
@@ -2765,10 +2865,10 @@ ALTER TABLE `doctors`
   MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `medications`
+-- AUTO_INCREMENT for table `doctor_authentication`
 --
-ALTER TABLE `medications`
-  MODIFY `medication_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `doctor_authentication`
+  MODIFY `doctor_authentication_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `patients`
@@ -2777,15 +2877,14 @@ ALTER TABLE `patients`
   MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `patient_authentication`
 --
+ALTER TABLE `patient_authentication`
+  MODIFY `patient_authentication_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
--- Constraints for table `appointments`
+-- Constraints for dumped tables
 --
-ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`appointment_taken_by_id`) REFERENCES `patients` (`patient_id`),
-  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`appointment_taken_from_id`) REFERENCES `doctors` (`doctor_id`);
 
 --
 -- Constraints for table `blood_tests_taken`
@@ -2796,11 +2895,16 @@ ALTER TABLE `blood_tests_taken`
   ADD CONSTRAINT `blood_tests_taken_ibfk_3` FOREIGN KEY (`blood_tests_taken_by_id`) REFERENCES `doctors` (`doctor_id`);
 
 --
--- Constraints for table `medications`
+-- Constraints for table `doctor_authentication`
 --
-ALTER TABLE `medications`
-  ADD CONSTRAINT `medications_ibfk_1` FOREIGN KEY (`medication_taken_by_id`) REFERENCES `patients` (`patient_id`),
-  ADD CONSTRAINT `medications_ibfk_2` FOREIGN KEY (`medication_taken_from_id`) REFERENCES `doctors` (`doctor_id`);
+ALTER TABLE `doctor_authentication`
+  ADD CONSTRAINT `doctor_authentication_ibfk_1` FOREIGN KEY (`doctor_authentication_fid`) REFERENCES `doctors` (`doctor_id`);
+
+--
+-- Constraints for table `patient_authentication`
+--
+ALTER TABLE `patient_authentication`
+  ADD CONSTRAINT `patient_authentication_ibfk_1` FOREIGN KEY (`patient_authentication_fid`) REFERENCES `patients` (`patient_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

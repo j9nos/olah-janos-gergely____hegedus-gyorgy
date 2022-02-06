@@ -5,19 +5,17 @@ import { LoggedInRoute, LoggedOutRoute } from "./utils/ProtectedRoutes";
 
 import "./global_styles.css";
 
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Patient from "./pages/Patient/Patient";
 
-const App = () => {
+const Medicloud = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
       <Route element={<LoggedInRoute />}>
         <Route path="/patient" element={<Patient />} />
       </Route>
       <Route element={<LoggedOutRoute />}>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
       </Route>
     </Routes>
   );
@@ -25,7 +23,7 @@ const App = () => {
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Medicloud />
   </BrowserRouter>,
   document.getElementById("root")
 );

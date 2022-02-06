@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./PatientBloodTestModal.css";
 import PatientBloodTestVisualization from "./PatientBloodTestVisualization";
-import API from "../utils/API";
-import { IoIosArrowBack } from "react-icons/io";
+
+import API from "../../../utils/API";
+import { BiMinusCircle } from "react-icons/bi";
 
 const PatientBloodTestModal = (props) => {
   useEffect(() => {
@@ -20,26 +21,22 @@ const PatientBloodTestModal = (props) => {
   }
   return (
     <div className="patient-blood-test-modal">
-      <div className="patient-blood-test-modal-container">
+      <div className="patient-blood-test-modal-bar">
         <button onClick={closeModal} className="patient-blood-test-modal-quit">
-          <IoIosArrowBack />
+          <BiMinusCircle />
         </button>
-        <div className="patient-blood-test-modal-date">
-          <b>Vérvétel időpontja : </b>
-          <i>
-            <u>{props.selectedDate}</u>
-          </i>
-        </div>
-        <div className="patient-blood-test-blood-test-container">
-          {bloodTestResults.map((e) => {
-            return (
-              <PatientBloodTestVisualization
-                key={e.blood_test_component_abbreviation}
-                incomingData={e}
-              />
-            );
-          })}
-        </div>
+        <p>{props.selectedDate}</p>
+      </div>
+
+      <div className="patient-blood-test-blood-test-container">
+        {bloodTestResults.map((e) => {
+          return (
+            <PatientBloodTestVisualization
+              key={e.blood_test_component_abbreviation}
+              incomingData={e}
+            />
+          );
+        })}
       </div>
     </div>
   );

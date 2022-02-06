@@ -14,10 +14,8 @@ import "./PatientBloodTestVisualization.css";
 const PatientBloodTestVisualization = (props) => {
   const data = [
     {
-      abbrv: props.incomingData.blood_test_component_abbreviation,
       name: props.incomingData.blood_test_component_name,
       meas: props.incomingData.blood_test_component_measurement,
-
       min: Math.round(
         parseInt(
           props.incomingData.blood_test_component_normal_range.split("-")[0]
@@ -47,31 +45,55 @@ const PatientBloodTestVisualization = (props) => {
   const TooltipContent = () => {
     return (
       <div className="patient-blood-test-visualization-tooltip">
-        <h1><u>{props.incomingData.blood_test_component_name}</u></h1>
-        <p>Tartomány: <b>{props.incomingData.blood_test_component_normal_range}</b> <i>{props.incomingData.blood_test_component_measurement}</i></p>
-        <p>Ön értéke: <b>{props.incomingData.blood_tests_component_value}</b> <i>{props.incomingData.blood_test_component_measurement}</i></p>
-        <h1><u>Jelentése:</u></h1>
+        <h1>
+          <u>{props.incomingData.blood_test_component_name}</u>
+        </h1>
+        <p>
+          Tartomány:{" "}
+          <b>{props.incomingData.blood_test_component_normal_range}</b>{" "}
+          <i>{props.incomingData.blood_test_component_measurement}</i>
+        </p>
+        <p>
+          Ön értéke: <b>{props.incomingData.blood_tests_component_value}</b>{" "}
+          <i>{props.incomingData.blood_test_component_measurement}</i>
+        </p>
+        <h1>
+          <u>Jelentése:</u>
+        </h1>
         <i>{props.incomingData.blood_test_component_description}</i>
-        <h1><u>A tesztet végezte:</u></h1>
+        <h1>
+          <u>A tesztet végezte:</u>
+        </h1>
         <i>{props.incomingData.doctor_name}</i>
       </div>
     );
   };
 
-  function isOutOfRange(){
-    if(parseInt(props.incomingData.blood_test_component_normal_range.split("-")[0]) > parseInt(props.incomingData.blood_tests_component_value) || parseInt(props.incomingData.blood_test_component_normal_range.split("-")[1]) < parseInt(props.incomingData.blood_tests_component_value)){
+  function isOutOfRange() {
+    if (
+      parseInt(
+        props.incomingData.blood_test_component_normal_range.split("-")[0]
+      ) > parseInt(props.incomingData.blood_tests_component_value) ||
+      parseInt(
+        props.incomingData.blood_test_component_normal_range.split("-")[1]
+      ) < parseInt(props.incomingData.blood_tests_component_value)
+    ) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
   return (
     <div className="patient-blood-test-visualization">
-      <div className="patient-blood-test-visualization-container">
-      <h3 style={{color: isOutOfRange() ? "rgb(255,50,50)" : "rgb(0, 255, 50)"}}>{props.incomingData.blood_test_component_abbreviation}</h3>
-        <ResponsiveContainer width="100%" height="100%">
+      <div
+        className="patient-bloodtest-visualization-title"
+        style={{ color: isOutOfRange() ? "rgb(255,50,50)" : "rgb(72, 225, 0)" }}
+      >
+        {props.incomingData.blood_test_component_name}
+      </div>
+      <div className="patient-bloodtest-visualization-bar">
+        <ResponsiveContainer>
           <BarChart
             layout="vertical"
             data={data}
@@ -81,7 +103,7 @@ const PatientBloodTestVisualization = (props) => {
             <YAxis
               hide
               type="category"
-              dataKey="abbrv"
+              dataKey="name"
               stroke="#FFFFFF"
               fontSize="12"
             />
@@ -95,7 +117,7 @@ const PatientBloodTestVisualization = (props) => {
                 spreadMethod="reflect"
               >
                 <stop offset="0" stopColor="rgb(255,50,50)" />
-                <stop offset="1" stopColor="rgb(255, 173, 50)" />
+                <stop offset="1" stopColor="orange" />
               </linearGradient>
               <linearGradient
                 id="right"
@@ -105,18 +127,22 @@ const PatientBloodTestVisualization = (props) => {
                 y2="0"
                 spreadMethod="reflect"
               >
-                <stop offset="0" stopColor="rgb(255, 173, 50)" />
+                <stop offset="0" stopColor="orange" />
                 <stop offset="1" stopColor="rgb(255,50,50)" />
               </linearGradient>
             </defs>
-            <Tooltip wrapperStyle={{zIndex: 1000}} cursor={{ fill: "none" }} content={TooltipContent} />
+            <Tooltip
+              wrapperStyle={{ zIndex: 1000 }}
+              cursor={{ fill: "none" }}
+              content={TooltipContent}
+            />
             <Bar
               dataKey="min"
               fill="url(#left)"
               radius={[10, 0, 0, 10]}
               stackId="a"
             />
-            <Bar dataKey="good" fill="rgb(0,200,50)" stackId="a" />
+            <Bar dataKey="good" fill="rgb(72, 225, 0)" stackId="a" />
             <Bar
               dataKey="max"
               fill="url(#right)"
@@ -130,13 +156,12 @@ const PatientBloodTestVisualization = (props) => {
                   props.incomingData.blood_tests_component_value +
                   " " +
                   props.incomingData.blood_test_component_measurement,
-                fill: "white",
+                fill: "rgb(51,51,51)",
               }}
-              stroke="rgb(200,200,200)"
+              stroke="rgb(255,255,255)"
             />
           </BarChart>
         </ResponsiveContainer>
-        
       </div>
     </div>
   );

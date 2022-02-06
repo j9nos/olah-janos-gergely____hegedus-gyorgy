@@ -13,7 +13,7 @@ const Login = () => {
   function handleLogin(e) {
     e.preventDefault();
     setErrorMessage("...");
-    API.post("/patientLogin", {
+    API.post("/patient-authentication", {
       taj: enteredTAJ,
       password: enteredPassword,
     }).then((result) =>
@@ -23,7 +23,7 @@ const Login = () => {
     );
   }
   return (
-    <div className="Login-page">
+    <>
       <div className="Login">
         <form className="Login-form" onSubmit={handleLogin}>
           <div className="Login-top-container">
@@ -33,7 +33,6 @@ const Login = () => {
               className="Login-logo"
             />
           </div>
-
           <div className="Login-mid-container">
             <input
               type="number"
@@ -56,7 +55,7 @@ const Login = () => {
           <p>{errorMessage}</p>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 export default Login;
