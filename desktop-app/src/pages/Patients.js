@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import ModalData from "../components/ModalData";
 import "./Patients.css";
@@ -52,9 +52,11 @@ function Patients() {
                   <td>2022.12.12</td>
                   <td>2750 Miskolc Tapolca Lencses Vilagos dulo 4</td>
                   <td>06301234545</td>
-                  <td>ezegynagyonhosszudetenylegnagyonhosszu@emailcimlesz.hu</td>
                   <td>
-                    <ModalData/>
+                    ezegynagyonhosszudetenylegnagyonhosszu@emailcimlesz.hu
+                  </td>
+                  <td>
+                    <ModalData />
                   </td>
                 </tr>
               </tbody>

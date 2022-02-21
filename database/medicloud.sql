@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2022 at 11:51 AM
+-- Generation Time: Feb 21, 2022 at 03:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -2675,7 +2675,7 @@ INSERT INTO `patients` (`patient_id`, `patient_name`, `patient_blood_type`, `pat
 (98, 'Németh Nóra', '0+', 'no', '980702596', '1984-08-12', 'Szombathely, Séta utca 172.', '065814119', 'nemethnora@medmail.hu'),
 (99, 'Balog Bettina', 'A+', 'no', '111515891', '1976-07-11', 'Miskolc, Hegyes utca 152.', '061030346', 'balogbettina@medmail.hu'),
 (100, 'Vörös Renáta', 'B-', 'no', '615630362', '2008-04-22', 'Székesfehérvár, Észak utca 73.', '067320156', 'vorosrenata@medmail.hu'),
-(101, 'Oláh János Gergely', '0+', 'ferfi', '123', '2000-02-25', 'Szentendre', '06202933866', 'olah.janos.gergely@gmail.com');
+(101, 'Oláh János Gergely', '0+', 'ferfi', '123123123', '2000-02-25', 'Szentendre', '06202933866', 'olah.janos.gergely@gmail.com');
 
 -- --------------------------------------------------------
 

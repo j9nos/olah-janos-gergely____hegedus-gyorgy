@@ -13,7 +13,9 @@ const bcrypt = require("bcrypt");
 */
 
 const COOKIE_LIFE_EXPECTANCY = 3600000;
-const TOKEN_SECRET =
+const PATIENT_TOKEN_SECRET =
+  "e4a874356cbe44ce796ba1c4f5af379d63d3d70ad3105188e735df4667c5dce4fedec1107a99ab91014749c6ad68cb50bc52597a374631e13d3dde946674b0a4f3a403a6692b4e64ddf773d3e5b837b3";
+const DOCTOR_TOKEN_SECRET =
   ")J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$BE)H+MbQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9y$B&E)H@McQfTjWmZq4t7w!z%C*F-JaNdRgUkXp2r5u8x/A?D(G+KbPeShVmYq3t6v9y$B&E)H@McQfTjWnZr4u7x!z%C*F-JaNdRgUkXp2s5v8y/B?D(G+KbPeShVmYq3t6w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThWmZq4t6w9z$C&F)J@NcRfUjXn2r5u8x!A%D*G-KaPdSgVkYp3s6v9y$B?E(H+MbQeThWmZq4t7w!z%C*F";
 const PORT = 3001;
 
@@ -43,12 +45,28 @@ const db = mysql.createConnection({
     //////////////////////////////
 */
 
-function verifyToken(req, res, next) {
+function verifyPatient(req, res, next) {
   const token = cookieParser.JSONCookies(req.cookies).token;
   if (!token) {
     res.send("need a token");
   } else {
-    jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
+    jwt.verify(token, PATIENT_TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: "Failed" });
+      } else {
+        req.patientId = decoded.patientId;
+        next();
+      }
+    });
+  }
+}
+
+function verifyDoctor(req, res, next) {
+  const token = cookieParser.JSONCookies(req.cookies).token;
+  if (!token) {
+    res.send("need a token");
+  } else {
+    jwt.verify(token, DOCTOR_TOKEN_SECRET, (err, decoded) => {
       if (err) {
         res.json({ auth: false, message: "Failed" });
       } else {
@@ -63,6 +81,17 @@ function verifyToken(req, res, next) {
     //////////////////////////////
         API REQUESTS
     //////////////////////////////
+*/
+
+/*
+
+  ===================================
+  |                                 |
+  |           PATIENT API           |           
+  |                                 |
+  ===================================
+
+
 */
 
 app.post("/patient-authentication", (req, res) => {
@@ -81,7 +110,7 @@ app.post("/patient-authentication", (req, res) => {
         (error, response) => {
           if (response) {
             const patientId = result[0].patient_id;
-            const token = jwt.sign({ patientId }, TOKEN_SECRET);
+            const token = jwt.sign({ patientId }, PATIENT_TOKEN_SECRET);
             res.cookie("token", token, {
               maxAge: COOKIE_LIFE_EXPECTANCY,
             });
@@ -97,21 +126,21 @@ app.post("/patient-authentication", (req, res) => {
   });
 });
 
-app.get("/patient-profile-data", verifyToken, (req, res) => {
+app.get("/patient-profile-data", verifyPatient, (req, res) => {
   const selectCOMMAND = "SELECT * FROM patients WHERE patient_id = ?;";
   db.query(selectCOMMAND, [req.patientId], (err, result) => {
     res.send(result[0]);
   });
 });
 
-app.get("/basicPatientData", verifyToken, (req, res) => {
+app.get("/patient-profile-data", verifyPatient, (req, res) => {
   const selectCOMMAND = "SELECT * FROM patients WHERE patient_id = ?;";
   db.query(selectCOMMAND, [req.patientId], (err, result) => {
     res.send(result[0]);
   });
 });
 
-app.get("/patient-bloodtest-dates", verifyToken, (req, res) => {
+app.get("/patient-blood-test-dates", verifyPatient, (req, res) => {
   const selectCOMMAND =
     "SELECT blood_tests_taken_date FROM blood_tests_taken WHERE blood_tests_taken_from_id = ? GROUP BY blood_tests_taken_date;";
   db.query(selectCOMMAND, [req.patientId], (err, result) => {
@@ -119,7 +148,7 @@ app.get("/patient-bloodtest-dates", verifyToken, (req, res) => {
   });
 });
 
-app.post("/patientBloodTestResults", verifyToken, (req, res) => {
+app.post("/patientBloodTestResults", verifyPatient, (req, res) => {
   const selectCOMMAND =
     "SELECT blood_test_components.blood_test_component_name, blood_test_components.blood_test_component_measurement, blood_test_components.blood_test_component_normal_range, blood_test_components.blood_test_component_description, blood_tests_taken.blood_tests_component_value, doctors.doctor_name FROM blood_test_components INNER JOIN blood_tests_taken ON blood_test_components.blood_test_component_id = blood_tests_taken.blood_tests_component_id INNER JOIN doctors ON blood_tests_taken.blood_tests_taken_by_id = doctors.doctor_id WHERE blood_tests_taken.blood_tests_taken_from_id = ? AND blood_tests_taken.blood_tests_taken_date = ?;";
   db.query(selectCOMMAND, [req.patientId, req.body.date], (err, result) => {
@@ -130,6 +159,46 @@ app.post("/patientBloodTestResults", verifyToken, (req, res) => {
 app.get("/showmecookie", (req, res) => {
   console.log(req.cookies.token);
   res.send();
+});
+
+/*
+
+  ===================================
+  |                                 |
+  |           DOCTOR API            |           
+  |                                 |
+  ===================================
+
+
+*/
+
+app.post("/doctor-authentication", (req, res) => {
+  const license = req.body.license;
+  const password = req.body.password;
+  const authCOMMAND =
+    "SELECT doctors.doctor_id, doctor_authentication.doctor_password FROM doctor_authentication INNER JOIN doctors ON doctor_authentication.doctor_authentication_fid = doctors.doctor_id WHERE doctors.doctor_license = ?;";
+  db.query(authCOMMAND, license, (err, result) => {
+    if (err) {
+      res.send({ err: err });
+    }
+    if (result.length > 0) {
+      
+      bcrypt.compare(password, result[0].doctor_password, (error, response) => {
+        if (response) {
+          const doctorId = result[0].doctor_id;
+          const token = jwt.sign({ doctorId }, DOCTOR_TOKEN_SECRET);
+          res.cookie("token", token, {
+            maxAge: COOKIE_LIFE_EXPECTANCY,
+          });
+          res.send({ authed: true, message: "Sikeres belépés" });
+        } else {
+          res.send({ authed: false, message: "Hibás engedély vagy jelszó" });
+        }
+      });
+    } else {
+      res.send({ message: "Ilyen engedély nincs a rendszerben" });
+    }
+  });
 });
 
 app.listen(PORT, () => {

@@ -1,38 +1,38 @@
-import React from 'react';
-import * as AiIcons from 'react-icons/ai';
-import * as GiIcons from 'react-icons/gi';
-import * as MdIcons from 'react-icons/md';
-import * as BsIcons from 'react-icons/bs';
+import React from "react";
+import * as AiIcons from "react-icons/ai";
+import * as GiIcons from "react-icons/gi";
+import * as MdIcons from "react-icons/md";
+import * as BsIcons from "react-icons/bs";
 
 export const SidebarData = [
   {
-    title: 'Főoldal',
-    path: '/',
+    title: "Főoldal",
+    path: "/",
     icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
+    cName: "nav-text",
   },
   {
-    title: 'Páciensek',
-    path: '/patients',
+    title: "Páciensek",
+    path: "/patients",
     icon: <AiIcons.AiOutlineTeam />,
-    cName: 'nav-text'
+    cName: "nav-text",
   },
   {
-    title: 'Github',
-    path: '/github',
+    title: "Github",
+    path: "/github",
     icon: <AiIcons.AiFillGithub />,
-    cName: 'nav-text'
+    cName: "nav-text",
   },
   {
-    title: 'Rólunk',
-    path: '/about',
+    title: "Rólunk",
+    path: "/about",
     icon: <BsIcons.BsInfoSquare />,
-    cName: 'nav-text'
+    cName: "nav-text",
   },
   {
-    title: 'Kilépés',
-    path: '/login',
-    icon: <MdIcons.MdExitToApp/>,
-    cName: 'nav-text'
-  }
+    title: "Kilépés",
+    path: "/login",
+    icon: <MdIcons.MdExitToApp />,
+    cName: "nav-text",
+  },
 ];
