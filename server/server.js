@@ -201,6 +201,18 @@ app.post("/doctor-authentication", (req, res) => {
   });
 });
 
+
+app.get("/patients", verifyDoctor, (req, res) => {
+  const selectCOMMAND =
+    "SELECT * FROM patients";
+  db.query(selectCOMMAND,(err, result) => {
+    res.send(result);
+  });
+});
+
+
+
+
 app.listen(PORT, () => {
   console.log(`////////////////////////////////////////////////////////////\n
   A SZERVER ITT FUT\thttp://localhost:${PORT}/
