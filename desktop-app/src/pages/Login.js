@@ -51,9 +51,10 @@ function Login() {
             </div>
             <div className="Login-bot-container">
               <input type="submit" value="Belépés" />
-              <Modal />
+              
             </div>
           </form>
+          <Modal />
         </div>
       </div>
     </div>

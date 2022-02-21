@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import ModalData from "../components/ModalData";
+import API from "../utils/API";
 import "./Patients.css";
+
+
 
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];
+
+  const [patients, setPatients] = useState([]);
+  API.get("/patients").then((result) =>
+  setPatients(result.data)
+  
+);
+  function show(){
+    console.log(patients);
+  }
+
   return (
     <div className="patients">
       <div className="patients-page">
         <div className="patients-top-container">
           <div className="patients-top-left"></div>
           <div className="patients-top-right">
-            <button className="NewPatientBtn">Uj felvetel</button>
+            <button onClick = {show} className="NewPatientBtn">Uj felvetel</button>
             <select name="cars" className="blood-selection">
               <option value="Valassz vertipust">Valassz vertipust</option>
               <option value="A+">A+</option>
@@ -34,6 +47,7 @@ function Patients() {
             <table>
               <thead>
                 <tr>
+                  <th>Vercsoport</th>
                   <th>Név</th>
                   <th>Nem</th>
                   <th>Taj</th>
@@ -45,20 +59,21 @@ function Patients() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Hegedus Gyorgy Karoly</td>
-                  <td>Ferfi</td>
-                  <td>111111111</td>
-                  <td>2022.12.12</td>
-                  <td>2750 Miskolc Tapolca Lencses Vilagos dulo 4</td>
-                  <td>06301234545</td>
-                  <td>
-                    ezegynagyonhosszudetenylegnagyonhosszu@emailcimlesz.hu
-                  </td>
-                  <td>
-                    <ModalData />
-                  </td>
-                </tr>
+              {patients.map((patient, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{patient.patient_blood_type}</td>
+                      <td>{patient.patient_name}</td>
+                      <td>{patient.patient_gender}</td>
+                      <td>{patient.patient_taj}</td>
+                      <td>{patient.patient_birthdate.split("T")[0]}</td>
+                      <td>{patient.patient_address}</td>
+                      <td>{patient.patient_phone}</td>
+                      <td>{patient.patient_email}</td>
+                      <td><ModalData/></td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
