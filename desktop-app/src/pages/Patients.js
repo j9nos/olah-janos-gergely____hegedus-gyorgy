@@ -17,6 +17,21 @@ function Patients() {
   function show(){
     console.log(patients);
   }
+  const [value,setValue] = useState('');
+  const [tableFilter,setTableFilter] = useState([]);
+
+  const filterData = (e) =>{
+    if(e.target.value !=""){
+      setValue(e.target.value);
+      const filterTable = patients.filter(o=>Object.keys(o).some(k=>
+        String(o[k]).toLowerCase().includes(e.target.value.toLowerCase())
+        ));
+        setTableFilter([...filterTable])
+    }else{
+      setValue(e.target.value);
+      setPatients([...patients])
+    }
+  }
 
   return (
     <div className="patients">
@@ -38,7 +53,7 @@ function Patients() {
               <option value="0-">0-</option>
               <option value="0+">0+</option>
             </select>
-            <input placeholder="Kereses" />
+            <input placeholder="Kereses" value={value} onChange={filterData}/>
           </div>
         </div>
         <div className="patients-mid-container">
@@ -59,7 +74,7 @@ function Patients() {
                 </tr>
               </thead>
               <tbody>
-              {patients.map((patient, index) => {
+              {value.length > 0 ? tableFilter.map((patient, index) => {
                   return (
                     <tr key={index}>
                       <td>{patient.patient_blood_type}</td>
@@ -72,8 +87,25 @@ function Patients() {
                       <td>{patient.patient_email}</td>
                       <td><ModalData/></td>
                     </tr>
-                  );
-                })}
+                  )
+                })
+              :
+              patients.map((patient, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{patient.patient_blood_type}</td>
+                    <td>{patient.patient_name}</td>
+                    <td>{patient.patient_gender}</td>
+                    <td>{patient.patient_taj}</td>
+                    <td>{patient.patient_birthdate.split("T")[0]}</td>
+                    <td>{patient.patient_address}</td>
+                    <td>{patient.patient_phone}</td>
+                    <td>{patient.patient_email}</td>
+                    <td><ModalData/></td>
+                  </tr>
+                )
+              })
+              }
               </tbody>
             </table>
           </div>
