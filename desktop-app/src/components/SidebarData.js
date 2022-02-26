@@ -1,7 +1,5 @@
 import React from "react";
 import * as AiIcons from "react-icons/ai";
-import * as GiIcons from "react-icons/gi";
-import * as MdIcons from "react-icons/md";
 import * as BsIcons from "react-icons/bs";
 
 export const SidebarData = [
@@ -27,12 +25,6 @@ export const SidebarData = [
     title: "Rólunk",
     path: "/about",
     icon: <BsIcons.BsInfoSquare />,
-    cName: "nav-text",
-  },
-  {
-    title: "Kilépés",
-    path: "/login",
-    icon: <MdIcons.MdExitToApp />,
     cName: "nav-text",
   },
 ];

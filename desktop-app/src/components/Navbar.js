@@ -6,6 +6,7 @@ import { SidebarData } from "./SidebarData";
 import "./Navbar.css";
 import { IconContext } from "react-icons";
 import MEDICLOUD_LOGO from "../assets/medicloud-text.png";
+import * as MdIcons from "react-icons/md";
 
 import { getToken, removeToken } from "../utils/authorization";
 
@@ -47,7 +48,7 @@ function Navbar() {
             })}
             {getToken() ? (
               <li className="logout">
-                <span onClick={logout}>Kijelentkezés</span>
+                <MdIcons.MdExitToApp className="icon-logout"/><span onClick={logout}>Kijelentkezés</span>
               </li>
             ) : null}
           </ul>

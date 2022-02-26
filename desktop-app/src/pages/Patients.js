@@ -1,22 +1,19 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import Button from "../components/Button";
 import ModalData from "../components/ModalData";
 import API from "../utils/API";
 import "./Patients.css";
-
+import { useNavigate } from "react-router-dom";
 
 
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];
-
   const [patients, setPatients] = useState([]);
   API.get("/patients").then((result) =>
   setPatients(result.data)
   
 );
-  function show(){
-    console.log(patients);
-  }
   const [value,setValue] = useState('');
   const [tableFilter,setTableFilter] = useState([]);
 
@@ -32,14 +29,18 @@ function Patients() {
       setPatients([...patients])
     }
   }
-
+  let navigate = useNavigate();
+  
+  function navigatetoAddNew(){
+    navigate(".patients/AddNew")
+  }
   return (
     <div className="patients">
       <div className="patients-page">
         <div className="patients-top-container">
           <div className="patients-top-left"></div>
           <div className="patients-top-right">
-            <button onClick = {show} className="NewPatientBtn">Uj felvetel</button>
+            <button onClick={navigatetoAddNew} className="NewPatientBtn">Uj felvetel</button>
             <select name="cars" className="blood-selection">
               <option value="Valassz vertipust">Valassz vertipust</option>
               <option value="A+">A+</option>

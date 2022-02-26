@@ -70,3 +70,19 @@ span {
 .logout:hover {
   cursor: pointer;
 }
+.logout{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: white;
+  font-size: 25px;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 45px;
+  margin-left: 15px;
+}
+.logout:hover {
+  background-color: rgb(136, 255, 0);
+  border-radius: 4px;
+  width: 90%;
+}

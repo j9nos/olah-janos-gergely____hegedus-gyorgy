@@ -7,6 +7,8 @@ import Patients from "./pages/Patients";
 import Login from "./pages/Login";
 import About from "./pages/About";
 import Github from "./pages/Github";
+import AddNew from "./pages/AddNew";
+
 
 import { LoggedInRoute, LoggedOutRoute } from "./utils/ProtectedRoutes";
 
@@ -22,6 +24,7 @@ function App() {
         <Route element={<LoggedInRoute />}>
           <Route path="/"element={<Home />} />
           <Route path="/patients" element={<Patients />} />
+          <Route path="/patients/AddNew" element={<AddNew />} />
         </Route>
 
         <Route element={<LoggedOutRoute />}>
