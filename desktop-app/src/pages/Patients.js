@@ -32,7 +32,7 @@ function Patients() {
   let navigate = useNavigate();
   
   function navigatetoAddNew(){
-    navigate(".patients/AddNew")
+    navigate("/patients/AddNew")
   }
   return (
     <div className="patients">
