@@ -10,10 +10,6 @@
 .add-form{
     display: flex;
     flex-direction: row;
-    width: 900px;
-    height: 800px;
-    border-radius: 10px;
-    background-color: rgba(0,0,0,0.5);
 }
 .form-input{
     width: 55%;
@@ -40,4 +36,17 @@
 }
 .AddNew-page > button{
     margin-top: 30px;
+}
+.add-container{
+    display: flex;
+    flex-direction:column;
+    width: 900px;
+    height: 800px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5);
+}
+.bot-Btn{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
 }

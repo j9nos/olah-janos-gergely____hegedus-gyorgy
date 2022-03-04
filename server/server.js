@@ -211,6 +211,29 @@ app.get("/patients", verifyDoctor, (req, res) => {
 });
 
 
+app.post("/add-patient", verifyDoctor, (req, res) => {
+
+  const name = req.body.name;
+  const bloodType = req.body.bloodType;
+  const gender = req.body.gender;
+  const taj = req.body.taj;
+  const birthdate = req.body.birthdate;
+  const address = req.body.address;
+  const phone = req.body.phone;
+  const email = req.body.email;
+
+  const insertCOMMAND = "INSERT INTO patients(patient_name,patient_blood_type,patient_gender,patient_taj,patient_birthdate,patient_address,patient_phone,patient_email) VALUES(?,?,?,?,?,?,?,?)";
+
+  
+  db.query(insertCOMMAND, [name,bloodType,gender,taj,birthdate,address,phone,email], (err, result) => {
+
+    res.send(result);
+  
+  });
+
+});
+
+
 
 
 app.listen(PORT, () => {
