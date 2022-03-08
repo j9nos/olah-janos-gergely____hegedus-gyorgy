@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoggedInRoute, LoggedOutRoute } from "./utils/ProtectedRoutes";
 
-import "./global_styles.css";
+import "./index.css";
 
-import Login from "./pages/Login";
-import Patient from "./pages/Patient/Patient";
+import LOGIN from "./pages/login/LOGIN";
+import PATIENT from "./pages/patient/PATIENT";
 
-const Medicloud = () => {
+const MEDICLOUD = () => {
   return (
     <Routes>
       <Route element={<LoggedInRoute />}>
-        <Route path="/patient" element={<Patient />} />
+        <Route path="/" element={<PATIENT />} />
       </Route>
       <Route element={<LoggedOutRoute />}>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<LOGIN />} />
       </Route>
     </Routes>
   );
@@ -23,7 +23,7 @@ const Medicloud = () => {
 
 ReactDOM.render(
   <BrowserRouter>
-    <Medicloud />
+    <MEDICLOUD />
   </BrowserRouter>,
   document.getElementById("root")
 );

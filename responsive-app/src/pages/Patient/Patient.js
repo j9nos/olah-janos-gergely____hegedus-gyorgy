@@ -1,44 +1,50 @@
-import React, { useState } from "react";
-import PatientSidebar from "../../components/PatientSidebar";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 
-import Profile from "./Profile";
-import Bloodtest from "./Bloodtests/Bloodtest";
-import Settings from "./Settings";
-import { removeToken } from "../../utils/authorization";
+import { logout, reloadOnExpiration } from "../../utils/authorization";
 
-import "./Patient.css";
+import "./patient.css";
+import API from "../../utils/API";
 
-const Patient = () => {
-  const [page, setPage] = useState("profile");
-  function renderProfile() {
-    setPage("profile");
+import SIDEBAR from "../../components/sidebar/SIDEBAR";
+import FOOTER from "../../components/footer/FOOTER";
+import BLOODTEST from "../patient/bloodtest/BLOODTEST";
+import HOME from "./home/HOME";
+import SETTING from "./setting/SETTING";
+
+const PATIENT = () => {
+  useEffect(() => {
+    API.get("/patient-profile-data").then((result) =>
+      setPatientData(result.data)
+    );
+    const interval = setInterval(() => {
+      reloadOnExpiration();
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const [patientData, setPatientData] = useState([]);
+
+  const [selectedDate, setSelectedDate] = useState();
+
+  function selectDate(date) {
+    setSelectedDate(date);
   }
-  function renderBloodtest() {
-    setPage("bloodtests");
+
+  function openSettings() {
+    ReactDOM.render(<SETTING />, document.getElementById("settings"));
   }
-  function renderSettings() {
-    setPage("settings");
-  }
-  function logout() {
-    removeToken();
-    window.location.reload();
-  }
+
   return (
     <>
-      <PatientSidebar
-        handleRenderProfile={renderProfile}
-        handleRenderBloodtest={renderBloodtest}
-        handleRenderSettings={renderSettings}
-        handleLogout={logout}
+      <SIDEBAR onDateClicked={selectDate} />
+      <FOOTER
+        onClickLogout={logout}
+        onClickOpenSettings={openSettings}
+        patientData={patientData}
       />
-      {page === "profile" ? (
-        <Profile />
-      ) : page === "bloodtests" ? (
-        <Bloodtest />
-      ) : page === "settings" ? (
-        <Settings />
-      ) : null}
+      {selectedDate ? <BLOODTEST date={selectedDate} /> : <HOME />}
     </>
   );
 };
-export default Patient;
+export default PATIENT;
