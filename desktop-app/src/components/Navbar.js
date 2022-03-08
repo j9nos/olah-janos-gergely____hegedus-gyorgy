@@ -8,17 +8,12 @@ import { IconContext } from "react-icons";
 import MEDICLOUD_LOGO from "../assets/medicloud-text.png";
 import * as MdIcons from "react-icons/md";
 
-import { getToken, removeToken } from "../utils/authorization";
+import { getToken, logout } from "../utils/authorization";
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
-
-  function logout() {
-    removeToken();
-    window.location.reload();
-  }
 
   return (
     <>
