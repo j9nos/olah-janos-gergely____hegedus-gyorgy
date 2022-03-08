@@ -6,6 +6,8 @@ import API from "../utils/API";
 import "./Patients.css";
 import { useNavigate } from "react-router-dom";
 
+import { reloadOnExpiration } from "../utils/authorization";
+
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];
   const [patients, setPatients] = useState([]);
