@@ -1,0 +1,5 @@
+{
+  "authentication": "SELECT doctors.doctor_id, doctor_authentication.doctor_password FROM doctor_authentication INNER JOIN doctors ON doctor_authentication.doctor_authentication_fid = doctors.doctor_id WHERE doctors.doctor_license = ?;",
+  "allPatients": "SELECT * FROM patients;",
+  "addPatient": "INSERT INTO patients(patient_name,patient_blood_type,patient_gender,patient_taj,patient_birthdate,patient_address,patient_phone,patient_email) VALUES(?,?,?,?,?,?,?,?)"
+}
