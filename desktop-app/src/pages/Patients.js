@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Button from "../components/Button";
 import ModalData from "../components/ModalData";
@@ -6,33 +6,39 @@ import API from "../utils/API";
 import "./Patients.css";
 import { useNavigate } from "react-router-dom";
 
-
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];
   const [patients, setPatients] = useState([]);
-  API.get("/patients").then((result) =>
-  setPatients(result.data)
-  
-);
-  const [value,setValue] = useState('');
-  const [tableFilter,setTableFilter] = useState([]);
 
-  const filterData = (e) =>{
-    if(e.target.value !=""){
+  useEffect(() => {
+    API.get("/patients").then((result) => setPatients(result.data));
+    const interval = setInterval(() => {
+      reloadOnExpiration();
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const [value, setValue] = useState("");
+  const [tableFilter, setTableFilter] = useState([]);
+
+  const filterData = (e) => {
+    if (e.target.value != "") {
       setValue(e.target.value);
-      const filterTable = patients.filter(o=>Object.keys(o).some(k=>
-        String(o[k]).toLowerCase().includes(e.target.value.toLowerCase())
-        ));
-        setTableFilter([...filterTable])
-    }else{
+      const filterTable = patients.filter((o) =>
+        Object.keys(o).some((k) =>
+          String(o[k]).toLowerCase().includes(e.target.value.toLowerCase())
+        )
+      );
+      setTableFilter([...filterTable]);
+    } else {
       setValue(e.target.value);
-      setPatients([...patients])
+      setPatients([...patients]);
     }
-  }
+  };
   let navigate = useNavigate();
-  
-  function navigatetoAddNew(){
-    navigate("/patients/AddNew")
+
+  function navigatetoAddNew() {
+    navigate("/patients/AddNew");
   }
   return (
     <div className="patients">
@@ -40,7 +46,9 @@ function Patients() {
         <div className="patients-top-container">
           <div className="patients-top-left"></div>
           <div className="patients-top-right">
-            <button onClick={navigatetoAddNew} className="NewPatientBtn">Uj felvetel</button>
+            <button onClick={navigatetoAddNew} className="NewPatientBtn">
+              Uj felvetel
+            </button>
             <select name="cars" className="blood-selection">
               <option value="Valassz vertipust">Valassz vertipust</option>
               <option value="A+">A+</option>
@@ -54,7 +62,7 @@ function Patients() {
               <option value="0-">0-</option>
               <option value="0+">0+</option>
             </select>
-            <input placeholder="Kereses" value={value} onChange={filterData}/>
+            <input placeholder="Kereses" value={value} onChange={filterData} />
           </div>
         </div>
         <div className="patients-mid-container">
@@ -75,38 +83,41 @@ function Patients() {
                 </tr>
               </thead>
               <tbody>
-              {value.length > 0 ? tableFilter.map((patient, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{patient.patient_blood_type}</td>
-                      <td>{patient.patient_name}</td>
-                      <td>{patient.patient_gender}</td>
-                      <td>{patient.patient_taj}</td>
-                      <td>{patient.patient_birthdate.split("T")[0]}</td>
-                      <td>{patient.patient_address}</td>
-                      <td>{patient.patient_phone}</td>
-                      <td>{patient.patient_email}</td>
-                      <td><ModalData/></td>
-                    </tr>
-                  )
-                })
-              :
-              patients.map((patient, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{patient.patient_blood_type}</td>
-                    <td>{patient.patient_name}</td>
-                    <td>{patient.patient_gender}</td>
-                    <td>{patient.patient_taj}</td>
-                    <td>{patient.patient_birthdate.split("T")[0]}</td>
-                    <td>{patient.patient_address}</td>
-                    <td>{patient.patient_phone}</td>
-                    <td>{patient.patient_email}</td>
-                    <td><ModalData/></td>
-                  </tr>
-                )
-              })
-              }
+                {value.length > 0
+                  ? tableFilter.map((patient, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{patient.patient_blood_type}</td>
+                          <td>{patient.patient_name}</td>
+                          <td>{patient.patient_gender}</td>
+                          <td>{patient.patient_taj}</td>
+                          <td>{patient.patient_birthdate.split("T")[0]}</td>
+                          <td>{patient.patient_address}</td>
+                          <td>{patient.patient_phone}</td>
+                          <td>{patient.patient_email}</td>
+                          <td>
+                            <ModalData />
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : patients.map((patient, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{patient.patient_blood_type}</td>
+                          <td>{patient.patient_name}</td>
+                          <td>{patient.patient_gender}</td>
+                          <td>{patient.patient_taj}</td>
+                          <td>{patient.patient_birthdate.split("T")[0]}</td>
+                          <td>{patient.patient_address}</td>
+                          <td>{patient.patient_phone}</td>
+                          <td>{patient.patient_email}</td>
+                          <td>
+                            <ModalData />
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </table>
           </div>

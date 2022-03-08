@@ -7,3 +7,9 @@ export function getToken() {
 export function removeToken() {
   document.cookie = "token=; Max-Age=0";
 }
+
+export function reloadOnExpiration() {
+  if (!getToken()) {
+    logout();
+  }
+}
