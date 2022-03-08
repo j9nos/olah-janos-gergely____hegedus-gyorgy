@@ -1,0 +1,105 @@
+.setting {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(214, 214, 214, 0.2);
+  backdrop-filter: blur(50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.setting-name {
+  border-bottom: 1px dotted #333333;
+}
+.quit-button {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  font-size: 25px;
+  border: none;
+  background: none;
+  color: #d6d6d6;
+  transition: all 0.3s;
+}
+.quit-button:hover {
+  transition: all 0.3s;
+  cursor: pointer;
+  color: rgb(235, 23, 23);
+}
+
+.setting-container {
+  margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333333;
+  width: 500px;
+  height: 100%;
+}
+
+.setting-table {
+  margin: 50px 0;
+}
+.setting-tr {
+  height: 50px;
+}
+
+.setting-th {
+  height: 50px;
+}
+.setting-td {
+  height: 50px;
+}
+
+.setting-input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: #333333;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px inset;
+  border-radius: 5px;
+  border-bottom: 2px dotted rgba(0, 0, 0, 0);
+}
+.setting-input:focus {
+  border-bottom: 2px dotted #333333;
+}
+
+.setting-icon {
+  transition: all 0.3s;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.syellow:hover {
+  color: #dfff2c;
+  box-shadow: rgba(24, 24, 24, 0.35) 0px -50px 36px -28px inset;
+}
+.sgreen:hover {
+  color: #92ff2c;
+  box-shadow: rgba(24, 24, 24, 0.35) 0px -50px 36px -28px inset;
+}
+
+.setting-icon:hover {
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.password-button {
+  transition: all 0.3s;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #d6d6d6;
+  background-color: #333333;
+}
+.password-button:hover {
+  transition: all 0.3s;
+  color: #92ff2c;
+  box-shadow: rgba(24, 24, 24, 0.35) 0px -50px 36px -28px inset;
+  cursor: pointer;
+}
