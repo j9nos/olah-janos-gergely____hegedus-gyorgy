@@ -8,7 +8,6 @@ const bcrypt = require("bcrypt");
 
 const PATIENT_SQL = require("./SQL_COMMANDS/PATIENT_SQL.json");
 const DOCTOR_SQL = require("./SQL_COMMANDS/DOCTOR_SQL.json");
-const { response } = require("express");
 
 /*
     //////////////////////////////
@@ -102,7 +101,7 @@ app.post("/patient-authentication", (req, res) => {
   const password = req.body.password;
   db.query(PATIENT_SQL.authentication, taj, (err, result) => {
     if (err) {
-      res.send({ err: err });
+      res.send({ message: "Szerver hiba" });
     } else if (result.length > 0) {
       bcrypt.compare(
         password,
@@ -214,6 +213,38 @@ app.post("/patient-change-email", verifyPatient, (req, res) => {
       res.send({ message: "E-mail cím megváltoztatva" });
     }
   );
+});
+
+app.post("/patient-change-password", verifyPatient, (req, res) => {
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  db.query(PATIENT_SQL.selectPassword, req.patientId, (qerr, qres) => {
+    if (qerr) {
+      res.send({ message: "Szerver hiba" });
+    } else if (qres.length > 0) {
+      bcrypt.compare(oldPassword, qres[0].patient_password, (berr, bres) => {
+        if (bres) {
+          bcrypt.hash(newPassword, 12, (berr2, bres2) => {
+            db.query(
+              PATIENT_SQL.changePassword,
+              [bres2, req.patientId],
+              (qerr2, qres2) => {
+                if (qerr2) {
+                  res.send({ message: "Szerver hiba" });
+                } else {
+                  res.send({ message: "Jelszó megváltoztatva" });
+                }
+              }
+            );
+          });
+        } else {
+          res.send({ message: "Nem ez a jelenlegi jelszavad" });
+        }
+      });
+    } else {
+      res.send({ message: "Szerver hiba" });
+    }
+  });
 });
 
 app.get("/patient-components", verifyPatient, (req, res) => {

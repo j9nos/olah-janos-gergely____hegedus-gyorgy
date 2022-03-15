@@ -7,5 +7,7 @@
   "changeAddress": "UPDATE patients SET patient_address = ? WHERE patient_id = ?;",
   "changePhone": "UPDATE patients SET patient_phone = ? WHERE patient_id = ?;",
   "changeEmail": "UPDATE patients SET patient_email = ? WHERE patient_id = ?;",
+  "selectPassword": "SELECT patient_password FROM patient_authentication WHERE patient_authentication_fid = ?;",
+  "changePassword": "UPDATE patient_authentication SET patient_password = ? WHERE patient_authentication_fid = ?;",
   "components": "SELECT * FROM blood_test_components;"
 }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { BiSlider } from "react-icons/bi";
 import { IoIosSave } from "react-icons/io";
 import API from "../../../utils/API";
+import PASSWORD from "./PASSWORD";
 
 const SETTING = () => {
   useEffect(() => {
@@ -36,11 +37,14 @@ const SETTING = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
+  const [togglePassword, setTogglePassword] = useState(false);
+
   function saveAddress(e) {
     e.preventDefault();
     API.post("/patient-change-address", { newAddress: address }).then(
       (result) => console.log(result)
     );
+    alert("Cím sikeresen megváltoztatva");
     closeSettings();
   }
   function savePhone(e) {
@@ -55,6 +59,10 @@ const SETTING = () => {
       console.log(result)
     );
     console.log(email);
+  }
+
+  function togglePasswordModal() {
+    setTogglePassword(!togglePassword);
   }
 
   return (
@@ -103,9 +111,18 @@ const SETTING = () => {
           </div>
 
           <div className="setting-password">
-            <button tabIndex={-1} className="password-button">
+            <button
+              tabIndex={-1}
+              className={
+                togglePassword
+                  ? "password-button password-button-toggle-true "
+                  : "password-button password-button-toggle-false"
+              }
+              onClick={togglePasswordModal}
+            >
               Jelszó megváltoztatása
             </button>
+            {togglePassword && <PASSWORD />}
           </div>
         </div>
       </div>
