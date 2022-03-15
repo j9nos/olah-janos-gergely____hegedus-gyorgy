@@ -9,7 +9,6 @@ import API from "../../utils/API";
 import SIDEBAR from "../../components/sidebar/SIDEBAR";
 import FOOTER from "../../components/footer/FOOTER";
 import BLOODTEST from "../patient/bloodtest/BLOODTEST";
-import HOME from "./home/HOME";
 import SETTING from "./setting/SETTING";
 import COMPONENT from "./bloodtest/COMPONENT";
 

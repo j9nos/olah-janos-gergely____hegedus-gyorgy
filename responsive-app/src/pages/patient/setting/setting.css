@@ -5,11 +5,12 @@
   left: 0;
   right: 0;
   z-index: 1;
-  background-color: rgba(214, 214, 214, 0.2);
+  background-color: rgba(214, 214, 214, 1);
   backdrop-filter: blur(50px);
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
 }
 .setting-name {
   border-bottom: 1px dotted #333333;
@@ -21,7 +22,7 @@
   font-size: 25px;
   border: none;
   background: none;
-  color: #d6d6d6;
+  color: #333333;
   transition: all 0.3s;
 }
 .quit-button:hover {
@@ -40,54 +41,6 @@
   height: 100%;
 }
 
-.setting-table {
-  margin: 50px 0;
-}
-.setting-tr {
-  height: 50px;
-}
-
-.setting-th {
-  height: 50px;
-}
-.setting-td {
-  height: 50px;
-}
-
-.setting-input {
-  height: 100%;
-  width: 100%;
-  outline: none;
-  border: none;
-  background: rgba(0, 0, 0, 0);
-  color: #333333;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px inset;
-  border-radius: 5px;
-  border-bottom: 2px dotted rgba(0, 0, 0, 0);
-}
-.setting-input:focus {
-  border-bottom: 2px dotted #333333;
-}
-
-.setting-icon {
-  transition: all 0.3s;
-  border-radius: 5px;
-  font-size: 20px;
-}
-.syellow:hover {
-  color: #dfff2c;
-  box-shadow: rgba(24, 24, 24, 0.35) 0px -50px 36px -28px inset;
-}
-.sgreen:hover {
-  color: #92ff2c;
-  box-shadow: rgba(24, 24, 24, 0.35) 0px -50px 36px -28px inset;
-}
-
-.setting-icon:hover {
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
 .password-button {
   transition: all 0.3s;
   padding: 5px 10px;
@@ -102,4 +55,59 @@
   color: #92ff2c;
   box-shadow: rgba(24, 24, 24, 0.35) 0px -50px 36px -28px inset;
   cursor: pointer;
+}
+
+.setting-options {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: rgba(214, 214, 214, 0.2);
+  backdrop-filter: blur(50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.setting-form {
+  display: flex;
+  align-items: center;
+}
+
+.setting-input {
+  transition: all 0.3s;
+  margin: 10px 0;
+  height: 50px;
+  padding-left: 10px;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0);
+  color: #333333;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px inset;
+  border-radius: 5px;
+  border-bottom: 2px dotted rgba(0, 0, 0, 0);
+}
+.setting-input:focus {
+  transition: all 0.3s;
+  border-bottom: 2px dotted #333333;
+}
+
+.setting-save-button {
+  border: none;
+  background: none;
+  font-size: 25px;
+  color: #333333;
+}
+.setting-save-button:hover {
+  cursor: pointer;
+  color: #9dff2c;
 }

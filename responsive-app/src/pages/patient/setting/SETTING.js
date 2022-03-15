@@ -24,178 +24,92 @@ const SETTING = () => {
   }
 
   function getPatientData() {
-    API.get("/patient-profile-data").then((result) =>
-      setPatientData(result.data)
+    API.get("/patient-profile-data").then(
+      (result) => (
+        setAddress(result.data.patient_address),
+        setPhone(result.data.patient_phone),
+        setEmail(result.data.patient_email)
+      )
     );
   }
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
-  const [patientData, setPatientData] = useState([]);
-
-  const [addressInput, toggleAddress] = useState(false);
-  const [phoneInput, togglePhone] = useState(false);
-  const [emailInput, toggleEmail] = useState(false);
-
-  const [addressChange, setAddressChange] = useState("");
-  const [phoneChange, setPhoneChange] = useState("");
-  const [emailChange, setEmailChange] = useState("");
-
-  function toggleAddressInput() {
-    togglePhone(false);
-    toggleEmail(false);
-    toggleAddress(!addressInput);
-  }
-
-  function togglePhoneInput() {
-    toggleAddress(false);
-    toggleEmail(false);
-    togglePhone(!phoneInput);
-  }
-  function toggleEmailInput() {
-    toggleAddress(false);
-    togglePhone(false);
-    toggleEmail(!emailInput);
-  }
-
-  function saveAddress() {
-    console.log(addressChange);
-    API.post("/patient-change-address", { newAddress: addressChange }).then(
+  function saveAddress(e) {
+    e.preventDefault();
+    API.post("/patient-change-address", { newAddress: address }).then(
       (result) => console.log(result)
     );
     closeSettings();
   }
-
-  function savePhone() {
-    console.log(phoneChange);
-    API.post("/patient-change-phone", { newPhone: phoneChange }).then(
-      (result) => console.log(result)
+  function savePhone(e) {
+    e.preventDefault();
+    API.post("/patient-change-phone", { newPhone: phone }).then((result) =>
+      console.log(result)
     );
-    closeSettings();
   }
-  function saveEmail() {
-    console.log(emailChange);
-    API.post("/patient-change-email", { newEmail: emailChange }).then(
-      (result) => console.log(result)
+  function saveEmail(e) {
+    e.preventDefault();
+    API.post("/patient-change-email", { newEmail: email }).then((result) =>
+      console.log(result)
     );
-    closeSettings();
+    console.log(email);
   }
 
   return (
-    <div className="setting">
-      <button onClick={closeSettings} className="quit-button">
-        <RiCloseCircleFill />
-      </button>
-      <div className="setting-container">
-        <span className="setting-name">
-          <h1>{patientData.patient_name}</h1>
-        </span>
-        <table className="setting-table">
-          <tbody>
-            <tr className="setting-tr">
-              <th className="setting-th">Vércsoport</th>
-              <td className="setting-td">{patientData.patient_blood_type}</td>
-            </tr>
-            <tr className="setting-tr">
-              <th className="setting-th">TAJ-szám</th>
-              <td className="setting-td">{patientData.patient_taj}</td>
-            </tr>
-            <tr className="setting-tr">
-              <th className="setting-th">Cím</th>
-              <td className="setting-td">
-                {!addressInput ? (
-                  patientData.patient_address
-                ) : (
-                  <input
-                    className="setting-input"
-                    type="text"
-                    onChange={(e) => {
-                      setAddressChange(e.target.value);
-                    }}
-                    value={addressChange}
-                  />
-                )}
-              </td>
-              <td>
-                {addressInput ? (
-                  <IoIosSave
-                    onClick={saveAddress}
-                    className="sgreen setting-icon"
-                  />
-                ) : (
-                  <BiSlider
-                    onClick={toggleAddressInput}
-                    className="syellow setting-icon"
-                  />
-                )}
-              </td>
-            </tr>
-            <tr className="setting-tr">
-              <th className="setting-th">Telefon</th>
-              <td className="setting-td">
-                {!phoneInput ? (
-                  patientData.patient_phone
-                ) : (
-                  <input
-                    className="setting-input"
-                    type="text"
-                    onChange={(e) => {
-                      setPhoneChange(e.target.value);
-                    }}
-                    value={phoneChange}
-                  />
-                )}
-              </td>
-              <td>
-                {phoneInput ? (
-                  <IoIosSave
-                    onClick={savePhone}
-                    className="sgreen setting-icon"
-                  />
-                ) : (
-                  <BiSlider
-                    onClick={togglePhoneInput}
-                    className="syellow setting-icon"
-                  />
-                )}
-              </td>
-            </tr>
-            <tr className="setting-tr">
-              <th className="setting-th">E-mail</th>
-              <td className="setting-td">
-                {!emailInput ? (
-                  patientData.patient_email
-                ) : (
-                  <input
-                    className="setting-input"
-                    type="text"
-                    onChange={(e) => {
-                      setEmailChange(e.target.value);
-                    }}
-                    value={emailChange}
-                  />
-                )}
-              </td>
-              <td>
-                {emailInput ? (
-                  <IoIosSave
-                    onClick={saveEmail}
-                    className="sgreen setting-icon"
-                  />
-                ) : (
-                  <BiSlider
-                    onClick={toggleEmailInput}
-                    className="syellow setting-icon"
-                  />
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <>
+      <div className="setting">
+        <button onClick={closeSettings} className="quit-button">
+          <RiCloseCircleFill />
+        </button>
+        <div className="setting-container">
+          <div className="setting-options">
+            <form className="setting-form" onSubmit={saveAddress}>
+              <input
+                className="setting-input"
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <button tabIndex={-1} className="setting-save-button">
+                <IoIosSave />
+              </button>
+            </form>
 
-        <div className="setting-password">
-          <button className="password-button">Jelszó megváltoztatása</button>
+            <form className="setting-form" onSubmit={savePhone}>
+              <input
+                className="setting-input"
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <button tabIndex={-1} className="setting-save-button">
+                <IoIosSave />
+              </button>
+            </form>
+
+            <form className="setting-form" onSubmit={saveEmail}>
+              <input
+                className="setting-input"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button tabIndex={-1} className="setting-save-button">
+                <IoIosSave />
+              </button>
+            </form>
+          </div>
+
+          <div className="setting-password">
+            <button tabIndex={-1} className="password-button">
+              Jelszó megváltoztatása
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default SETTING;

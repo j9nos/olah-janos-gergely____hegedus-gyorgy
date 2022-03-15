@@ -1,9 +1,0 @@
-.home {
-  color: #333333;
-}
-@media (max-width: 700px) {
-  .home {
-    width: 100%;
-    padding-left: 5px;
-  }
-}
