@@ -10,7 +10,7 @@ const COMPONENT = () => {
     API.get("/patient-components").then((result) => setComponents(result.data));
   }, []);
   const [components, setComponents] = useState([]);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState("");
 
   function selectComponent(argComponent) {
     setSelected(argComponent);

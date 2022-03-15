@@ -182,7 +182,7 @@ app.post("/patient-change-address", verifyPatient, (req, res) => {
     [newAddress, req.patientId],
     (err, result) => {
       if (err) {
-        res.send({ err: err });
+        res.send({ message: "Szerver hiba" });
       }
       res.send({ message: "Lakcím megváltoztatva" });
     }
@@ -195,7 +195,7 @@ app.post("/patient-change-phone", verifyPatient, (req, res) => {
     [newPhone, req.patientId],
     (err, result) => {
       if (err) {
-        res.send({ err: err });
+        res.send({ message: "Szerver hiba" });
       }
       res.send({ message: "Telefonszám megváltoztatva" });
     }
@@ -208,7 +208,7 @@ app.post("/patient-change-email", verifyPatient, (req, res) => {
     [newEmail, req.patientId],
     (err, result) => {
       if (err) {
-        res.send({ err: err });
+        res.send({ message: "Szerver hiba" });
       }
       res.send({ message: "E-mail cím megváltoztatva" });
     }

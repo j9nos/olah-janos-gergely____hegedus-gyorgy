@@ -35,7 +35,7 @@ const SIDEBAR = (props) => {
     <div className="sidebar">
       <div className="sidebar-inner">
         <div className="sidebar-inner-top">
-          <img src={ICON} className="sidebar-icon" />
+          <img src={ICON} className="sidebar-icon" onClick={props.onSnakeHeadClick} />
         </div>
         <div className="sidebar-list">{dateButtons}</div>
       </div>

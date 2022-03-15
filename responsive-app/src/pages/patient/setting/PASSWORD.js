@@ -8,13 +8,17 @@ const PASSWORD = () => {
 
   function saveNewPassword(e) {
     e.preventDefault();
-    if (newPassword1 !== newPassword2) {
-      alert("A két új jelszó nem egyezik meg");
-    } else {
+    if (
+      newPassword1 === newPassword2 &&
+      newPassword1.length > 0 &&
+      newPassword2.length > 0
+    ) {
       API.post("/patient-change-password", {
         oldPassword: oldPassword,
         newPassword: newPassword1,
       }).then((result) => alert(result.data.message));
+    } else {
+      alert("Hiba a jelszavakkal");
     }
   }
 

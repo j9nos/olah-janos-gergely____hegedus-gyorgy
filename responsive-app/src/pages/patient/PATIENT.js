@@ -30,6 +30,9 @@ const PATIENT = () => {
   function selectDate(date) {
     setSelectedDate(date);
   }
+  function removeDate(){
+    setSelectedDate("");
+  }
 
   function openSettings() {
     ReactDOM.render(<SETTING />, document.getElementById("settings"));
@@ -37,7 +40,7 @@ const PATIENT = () => {
 
   return (
     <>
-      <SIDEBAR onDateClicked={selectDate} />
+      <SIDEBAR onDateClicked={selectDate} onSnakeHeadClick={removeDate}/>
       <FOOTER
         onClickLogout={logout}
         onClickOpenSettings={openSettings}

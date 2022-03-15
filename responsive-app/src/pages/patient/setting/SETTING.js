@@ -41,24 +41,39 @@ const SETTING = () => {
 
   function saveAddress(e) {
     e.preventDefault();
-    API.post("/patient-change-address", { newAddress: address }).then(
-      (result) => console.log(result)
-    );
-    alert("Cím sikeresen megváltoztatva");
-    closeSettings();
+    if (address.length > 0) {
+      API.post("/patient-change-address", { newAddress: address })
+        .then((result) => alert(result.data.message))
+        .then(() => {
+          closeSettings();
+        });
+    } else {
+      alert("Ne hagyj mezőt üresen!");
+    }
   }
   function savePhone(e) {
     e.preventDefault();
-    API.post("/patient-change-phone", { newPhone: phone }).then((result) =>
-      console.log(result)
-    );
+    if (phone.length > 0) {
+      API.post("/patient-change-phone", { newPhone: phone })
+        .then((result) => alert(result.data.message))
+        .then(() => {
+          closeSettings();
+        });
+    } else {
+      alert("Ne hagyj mezőt üresen!");
+    }
   }
   function saveEmail(e) {
     e.preventDefault();
-    API.post("/patient-change-email", { newEmail: email }).then((result) =>
-      console.log(result)
-    );
-    console.log(email);
+    if (phone.length > 0) {
+      API.post("/patient-change-email", { newEmail: email })
+        .then((result) => alert(result.data.message))
+        .then(() => {
+          closeSettings();
+        });
+    } else {
+      alert("Ne hagyj mezőt üresen!");
+    }
   }
 
   function togglePasswordModal() {
