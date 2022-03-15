@@ -5,6 +5,7 @@
   "bloodTestResults": "SELECT blood_test_components.blood_test_component_name, blood_test_components.blood_test_component_measurement, blood_test_components.blood_test_component_normal_range, blood_test_components.blood_test_component_description, blood_tests_taken.blood_tests_component_value, doctors.doctor_name, blood_tests_taken.blood_tests_taken_date FROM blood_test_components INNER JOIN blood_tests_taken ON blood_test_components.blood_test_component_id = blood_tests_taken.blood_tests_component_id INNER JOIN doctors ON blood_tests_taken.blood_tests_taken_by_id = doctors.doctor_id WHERE blood_tests_taken.blood_tests_taken_from_id = ? AND blood_tests_taken_date = ?;",
   "statistics": "SELECT blood_test_components.blood_test_component_normal_range, blood_tests_taken.blood_tests_component_value, DATE_FORMAT(blood_tests_taken.blood_tests_taken_date, '%Y-%m-%d') AS blood_tests_taken_date FROM blood_test_components INNER JOIN blood_tests_taken ON blood_test_components.blood_test_component_id = blood_tests_taken.blood_tests_component_id INNER JOIN doctors ON blood_tests_taken.blood_tests_taken_by_id = doctors.doctor_id WHERE blood_tests_taken.blood_tests_taken_from_id = ?;",
   "changeAddress": "UPDATE patients SET patient_address = ? WHERE patient_id = ?;",
-  "changePhone": "UPDATE patients SET patient_phone = ? WHERE patient_id = ?",
-  "changeEmail": "UPDATE patients SET patient_email = ? WHERE patient_id = ?"
+  "changePhone": "UPDATE patients SET patient_phone = ? WHERE patient_id = ?;",
+  "changeEmail": "UPDATE patients SET patient_email = ? WHERE patient_id = ?;",
+  "components": "SELECT * FROM blood_test_components;"
 }

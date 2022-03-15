@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 
 const PATIENT_SQL = require("./SQL_COMMANDS/PATIENT_SQL.json");
 const DOCTOR_SQL = require("./SQL_COMMANDS/DOCTOR_SQL.json");
+const { response } = require("express");
 
 /*
     //////////////////////////////
@@ -102,8 +103,7 @@ app.post("/patient-authentication", (req, res) => {
   db.query(PATIENT_SQL.authentication, taj, (err, result) => {
     if (err) {
       res.send({ err: err });
-    }
-    else if (result.length > 0) {
+    } else if (result.length > 0) {
       bcrypt.compare(
         password,
         result[0].patient_password,
@@ -216,6 +216,15 @@ app.post("/patient-change-email", verifyPatient, (req, res) => {
   );
 });
 
+app.get("/patient-components", verifyPatient, (req, res) => {
+  db.query(PATIENT_SQL.components, (err, result) => {
+    if (err) {
+      res.send({ err: err });
+    }
+    res.send(result);
+  });
+});
+
 app.get("/showmecookie", (req, res) => {
   console.log(req.cookies.token);
   res.send();
@@ -238,8 +247,7 @@ app.post("/doctor-authentication", (req, res) => {
   db.query(DOCTOR_SQL.authentication, license, (err, result) => {
     if (err) {
       res.send({ err: err });
-    }
-    else if (result.length > 0) {
+    } else if (result.length > 0) {
       bcrypt.compare(password, result[0].doctor_password, (error, response) => {
         if (response) {
           const doctorId = result[0].doctor_id;
