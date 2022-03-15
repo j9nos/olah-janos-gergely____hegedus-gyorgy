@@ -103,7 +103,7 @@ app.post("/patient-authentication", (req, res) => {
     if (err) {
       res.send({ err: err });
     }
-    if (result.length > 0) {
+    else if (result.length > 0) {
       bcrypt.compare(
         password,
         result[0].patient_password,
@@ -239,7 +239,7 @@ app.post("/doctor-authentication", (req, res) => {
     if (err) {
       res.send({ err: err });
     }
-    if (result.length > 0) {
+    else if (result.length > 0) {
       bcrypt.compare(password, result[0].doctor_password, (error, response) => {
         if (response) {
           const doctorId = result[0].doctor_id;
