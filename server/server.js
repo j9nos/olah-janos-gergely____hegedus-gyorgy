@@ -308,12 +308,10 @@ app.get("/patients", verifyDoctor, (req, res) => {
 
 app.post("/selectPatient", verifyDoctor, (req, res) => {
   const id = req.body.id;
-  console.log(id);
   db.query(DOCTOR_SQL.selectPatient, [id], (err, result) => {
     if (err) {
       res.send({ err: err });
     }
-    console.log(result);
     res.send(result);
   });
 });

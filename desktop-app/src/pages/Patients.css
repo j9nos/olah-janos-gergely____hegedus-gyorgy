@@ -63,10 +63,6 @@
   color: white;
   font-size: 19px;
 }
-option{
-    background:rgb(136, 255, 0);
-    color: black;
-}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -107,7 +103,7 @@ table {
 }
 
 .patients-table-container thead th {
-  position: sticky;
+  /*position: sticky;*/
   top: 0;
   background-color: rgb(136, 255, 0);
   color: white;
@@ -159,6 +155,47 @@ tr:hover td {
 
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px black;
+}
+.modalData{
+  
+}
+.modalData-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: url("../assets/background.png");
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 2000px;
+  min-width: 300px;
+  color: white;
+  cursor: auto;
+  width: 1000px;
+  height: 850px;
+}
+.modalData-content > h1{
+  font-size: 40px;
+  text-align: center;
+}
+.modalData-content > thead, th{
+  top: 0;
+  background-color: rgb(136, 255, 0);
+  color: white;
+  font-size: 20px;
+}
+.modal-table-container{
+  max-height: 100vh;
+  width: 100%;
+  overflow: auto;
+  border: 2px solid rgb(136, 255, 0);
+  height: 620px;
+  margin-top: 30px;
+}
+.modalData-content > .close-modal{
+  height: 40px;
+  cursor: pointer;
 }
 @media (max-width: 1200px) {
   .patients-right {

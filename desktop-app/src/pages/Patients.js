@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import Button from "../components/Button";
-import ModalData from "../components/ModalData";
 import API from "../utils/API";
 import "./Patients.css";
 import { useNavigate } from "react-router-dom";
@@ -22,27 +19,38 @@ function Modal(props) {
     });
   }
 
-  function logThat() {
-    console.log(patientBloodTestResults);
-  }
-
   return (
     <div className="modalData">
       <div className="modalData-content">
         <h1>{props.data.patient_name}</h1>
-        <button onClick={props.onQuit}>X</button>
-        <h1>{props.data.patient_id}</h1>
-        <button onClick={logThat}>asd</button>
-        <div className="Modal-container">
-          {patientBloodTestResults.map((e,index) => {
-            return <h1 key={index}>
-                {e.blood_test_component_name}
-            </h1>
-          })}
+        <h1>{props.data.patient_blood_type}</h1>
+        <button onClick={props.onQuit} className="close-modal">X</button>
+        <div className="modal-table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Mértékegység</th>
+                <th>Ideális érték</th>
+                <th>Mért érték</th>
+                <th>Dátum</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patientBloodTestResults.map((e, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{e.blood_test_component_name}</td>
+                    <td>{e.blood_test_component_measurement}</td>
+                    <td>{e.blood_test_component_normal_range}</td>
+                    <td>{e.blood_tests_component_value}</td>
+                    <td>{e.blood_tests_taken_date.split("T")[0]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-        <button className="ModalModifyBtn">Hozzaadas</button>
-        <button className="ModalModifyBtn">Modositas</button>
-        <button className="ModalModifyBtn">Torles</button>
       </div>
     </div>
   );
@@ -110,8 +118,8 @@ function Patients() {
             <button onClick={navigatetoAddNew} className="NewPatientBtn">
               Uj felvetel
             </button>
+            <button onClick={openModalUp} className="NewPatientBtn">Kivalaszt</button>
             <input placeholder="Kereses" value={value} onChange={filterData} />
-            <button onClick={openModalUp}>Kivalaszt</button>
             {modalOn && <Modal data={selected} onQuit={closeModal} />}
           </div>
         </div>
