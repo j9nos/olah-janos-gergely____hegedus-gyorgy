@@ -5,12 +5,71 @@ import ModalData from "../components/ModalData";
 import API from "../utils/API";
 import "./Patients.css";
 import { useNavigate } from "react-router-dom";
+import { reloadOnExpiration, logout } from "../utils/authorization";
+
+function Modal(props) {
+  useEffect(() => {
+    getPatientData();
+  }, []);
+  const [patientData, setPatientData] = useState([]);
+
+  function getPatientData(e) {
+    e.preventDefault();
+    API.post("/selectPatient", {
+      id: props.patient_id,
+    }).then((result) => {
+      setPatientData(result.data);
+    });
+  }
+
+  return (
+    <div className="modalData">
+      <div className="modalData-content">
+        <h1>{props.data.patient_name}</h1>
+        <button onClick={props.onQuit}>X</button>
+        <h1>{props.data.patient_id}</h1>
+        <h1>{patientData.blood_test_component_name}</h1>
+
+        <div className="Modal-container">
+          <label>Vercsoport</label>
+          <label>Verosszetetel</label>
+          <input></input>
+          <label>Verosszetetel erteke</label>
+          <input></input>
+          <label>Vert vevo orvos neve</label>
+          <input></input>
+          <label>Vervetel ideje</label>
+          <input></input>
+        </div>
+        <button className="ModalModifyBtn">Hozzaadas</button>
+        <button className="ModalModifyBtn">Modositas</button>
+        <button className="ModalModifyBtn">Torles</button>
+      </div>
+    </div>
+  );
+}
 
 import { reloadOnExpiration } from "../utils/authorization";
 
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];
   const [patients, setPatients] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [modalOn, setModalOn] = useState(false);
+
+  function selectOne(arg) {
+    setSelected(arg);
+  }
+  function openModalUp() {
+    if (selected.patient_name) {
+      setModalOn(true);
+    } else {
+      setModalOn(false);
+    }
+  }
+  function closeModal() {
+    setModalOn(false);
+  }
 
   useEffect(() => {
     API.get("/patients").then((result) => setPatients(result.data));
@@ -42,6 +101,9 @@ function Patients() {
   function navigatetoAddNew() {
     navigate("/patients/AddNew");
   }
+
+  const [component_name, setComponent_name] = useState([]);
+
   return (
     <div className="patients">
       <div className="patients-page">
@@ -51,24 +113,13 @@ function Patients() {
             <button onClick={navigatetoAddNew} className="NewPatientBtn">
               Uj felvetel
             </button>
-            <select name="cars" className="blood-selection">
-              <option value="Valassz vertipust">Valassz vertipust</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B-">B-</option>
-              <option value="B+">B+</option>
-              <option value="AB-">AB-</option>
-              <option value="AB+">AB+</option>
-              <option value="B-">B-</option>
-              <option value="B+">B+</option>
-              <option value="0-">0-</option>
-              <option value="0+">0+</option>
-            </select>
             <input placeholder="Kereses" value={value} onChange={filterData} />
+            <button onClick={openModalUp}>Kivalaszt</button>
+            {modalOn && <Modal data={selected} onQuit={closeModal} />}
           </div>
         </div>
         <div className="patients-mid-container">
-          <div className="patients-left"></div>
+          <div className="patients-left"> </div>
           <div className="patients-table-container">
             <table>
               <thead>
@@ -81,14 +132,18 @@ function Patients() {
                   <th>Lakcim</th>
                   <th>Telefonszám</th>
                   <th>Emailcim</th>
-                  <th>Adatok</th>
                 </tr>
               </thead>
               <tbody>
                 {value.length > 0
                   ? tableFilter.map((patient, index) => {
                       return (
-                        <tr key={index}>
+                        <tr
+                          key={index}
+                          onClick={() => {
+                            selectOne(patient);
+                          }}
+                        >
                           <td>{patient.patient_blood_type}</td>
                           <td>{patient.patient_name}</td>
                           <td>{patient.patient_gender}</td>
@@ -97,15 +152,17 @@ function Patients() {
                           <td>{patient.patient_address}</td>
                           <td>{patient.patient_phone}</td>
                           <td>{patient.patient_email}</td>
-                          <td>
-                            <ModalData />
-                          </td>
                         </tr>
                       );
                     })
                   : patients.map((patient, index) => {
                       return (
-                        <tr key={index}>
+                        <tr
+                          key={index}
+                          onClick={() => {
+                            selectOne(patient);
+                          }}
+                        >
                           <td>{patient.patient_blood_type}</td>
                           <td>{patient.patient_name}</td>
                           <td>{patient.patient_gender}</td>
@@ -114,9 +171,6 @@ function Patients() {
                           <td>{patient.patient_address}</td>
                           <td>{patient.patient_phone}</td>
                           <td>{patient.patient_email}</td>
-                          <td>
-                            <ModalData />
-                          </td>
                         </tr>
                       );
                     })}

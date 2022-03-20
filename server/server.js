@@ -305,6 +305,18 @@ app.get("/patients", verifyDoctor, (req, res) => {
     res.send(result);
   });
 });
+app.post("/selectPatient",(req, res) => {
+
+  const id = req.body.id;
+  
+  db.query(
+    DOCTOR_SQL.selectPatient,
+    [id],
+    (err, result) => {
+      res.send(result);
+    }
+  );
+});
 
 app.post("/add-patient", verifyDoctor, (req, res) => {
   const name = req.body.name;
