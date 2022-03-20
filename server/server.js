@@ -101,7 +101,7 @@ app.post("/patient-authentication", (req, res) => {
   const password = req.body.password;
   db.query(PATIENT_SQL.authentication, taj, (err, result) => {
     if (err) {
-      res.send({ message: "Szerver hiba" });
+      res.send({ authed: false, message: "Szerver hiba" });
     } else if (result.length > 0) {
       bcrypt.compare(
         password,
@@ -113,14 +113,14 @@ app.post("/patient-authentication", (req, res) => {
             res.cookie("token", token, {
               maxAge: COOKIE_LIFE_EXPECTANCY,
             });
-            res.send({ authed: true, message: "Sikeres belépés" });
+            res.send({ authed: true });
           } else {
-            res.send({ authed: false, message: "Hibás tajkártya vagy jelszó" });
+            res.send({ authed: false, message: "Ellenőrizd az adatokat" });
           }
         }
       );
     } else {
-      res.send({ message: "Ilyen tajkártya nincs a rendszerben" });
+      res.send({ authed: false, message: "Ellenőrizd az adatokat" });
     }
   });
 });
@@ -308,10 +308,12 @@ app.get("/patients", verifyDoctor, (req, res) => {
 
 app.post("/selectPatient", verifyDoctor, (req, res) => {
   const id = req.body.id;
+  console.log(id);
   db.query(DOCTOR_SQL.selectPatient, [id], (err, result) => {
     if (err) {
       res.send({ err: err });
     }
+    console.log(result);
     res.send(result);
   });
 });

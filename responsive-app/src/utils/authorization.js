@@ -9,8 +9,15 @@ export function logout() {
   window.location.reload();
 }
 
-export function reloadOnExpiration() {
+function reloadOnExpiration() {
   if (!getToken()) {
     logout();
   }
+}
+
+export function watchExpiration() {
+  const interval = setInterval(() => {
+    reloadOnExpiration();
+  }, 500);
+  return () => clearInterval(interval);
 }

@@ -1,4 +1,3 @@
-import "./component.css";
 import { useEffect, useState } from "react";
 import API from "../../../utils/API";
 import INFO from "./INFO";

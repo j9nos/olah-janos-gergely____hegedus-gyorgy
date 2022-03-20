@@ -1,9 +1,10 @@
+import "./patient.css";
+
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-import { logout, reloadOnExpiration } from "../../utils/authorization";
+import { logout, watchExpiration } from "../../utils/authorization";
 
-import "./patient.css";
 import API from "../../utils/API";
 
 import SIDEBAR from "../../components/sidebar/SIDEBAR";
@@ -17,20 +18,16 @@ const PATIENT = () => {
     API.get("/patient-profile-data").then((result) =>
       setPatientData(result.data)
     );
-    const interval = setInterval(() => {
-      reloadOnExpiration();
-    }, 500);
-    return () => clearInterval(interval);
+    watchExpiration();
   }, []);
-
   const [patientData, setPatientData] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
 
-  const [selectedDate, setSelectedDate] = useState();
-
-  function selectDate(date) {
-    setSelectedDate(date);
+  function selectDate(argDate) {
+    setSelectedDate(argDate);
   }
-  function removeDate(){
+
+  function removeDate() {
     setSelectedDate("");
   }
 
@@ -40,7 +37,7 @@ const PATIENT = () => {
 
   return (
     <>
-      <SIDEBAR onDateClicked={selectDate} onSnakeHeadClick={removeDate}/>
+      <SIDEBAR onDateClicked={selectDate} onSnakeHeadClick={removeDate} />
       <FOOTER
         onClickLogout={logout}
         onClickOpenSettings={openSettings}

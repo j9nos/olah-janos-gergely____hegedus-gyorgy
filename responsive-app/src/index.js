@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import "./index.css";
+import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LoggedInRoute, LoggedOutRoute } from "./utils/ProtectedRoutes";
-
-import "./index.css";
-
+import { LoggedInRoute, LoggedOutRoute } from "./utils/PROTECTED_ROUTES";
 import LOGIN from "./pages/login/LOGIN";
 import PATIENT from "./pages/patient/PATIENT";
 

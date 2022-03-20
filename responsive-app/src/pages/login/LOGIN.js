@@ -1,48 +1,45 @@
-import React, { useState } from "react";
-
 import "./login.css";
-import TEXT from "../../assets/medicloud-text.png";
+import MEDICLOUD_TEXT from "../../assets/medicloud-text.png";
+import { useState } from "react";
 import API from "../../utils/API";
 
-import { ImKey } from "react-icons/im";
-
 const LOGIN = () => {
-  const [enteredTAJ, setEnteredTAJ] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("...");
+  const [taj, setTaj] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [message, setMessage] = useState("...");
 
   function handleLogin(e) {
     e.preventDefault();
-    setErrorMessage("...");
+    setMessage("...");
     API.post("/patient-authentication", {
-      taj: enteredTAJ,
-      password: enteredPassword,
+      taj: taj,
+      password: password,
     }).then((result) =>
       result.data.authed
         ? window.location.reload()
-        : setErrorMessage(result.data.message)
+        : setMessage(result.data.message)
     );
   }
+
   return (
-    <div className="login">
-
-
+    <div className="login-page">
       <form className="login-form" onSubmit={handleLogin}>
-
-
         <div className="login-top">
-          <img src={TEXT} alt="Medicloud Logo" className="login-logo" />
+          <img
+            src={MEDICLOUD_TEXT}
+            alt="MEDICLOUD TEXT"
+            className="login-logo"
+          />
         </div>
 
-
         <div className="login-mid">
-
           <input
             className="login-input"
-            type="text"
+            type="MEDICLOUD_TEXT"
             placeholder="TAJ szám"
             onChange={(e) => {
-              setEnteredTAJ(e.target.value);
+              setTaj(e.target.value);
             }}
           />
 
@@ -51,18 +48,16 @@ const LOGIN = () => {
             type="password"
             placeholder="Jelszó"
             onChange={(e) => {
-              setEnteredPassword(e.target.value);
+              setPassword(e.target.value);
             }}
           />
         </div>
 
-
-        
         <div className="login-bot">
           <input className="login-button" type="submit" value="Belépés" />
         </div>
 
-        <p className="login-err">{errorMessage}</p>
+        <p className="login-message">{message}</p>
       </form>
     </div>
   );

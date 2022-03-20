@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-import "./setting.css";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 

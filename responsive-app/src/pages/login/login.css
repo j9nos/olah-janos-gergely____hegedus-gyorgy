@@ -1,4 +1,4 @@
-.login {
+.login-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -37,7 +37,6 @@
 }
 .login-input {
   transition: all 0.3s;
-
   margin: 10px 0;
   height: 50px;
   width: 50%;
@@ -45,14 +44,10 @@
   outline: none;
   border: none;
   font-weight: bold;
-
   background: rgba(0, 0, 0, 0);
   color: #333333;
-
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px inset;
-
   border-radius: 5px;
-
   border-bottom: 2px dotted rgba(0, 0, 0, 0);
 }
 .login-input:focus {
@@ -83,7 +78,7 @@
   cursor: pointer;
 }
 
-.login-err {
+.login-message{
   color: #333333;
 }
 
