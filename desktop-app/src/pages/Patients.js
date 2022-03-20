@@ -11,15 +11,19 @@ function Modal(props) {
   useEffect(() => {
     getPatientData();
   }, []);
-  const [patientData, setPatientData] = useState([]);
 
-  function getPatientData(e) {
-    e.preventDefault();
+  const [patientBloodTestResults, setPatientBloodTestResults] = useState([]);
+
+  function getPatientData() {
     API.post("/selectPatient", {
-      id: props.patient_id,
+      id: props.data.patient_id,
     }).then((result) => {
-      setPatientData(result.data);
+      setPatientBloodTestResults(result.data);
     });
+  }
+
+  function logThat() {
+    console.log(patientBloodTestResults);
   }
 
   return (
@@ -28,18 +32,13 @@ function Modal(props) {
         <h1>{props.data.patient_name}</h1>
         <button onClick={props.onQuit}>X</button>
         <h1>{props.data.patient_id}</h1>
-        <h1>{patientData.blood_test_component_name}</h1>
-
+        <button onClick={logThat}>asd</button>
         <div className="Modal-container">
-          <label>Vercsoport</label>
-          <label>Verosszetetel</label>
-          <input></input>
-          <label>Verosszetetel erteke</label>
-          <input></input>
-          <label>Vert vevo orvos neve</label>
-          <input></input>
-          <label>Vervetel ideje</label>
-          <input></input>
+          {patientBloodTestResults.map((e,index) => {
+            return <h1 key={index}>
+                {e.blood_test_component_name}
+            </h1>
+          })}
         </div>
         <button className="ModalModifyBtn">Hozzaadas</button>
         <button className="ModalModifyBtn">Modositas</button>
@@ -48,8 +47,6 @@ function Modal(props) {
     </div>
   );
 }
-
-import { reloadOnExpiration } from "../utils/authorization";
 
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];

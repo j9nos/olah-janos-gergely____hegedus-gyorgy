@@ -305,17 +305,17 @@ app.get("/patients", verifyDoctor, (req, res) => {
     res.send(result);
   });
 });
-app.post("/selectPatient",(req, res) => {
 
+app.post("/selectPatient", verifyDoctor, (req, res) => {
   const id = req.body.id;
-  
-  db.query(
-    DOCTOR_SQL.selectPatient,
-    [id],
-    (err, result) => {
-      res.send(result);
+  console.log(id);
+  db.query(DOCTOR_SQL.selectPatient, [id], (err, result) => {
+    if (err) {
+      res.send({ err: err });
     }
-  );
+    console.log(result);
+    res.send(result);
+  });
 });
 
 app.post("/add-patient", verifyDoctor, (req, res) => {
