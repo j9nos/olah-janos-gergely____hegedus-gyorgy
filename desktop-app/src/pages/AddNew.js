@@ -27,15 +27,19 @@ function AddNew() {
         phone: phone,
         email: email,
       }).then((result) => {
-        alert("sikeres felvetel");
         handleReset();
       });
   }
 
   function handleReset(){
-    Array.from(document.querySelectorAll("input")).forEach(
-      input => (input.value = "")
-    );
+    document.getElementById("input1").value = "";
+    document.getElementById("input2").value = "";
+    document.getElementById("input3").value = "";
+    document.getElementById("input4").value = "";
+    document.getElementById("input5").value = "";
+    document.getElementById("input6").value = "";
+    document.getElementById("input7").value = "";
+    document.getElementById("input8").value = "";
   }
 
   return (
@@ -57,34 +61,42 @@ function AddNew() {
             <input
               onChange={(e) => setName(e.target.value)}
               type="text"
+              id="input1"
             ></input>
             <input
               onChange={(e) => setBloodType(e.target.value)}
               type="text"
+              id="input2"
             ></input>
             <input
               onChange={(e) => setGender(e.target.value)}
               type="text"
+              id="input3"
             ></input>
             <input
               onChange={(e) => setTaj(e.target.value)}
               type="text"
+              id="input4"
             ></input>
             <input
               onChange={(e) => setBirthdate(e.target.value)}
               type="text"
+              id="input5"
             ></input>
             <input
               onChange={(e) => setAddress(e.target.value)}
               type="text"
+              id="input6"
             ></input>
             <input
               onChange={(e) => setPhone(e.target.value)}
               type="text"
+              id="input7"
             ></input>
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="text"
+              id="input8"
             ></input>
             
           </div>
