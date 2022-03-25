@@ -337,6 +337,31 @@ app.post("/add-patient", verifyDoctor, (req, res) => {
   );
 });
 
+app.post("/delete-patient", verifyDoctor, (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  db.query(DOCTOR_SQL.deletePatient, id, (err, result) => {
+    if (err) {
+      res.send({err:err});
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.post("/delete-bloodtests_taken", verifyDoctor, (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  db.query(DOCTOR_SQL.deleteBtaken, id, (err, result) => {
+    if (err) {
+      res.send({err:err});
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+
 /*
     //////////////////////////////
       LISTENING

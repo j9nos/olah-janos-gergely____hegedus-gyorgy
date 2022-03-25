@@ -3,6 +3,7 @@ import API from "../utils/API";
 import "./Patients.css";
 import { useNavigate } from "react-router-dom";
 import { reloadOnExpiration, logout } from "../utils/authorization";
+import { VscTrash } from "react-icons/vsc";
 
 function Modal(props) {
   useEffect(() => {
@@ -18,13 +19,29 @@ function Modal(props) {
       setPatientBloodTestResults(result.data);
     });
   }
+  const [selected, setSelected] = useState([]);
+
+  function selectOne(arg) {
+    setSelected(arg);
+  }
+
+  function deleteBlootests(selected) {
+    console.log(selected.blood_tests_taken_id);
+    API.post("/delete-bloodtests_taken", {
+      id: selected.blood_tests_taken_id,
+    }).then((result) => {
+      getPatientData();
+    });
+  }
 
   return (
     <div className="modalData">
       <div className="modalData-content">
         <h1>{props.data.patient_name}</h1>
         <h1>{props.data.patient_blood_type}</h1>
-        <button onClick={props.onQuit} className="close-modal">X</button>
+        <button onClick={props.onQuit} className="close-modal">
+          X
+        </button>
         <div className="modal-table-container">
           <table>
             <thead>
@@ -34,17 +51,28 @@ function Modal(props) {
                 <th>Ideális érték</th>
                 <th>Mért érték</th>
                 <th>Dátum</th>
+                <th>Torles</th>
               </tr>
             </thead>
             <tbody>
               {patientBloodTestResults.map((e, index) => {
                 return (
-                  <tr key={index}>
+                  <tr
+                    key={index}
+                    onClick={() => {
+                      selectOne(e);
+                    }}
+                  >
                     <td>{e.blood_test_component_name}</td>
                     <td>{e.blood_test_component_measurement}</td>
                     <td>{e.blood_test_component_normal_range}</td>
                     <td>{e.blood_tests_component_value}</td>
                     <td>{e.blood_tests_taken_date.split("T")[0]}</td>
+                    <td>
+                      <button className="" onClick={() => deleteBlootests(e)}>
+                        <VscTrash />
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -77,12 +105,14 @@ function Patients() {
   }
 
   useEffect(() => {
-    API.get("/patients").then((result) => setPatients(result.data));
-    const interval = setInterval(() => {
-      reloadOnExpiration();
-    }, 500);
-    return () => clearInterval(interval);
+    getPatients();
   }, []);
+
+  function getPatients() {
+    API.get("/patients").then((result) => {
+      setPatients(result.data);
+    });
+  }
 
   const [value, setValue] = useState("");
   const [tableFilter, setTableFilter] = useState([]);
@@ -107,7 +137,14 @@ function Patients() {
     navigate("/patients/AddNew");
   }
 
-  const [component_name, setComponent_name] = useState([]);
+  function deletePatient(selected) {
+    console.log(selected.patient_id);
+    API.post("/delete-patient", {
+      id: selected.patient_id,
+    }).then((result) => {
+      getPatients();
+    });
+  }
 
   return (
     <div className="patients">
@@ -118,7 +155,9 @@ function Patients() {
             <button onClick={navigatetoAddNew} className="NewPatientBtn">
               Uj felvetel
             </button>
-            <button onClick={openModalUp} className="NewPatientBtn">Kivalaszt</button>
+            <button onClick={openModalUp} className="NewPatientBtn">
+              Kivalaszt
+            </button>
             <input placeholder="Kereses" value={value} onChange={filterData} />
             {modalOn && <Modal data={selected} onQuit={closeModal} />}
           </div>
@@ -137,6 +176,7 @@ function Patients() {
                   <th>Lakcim</th>
                   <th>Telefonszám</th>
                   <th>Emailcim</th>
+                  <th>Torles</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,6 +197,15 @@ function Patients() {
                           <td>{patient.patient_address}</td>
                           <td>{patient.patient_phone}</td>
                           <td>{patient.patient_email}</td>
+
+                          <td>
+                            <button
+                              className=""
+                              onClick={() => deletePatient(patient)}
+                            >
+                              <VscTrash />
+                            </button>
+                          </td>
                         </tr>
                       );
                     })
@@ -176,6 +225,15 @@ function Patients() {
                           <td>{patient.patient_address}</td>
                           <td>{patient.patient_phone}</td>
                           <td>{patient.patient_email}</td>
+
+                          <td>
+                            <button
+                              className=""
+                              onClick={() => deletePatient(patient)}
+                            >
+                              <VscTrash />
+                            </button>
+                          </td>
                         </tr>
                       );
                     })}

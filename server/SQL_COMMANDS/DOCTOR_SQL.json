@@ -2,5 +2,7 @@
   "authentication": "SELECT doctors.doctor_id, doctor_authentication.doctor_password FROM doctor_authentication INNER JOIN doctors ON doctor_authentication.doctor_authentication_fid = doctors.doctor_id WHERE doctors.doctor_license = ?;",
   "allPatients": "SELECT * FROM patients;",
   "addPatient": "INSERT INTO patients(patient_name,patient_blood_type,patient_gender,patient_taj,patient_birthdate,patient_address,patient_phone,patient_email) VALUES(?,?,?,?,?,?,?,?)",
-  "selectPatient": "SELECT blood_test_component_name, blood_test_component_measurement, blood_test_component_normal_range, blood_tests_component_value, blood_tests_taken_date, patient_blood_type FROM blood_tests_taken JOIN blood_test_components ON blood_tests_component_id = blood_test_component_id JOIN patients ON patient_id = blood_tests_taken_from_id WHERE blood_tests_taken_from_id = ?;"
+  "selectPatient": "SELECT blood_tests_taken_id, blood_test_component_name, blood_test_component_measurement, blood_test_component_normal_range, blood_tests_component_value, blood_tests_taken_date, patient_blood_type FROM blood_tests_taken JOIN blood_test_components ON blood_tests_component_id = blood_test_component_id JOIN patients ON patient_id = blood_tests_taken_from_id WHERE blood_tests_taken_from_id = ?;",
+  "deletePatient":"DELETE FROM patients WHERE patient_id = ?;",
+  "deleteBtaken":"DELETE FROM blood_tests_taken WHERE blood_tests_taken_id = ?;"
 }
