@@ -349,7 +349,7 @@ app.post("/delete-patient", verifyDoctor, (req, res) => {
   });
 });
 
-app.post("/delete-bloodtests_taken", verifyDoctor, (req, res) => {
+app.post("/delete_bloodtests_taken", verifyDoctor, (req, res) => {
   const id = req.body.id;
   console.log(id);
   db.query(DOCTOR_SQL.deleteBtaken, id, (err, result) => {
@@ -360,6 +360,20 @@ app.post("/delete-bloodtests_taken", verifyDoctor, (req, res) => {
     }
   });
 });
+
+app.post("/delete_Auth", verifyDoctor, (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  db.query(DOCTOR_SQL.deleteAuth, id, (err, result) => {
+    if (err) {
+      res.send({err:err});
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+
 
 
 /*

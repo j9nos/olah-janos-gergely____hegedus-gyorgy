@@ -25,9 +25,9 @@ function Modal(props) {
     setSelected(arg);
   }
 
-  function deleteBlootests(selected) {
+  function deleteBloodtests(selected) {
     console.log(selected.blood_tests_taken_id);
-    API.post("/delete-bloodtests_taken", {
+    API.post("/delete_bloodtests_taken", {
       id: selected.blood_tests_taken_id,
     }).then((result) => {
       getPatientData();
@@ -69,7 +69,7 @@ function Modal(props) {
                     <td>{e.blood_tests_component_value}</td>
                     <td>{e.blood_tests_taken_date.split("T")[0]}</td>
                     <td>
-                      <button className="" onClick={() => deleteBlootests(e)}>
+                      <button className="" onClick={() => deleteBloodtests(e)}>
                         <VscTrash />
                       </button>
                     </td>
@@ -146,6 +146,16 @@ function Patients() {
     });
   }
 
+  function deleteAuth(selected){
+    console.log(selected.patient_id);
+    API.post("/delete_Auth", {
+      id: selected.patient_id,
+    }).then((result) => {
+      getPatients();
+      deletePatient(selected);
+    });
+  }
+
   return (
     <div className="patients">
       <div className="patients-page">
@@ -201,7 +211,7 @@ function Patients() {
                           <td>
                             <button
                               className=""
-                              onClick={() => deletePatient(patient)}
+                              onClick={() => deleteAuth(patient)}
                             >
                               <VscTrash />
                             </button>
@@ -229,7 +239,7 @@ function Patients() {
                           <td>
                             <button
                               className=""
-                              onClick={() => deletePatient(patient)}
+                              onClick={() => deleteAuth(patient)}
                             >
                               <VscTrash />
                             </button>

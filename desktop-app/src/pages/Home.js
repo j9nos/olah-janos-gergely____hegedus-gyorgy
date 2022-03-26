@@ -1,15 +1,12 @@
 import React from "react";
-import { Link,useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "./Home.css";
 import Button from "../components/Button";
 
 function Home() {
 
   let navigate = useNavigate();
-  
-  function navigateToDoctors(){
-    navigate("./doctors")
-  }
+
   function navigateToPatients(){
     navigate("./patients")
   }
