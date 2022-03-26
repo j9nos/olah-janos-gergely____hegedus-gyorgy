@@ -339,7 +339,6 @@ app.post("/add-patient", verifyDoctor, (req, res) => {
 
 app.post("/delete-patient", verifyDoctor, (req, res) => {
   const id = req.body.id;
-  console.log(id);
   db.query(DOCTOR_SQL.deletePatient, id, (err, result) => {
     if (err) {
       res.send({err:err});
@@ -351,7 +350,7 @@ app.post("/delete-patient", verifyDoctor, (req, res) => {
 
 app.post("/delete_bloodtests_taken", verifyDoctor, (req, res) => {
   const id = req.body.id;
-  console.log(id);
+  
   db.query(DOCTOR_SQL.deleteBtaken, id, (err, result) => {
     if (err) {
       res.send({err:err});
@@ -363,7 +362,7 @@ app.post("/delete_bloodtests_taken", verifyDoctor, (req, res) => {
 
 app.post("/delete_Auth", verifyDoctor, (req, res) => {
   const id = req.body.id;
-  console.log(id);
+  
   db.query(DOCTOR_SQL.deleteAuth, id, (err, result) => {
     if (err) {
       res.send({err:err});
@@ -371,6 +370,31 @@ app.post("/delete_Auth", verifyDoctor, (req, res) => {
       res.send(result);
     }
   });
+});
+
+app.post("/addPatientBloodTestData", verifyDoctor, (req, res) => {
+  const componentId = req.body.componentId;
+  console.log(componentId);
+  const componentValue = req.body.componentValue;
+  console.log(componentValue);
+
+
+  const id = req.body.id;
+  console.log(id);
+
+
+  const takenById = req.body.takenById;
+  console.log(takenById);
+  const takenDate = req.body.takenDate;
+  console.log(takenDate)
+
+  db.query(
+    DOCTOR_SQL.addBloodTestData,
+    [componentId,componentValue,id,takenById,takenDate],
+    (err, result) => {
+      res.send(result);
+    }
+  );
 });
 
 

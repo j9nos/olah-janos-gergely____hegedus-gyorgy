@@ -84,11 +84,86 @@ function Modal(props) {
   );
 }
 
+function ModalData(props) {
+  const [componentId, setComponentId] = useState("");
+  const [componentValue, setComponentValue] = useState("");
+  const [takenById, setTakenById] = useState("");
+  const [takenDate, setTakenDate] = useState("");
+
+  function addNew(e) {
+    e.preventDefault();
+    API.post("/addPatientBloodTestData", {
+      componentId: componentId,
+      componentValue: componentValue,
+      id: props.data.patient_id,
+      takenById: takenById,
+      takenDate: takenDate,
+    }).then((result) => {
+      console.log("siker")
+    });
+  }
+
+  return (
+    <div className="ModalData">
+      <div className="ModalDataContent">
+        <h1>{props.data.patient_name}</h1>
+        <form onSubmit={addNew}>
+          <select onChange={(e) => setComponentId(e.target.value)}>
+            <option>ertek</option>
+            <option value="1">Fehérvérsejtszám</option>
+            <option value="2">Vörösvértest</option>
+            <option value="3">Hematokrit</option>
+            <option value="4">Hemoglobin</option>
+            <option value="5">Mean Cellular Volume</option>
+            <option value="6">Mean Corpuscular Hemaglobin</option>
+            <option value="7">Red blood cell Distribution Width</option>
+            <option value="8">Trombocita</option>
+            <option value="9">Alanin Amino-Transzferáz</option>
+            <option value="10">Albumin</option>
+            <option value="11">Összfehérje</option>
+            <option value="12">Alkalikus Foszfatáz</option>
+            <option value="13">Bilirubin</option>
+            <option value="14">Karbamid</option>
+            <option value="15">Kálcium</option>
+            <option value="16">Klorid</option>
+            <option value="17">Kreatinin</option>
+            <option value="18">Terheléses vércukorvizsgálat</option>
+            <option value="19">Foszfor</option>
+            <option value="20">Kálium</option>
+            <option value="21">Nátrium</option>
+            <option value="22">Összkoleszterin</option>
+            <option value="23">Nagy Sűrűségű Lipoprotein</option>
+            <option value="24">Alacsony Sűrűségű Lipoprotein</option>
+          </select>
+          <input
+            onChange={(e) => setComponentValue(e.target.value)}
+            type="text"
+          ></input>
+          <select onChange={(e) => setTakenById(e.target.value)}>
+            <option>ertek</option>
+            <option value="1">Cseh Andras</option>
+            </select>
+            <input
+            onChange={(e) => setTakenDate(e.target.value)}
+            type="text"
+          ></input>
+
+          <button>Felvesz</button>
+        </form>
+        <button onClick={props.onQuit} className="closeModalData">
+          X
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Patients() {
   const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large"];
   const [patients, setPatients] = useState([]);
   const [selected, setSelected] = useState([]);
   const [modalOn, setModalOn] = useState(false);
+  const [modalDataOn, setModalDataOn] = useState(false);
 
   function selectOne(arg) {
     setSelected(arg);
@@ -102,6 +177,17 @@ function Patients() {
   }
   function closeModal() {
     setModalOn(false);
+  }
+
+  function openModalDataUp() {
+    if (selected.patient_name) {
+      setModalDataOn(true);
+    } else {
+      setModalDataOn(false);
+    }
+  }
+  function closeModalData() {
+    setModalDataOn(false);
   }
 
   useEffect(() => {
@@ -146,7 +232,7 @@ function Patients() {
     });
   }
 
-  function deleteAuth(selected){
+  function deleteAuth(selected) {
     console.log(selected.patient_id);
     API.post("/delete_Auth", {
       id: selected.patient_id,
@@ -170,6 +256,11 @@ function Patients() {
             </button>
             <input placeholder="Kereses" value={value} onChange={filterData} />
             {modalOn && <Modal data={selected} onQuit={closeModal} />}
+
+            <button onClick={openModalDataUp}>addd</button>
+            {modalDataOn && (
+              <ModalData data={selected} onQuit={closeModalData} />
+            )}
           </div>
         </div>
         <div className="patients-mid-container">

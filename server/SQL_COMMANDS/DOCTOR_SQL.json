@@ -5,5 +5,6 @@
   "selectPatient": "SELECT blood_tests_taken_id, blood_test_component_name, blood_test_component_measurement, blood_test_component_normal_range, blood_tests_component_value, blood_tests_taken_date, patient_blood_type FROM blood_tests_taken JOIN blood_test_components ON blood_tests_component_id = blood_test_component_id JOIN patients ON patient_id = blood_tests_taken_from_id WHERE blood_tests_taken_from_id = ?;",
   "deletePatient":"DELETE FROM patients WHERE patient_id = ?;",
   "deleteBtaken":"DELETE FROM blood_tests_taken WHERE blood_tests_taken_id = ?;",
-  "deleteAuth":"DELETE FROM patient_authentication WHERE patient_authentication.patient_authentication_id = ?;"
+  "deleteAuth":"DELETE FROM patient_authentication WHERE patient_authentication.patient_authentication_id = ?;",
+  "addBloodTestData":"INSERT INTO blood_tests_taken(blood_tests_component_id, blood_tests_component_value,blood_tests_taken_from_id,blood_tests_taken_by_id,blood_tests_taken_date)VALUES(?,?,?,?,?);"
 }

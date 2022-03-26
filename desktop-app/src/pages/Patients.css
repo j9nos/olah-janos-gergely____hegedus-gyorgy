@@ -197,6 +197,23 @@ tr:hover td {
   height: 40px;
   cursor: pointer;
 }
+.ModalDataContent{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: url("../assets/background.png");
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 2000px;
+  min-width: 300px;
+  color: white;
+  cursor: auto;
+  width: 1000px;
+  height: 850px;
+
+}
 @media (max-width: 1200px) {
   .patients-right {
     width: 20px;
