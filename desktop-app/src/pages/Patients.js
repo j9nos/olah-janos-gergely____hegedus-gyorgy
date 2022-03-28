@@ -69,7 +69,7 @@ function Modal(props) {
                     <td>{e.blood_tests_component_value}</td>
                     <td>{e.blood_tests_taken_date.split("T")[0]}</td>
                     <td>
-                      <button className="" onClick={() => deleteBloodtests(e)}>
+                      <button className="trashBtn" onClick={() => deleteBloodtests(e)}>
                         <VscTrash />
                       </button>
                     </td>
@@ -99,7 +99,7 @@ function ModalData(props) {
       takenById: takenById,
       takenDate: takenDate,
     }).then((result) => {
-      console.log("siker")
+      console.log("siker");
     });
   }
 
@@ -107,50 +107,93 @@ function ModalData(props) {
     <div className="ModalData">
       <div className="ModalDataContent">
         <h1>{props.data.patient_name}</h1>
-        <form onSubmit={addNew}>
-          <select onChange={(e) => setComponentId(e.target.value)}>
-            <option>ertek</option>
-            <option value="1">Fehérvérsejtszám</option>
-            <option value="2">Vörösvértest</option>
-            <option value="3">Hematokrit</option>
-            <option value="4">Hemoglobin</option>
-            <option value="5">Mean Cellular Volume</option>
-            <option value="6">Mean Corpuscular Hemaglobin</option>
-            <option value="7">Red blood cell Distribution Width</option>
-            <option value="8">Trombocita</option>
-            <option value="9">Alanin Amino-Transzferáz</option>
-            <option value="10">Albumin</option>
-            <option value="11">Összfehérje</option>
-            <option value="12">Alkalikus Foszfatáz</option>
-            <option value="13">Bilirubin</option>
-            <option value="14">Karbamid</option>
-            <option value="15">Kálcium</option>
-            <option value="16">Klorid</option>
-            <option value="17">Kreatinin</option>
-            <option value="18">Terheléses vércukorvizsgálat</option>
-            <option value="19">Foszfor</option>
-            <option value="20">Kálium</option>
-            <option value="21">Nátrium</option>
-            <option value="22">Összkoleszterin</option>
-            <option value="23">Nagy Sűrűségű Lipoprotein</option>
-            <option value="24">Alacsony Sűrűségű Lipoprotein</option>
-          </select>
-          <input
-            onChange={(e) => setComponentValue(e.target.value)}
-            type="text"
-          ></input>
-          <select onChange={(e) => setTakenById(e.target.value)}>
-            <option>ertek</option>
-            <option value="1">Cseh Andras</option>
+        <h1>{props.data.patient_blood_type}</h1>
+        <form className="ModalDataForm" onSubmit={addNew}>
+          <div className="ModalDataForm-left">
+            <h1>Komponens: </h1>
+            <h1>Orvos neve: </h1>
+            <h1>Mért érték: </h1>
+            <h1>Dátum: </h1>
+          </div>
+          <div className="ModalDataForm-right">
+            <select onChange={(e) => setComponentId(e.target.value)}>
+              <option>ertek</option>
+              <option value="1">Fehérvérsejtszám</option>
+              <option value="2">Vörösvértest</option>
+              <option value="3">Hematokrit</option>
+              <option value="4">Hemoglobin</option>
+              <option value="5">Mean Cellular Volume</option>
+              <option value="6">Mean Corpuscular Hemaglobin</option>
+              <option value="7">Red blood cell Distribution Width</option>
+              <option value="8">Trombocita</option>
+              <option value="9">Alanin Amino-Transzferáz</option>
+              <option value="10">Albumin</option>
+              <option value="11">Összfehérje</option>
+              <option value="12">Alkalikus Foszfatáz</option>
+              <option value="13">Bilirubin</option>
+              <option value="14">Karbamid</option>
+              <option value="15">Kálcium</option>
+              <option value="16">Klorid</option>
+              <option value="17">Kreatinin</option>
+              <option value="18">Terheléses vércukorvizsgálat</option>
+              <option value="19">Foszfor</option>
+              <option value="20">Kálium</option>
+              <option value="21">Nátrium</option>
+              <option value="22">Összkoleszterin</option>
+              <option value="23">Nagy Sűrűségű Lipoprotein</option>
+              <option value="24">Alacsony Sűrűségű Lipoprotein</option>
+            </select>
+
+            <select onChange={(e) => setTakenById(e.target.value)}>
+              <option>ertek</option>
+              <option value="1">Cseh Andras</option>
             </select>
             <input
-            onChange={(e) => setTakenDate(e.target.value)}
+              onChange={(e) => setComponentValue(e.target.value)}
+              type="text"
+            ></input>
+
+            <input
+              onChange={(e) => setTakenDate(e.target.value)}
+              type="text"
+            ></input>
+            <button>Felvesz</button>
+          </div>
+        </form>
+        <button onClick={props.onQuit} className="close-modal">
+          X
+        </button>
+      </div>
+    </div>
+  );
+}
+function ModalPassword(props) {
+  const [password, setPassword] = useState("");
+
+  function addPassword(e) {
+    e.preventDefault();
+    API.post("/addPassword", {
+      id: props.data.patient_id,
+      password: password,
+    }).then((result) => {
+      console.log("siker");
+    });
+  }
+
+  return (
+    <div className="Modal">
+      <div className="ModalDataContent">
+        <h1>{props.data.patient_name}</h1>
+        <h1>{props.data.patient_blood_type}</h1>
+        <form className="ModalPasswordForm" onSubmit={addPassword}>
+          <label>Jelszó:</label>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
             type="text"
           ></input>
-
-          <button>Felvesz</button>
+          <button>Felvetel</button>
         </form>
-        <button onClick={props.onQuit} className="closeModalData">
+        <button className="close-modal" onClick={props.onQuit}>
           X
         </button>
       </div>
@@ -164,6 +207,7 @@ function Patients() {
   const [selected, setSelected] = useState([]);
   const [modalOn, setModalOn] = useState(false);
   const [modalDataOn, setModalDataOn] = useState(false);
+  const [modalPasswordOn, setModalPasswordOn] = useState(false);
 
   function selectOne(arg) {
     setSelected(arg);
@@ -188,6 +232,16 @@ function Patients() {
   }
   function closeModalData() {
     setModalDataOn(false);
+  }
+  function openModalPasswordUp() {
+    if (selected.patient_name) {
+      setModalPasswordOn(true);
+    } else {
+      setModalPasswordOn(false);
+    }
+  }
+  function closeModalPassword() {
+    setModalPasswordOn(false);
   }
 
   useEffect(() => {
@@ -248,19 +302,27 @@ function Patients() {
         <div className="patients-top-container">
           <div className="patients-top-left"></div>
           <div className="patients-top-right">
-            <button onClick={navigatetoAddNew} className="NewPatientBtn">
-              Uj felvetel
-            </button>
             <button onClick={openModalUp} className="NewPatientBtn">
               Kivalaszt
             </button>
-            <input placeholder="Kereses" value={value} onChange={filterData} />
-            {modalOn && <Modal data={selected} onQuit={closeModal} />}
+            <button onClick={navigatetoAddNew} className="NewPatientBtn">
+              Új Páciens
+            </button>
 
-            <button onClick={openModalDataUp}>addd</button>
+            <button onClick={openModalDataUp} className="NewPatientBtn">
+              Új vérvétel
+            </button>
             {modalDataOn && (
               <ModalData data={selected} onQuit={closeModalData} />
             )}
+            <button onClick={openModalPasswordUp} className="NewPatientBtn">
+              Új jelszó
+            </button>
+            {modalPasswordOn && (
+              <ModalPassword data={selected} onQuit={closeModalPassword} />
+            )}
+            <input placeholder="Kereses" value={value} onChange={filterData} />
+            {modalOn && <Modal data={selected} onQuit={closeModal} />}
           </div>
         </div>
         <div className="patients-mid-container">
@@ -301,7 +363,7 @@ function Patients() {
 
                           <td>
                             <button
-                              className=""
+                              className="trashBtn"
                               onClick={() => deleteAuth(patient)}
                             >
                               <VscTrash />
@@ -329,7 +391,7 @@ function Patients() {
 
                           <td>
                             <button
-                              className=""
+                              className="trashBtn"
                               onClick={() => deleteAuth(patient)}
                             >
                               <VscTrash />

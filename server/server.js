@@ -398,6 +398,25 @@ app.post("/addPatientBloodTestData", verifyDoctor, (req, res) => {
 });
 
 
+app.post("/addPassword", verifyDoctor, (req, res) => {
+  
+  const id = req.body.id;
+  console.log(id);
+  const password = req.body.password;
+
+  bcrypt.hash(password,12,(berr,bres)=>{
+    db.query(
+      DOCTOR_SQL.addPassword,
+      [bres,id,],
+      (err, result) => {
+        res.send(result);
+      }
+    );
+  });
+
+});
+
+
 
 
 /*

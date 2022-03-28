@@ -6,5 +6,6 @@
   "deletePatient":"DELETE FROM patients WHERE patient_id = ?;",
   "deleteBtaken":"DELETE FROM blood_tests_taken WHERE blood_tests_taken_id = ?;",
   "deleteAuth":"DELETE FROM patient_authentication WHERE patient_authentication.patient_authentication_id = ?;",
-  "addBloodTestData":"INSERT INTO blood_tests_taken(blood_tests_component_id, blood_tests_component_value,blood_tests_taken_from_id,blood_tests_taken_by_id,blood_tests_taken_date)VALUES(?,?,?,?,?);"
+  "addBloodTestData":"INSERT INTO blood_tests_taken(blood_tests_component_id, blood_tests_component_value,blood_tests_taken_from_id,blood_tests_taken_by_id,blood_tests_taken_date)VALUES(?,?,?,?,?);",
+  "addPassword":"INSERT INTO patient_authentication(patient_password, patient_authentication_fid) VALUES (?,?);"
 }

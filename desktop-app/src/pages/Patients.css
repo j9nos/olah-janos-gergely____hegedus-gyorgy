@@ -15,6 +15,8 @@
     color: white;
     font-size: 19px;
     cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .patients-mid-container {
   display: flex;
@@ -130,19 +132,20 @@ tr:hover td {
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.tableBtn {
+.trashBtn{
   text-align: center;
-  width: 100px;
-  height: 30px;
+  width: 35px;
+  height: 25px;
   text-decoration: none;
   border-radius: 40px;
   font-weight: bold;
   border: 2px solid rgb(136, 255, 0);
   background: transparent;
-  color: white;
   font-size: 15px;
   transition: ease-out 0.3s;
   cursor: pointer;
+  color: white;
+  
 }
 
 ::-webkit-scrollbar {
@@ -156,9 +159,7 @@ tr:hover td {
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px black;
 }
-.modalData{
-  
-}
+
 .modalData-content{
   position: absolute;
   top: 50%;
@@ -212,7 +213,104 @@ tr:hover td {
   cursor: auto;
   width: 1000px;
   height: 850px;
+}
+.ModalDataContent > h1{
+  text-align: center;
+  font-size: 30px;
+}
+.ModalDataContent > .close-modal{
+  height: 40px;
+  cursor: pointer;
+}
+.ModalDataForm{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ModalDataForm-left{
+  padding-bottom: 50px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ModalDataForm-right{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ModalDataForm-right > input{
+  margin: 60px;
+}
+.ModalDataForm-right > select{
+  text-align: center;
+  width: 250px;
+  height: 40px;
+  text-decoration: none;
+  border-radius: 40px;
+  font-weight: bold;
+  border: 2px solid rgb(136, 255, 0);
+  background: transparent;
+  font-size: 15px;
+  transition: ease-out 0.3s;
+  cursor: pointer;
+  color: white;
+  margin: 60px;
 
+}
+.ModalDataForm-left > h1{
+  font-size: 30px;
+  margin: 60px;
+}
+select option {
+  margin: 40px;
+  background: rgb(136, 255, 0);
+  font-size: 18px;
+  color: white;
+}
+.ModalDataForm-right > button{
+  text-align: center;
+  width: 150px;
+  height: 40px;
+  text-decoration: none;
+  border-radius: 40px;
+  font-weight: bold;
+  border: 2px solid rgb(136, 255, 0);
+  background-color: rgb(136, 255, 0);
+  font-size: 15px;
+  transition: ease-out 0.3s;
+  cursor: pointer;
+  color: white;
+  margin-left: -460px;
+}
+.ModalPasswordForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ModalPasswordForm > input{
+  margin-bottom: 100px;
+}
+.ModalPasswordForm > label{
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 200px;
+}
+
+.ModalPasswordForm > button{
+  text-align: center;
+  width: 150px;
+  height: 40px;
+  text-decoration: none;
+  border-radius: 40px;
+  font-weight: bold;
+  border: 2px solid rgb(136, 255, 0);
+  background-color: rgb(136, 255, 0);
+  font-size: 15px;
+  transition: ease-out 0.3s;
+  cursor: pointer;
+  color: white;
 }
 @media (max-width: 1200px) {
   .patients-right {
