@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 
 const PATIENT_SQL = require("./SQL_COMMANDS/PATIENT_SQL.json");
 const DOCTOR_SQL = require("./SQL_COMMANDS/DOCTOR_SQL.json");
+const CONFIG = require("./config.json");
 
 /*
     //////////////////////////////
@@ -15,31 +16,12 @@ const DOCTOR_SQL = require("./SQL_COMMANDS/DOCTOR_SQL.json");
     //////////////////////////////
 */
 
-const COOKIE_LIFE_EXPECTANCY = 3600000;
-const PATIENT_TOKEN_SECRET =
-  "e4a874356cbe44ce796ba1c4f5af379d63d3d70ad3105188e735df4667c5dce4fedec1107a99ab91014749c6ad68cb50bc52597a374631e13d3dde946674b0a4f3a403a6692b4e64ddf773d3e5b837b3";
-const DOCTOR_TOKEN_SECRET =
-  ")J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$BE)H+MbQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9y$B&E)H@McQfTjWmZq4t7w!z%C*F-JaNdRgUkXp2r5u8x/A?D(G+KbPeShVmYq3t6v9y$B&E)H@McQfTjWnZr4u7x!z%C*F-JaNdRgUkXp2s5v8y/B?D(G+KbPeShVmYq3t6w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThWmZq4t6w9z$C&F)J@NcRfUjXn2r5u8x!A%D*G-KaPdSgVkYp3s6v9y$B?E(H+MbQeThWmZq4t7w!z%C*F";
-
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
+app.use(cors(CONFIG.cors));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "",
-  database: "medicloud",
-  timezone: "+00:00",
-});
+const db = mysql.createConnection(CONFIG.mysql);
 
 /*
     //////////////////////////////
@@ -47,12 +29,12 @@ const db = mysql.createConnection({
     //////////////////////////////
 */
 
-function verifyPatient(req, res, next) {
+function PATIENT_GUARD(req, res, next) {
   const token = cookieParser.JSONCookies(req.cookies).token;
   if (!token) {
     res.send("need a token");
   } else {
-    jwt.verify(token, PATIENT_TOKEN_SECRET, (err, decoded) => {
+    jwt.verify(token, CONFIG.token.patientTokenSecret, (err, decoded) => {
       if (err) {
         res.json({ auth: false, message: "Failed" });
       } else {
@@ -63,12 +45,12 @@ function verifyPatient(req, res, next) {
   }
 }
 
-function verifyDoctor(req, res, next) {
+function DOCTOR_GUARD(req, res, next) {
   const token = cookieParser.JSONCookies(req.cookies).token;
   if (!token) {
     res.send("need a token");
   } else {
-    jwt.verify(token, DOCTOR_TOKEN_SECRET, (err, decoded) => {
+    jwt.verify(token, CONFIG.token.doctorTokenSecret, (err, decoded) => {
       if (err) {
         res.json({ auth: false, message: "Failed" });
       } else {
@@ -109,9 +91,12 @@ app.post("/patient-authentication", (req, res) => {
         (error, response) => {
           if (response) {
             const patientId = result[0].patient_id;
-            const token = jwt.sign({ patientId }, PATIENT_TOKEN_SECRET);
+            const token = jwt.sign(
+              { patientId },
+              CONFIG.token.patientTokenSecret
+            );
             res.cookie("token", token, {
-              maxAge: COOKIE_LIFE_EXPECTANCY,
+              maxAge: CONFIG.token.lifeExpectancy,
             });
             res.send({ authed: true });
           } else {
@@ -125,16 +110,17 @@ app.post("/patient-authentication", (req, res) => {
   });
 });
 
-app.get("/patient-profile-data", verifyPatient, (req, res) => {
+app.get("/patient-profile-data", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.profileData, [req.patientId], (err, result) => {
     if (err) {
-      res.send({ err: err });
+      res.send({ authed: false, message: "Szerver hiba" });
+    } else {
+      res.send(result[0]);
     }
-    res.send(result[0]);
   });
 });
 
-app.get("/patient-blood-test-dates", verifyPatient, (req, res) => {
+app.get("/patient-blood-test-dates", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.bloodTestDates, [req.patientId], (err, result) => {
     if (err) {
       res.send({ err: err });
@@ -143,7 +129,7 @@ app.get("/patient-blood-test-dates", verifyPatient, (req, res) => {
   });
 });
 
-app.post("/patient-blood-test-results", verifyPatient, (req, res) => {
+app.post("/patient-blood-test-results", PATIENT_GUARD, (req, res) => {
   const date = req.body.date;
   db.query(
     PATIENT_SQL.bloodTestResults,
@@ -157,7 +143,7 @@ app.post("/patient-blood-test-results", verifyPatient, (req, res) => {
   );
 });
 
-app.get("/patient-blood-test-statistics", verifyPatient, (req, res) => {
+app.get("/patient-blood-test-statistics", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.statistics, [req.patientId], (err, result) => {
     if (err) {
       res.send({ err: err });
@@ -166,7 +152,7 @@ app.get("/patient-blood-test-statistics", verifyPatient, (req, res) => {
   });
 });
 
-app.get("/patient-blood-test-results", verifyPatient, (req, res) => {
+app.get("/patient-blood-test-results", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.bloodTestResults, [req.patientId], (err, result) => {
     if (err) {
       res.send({ err: err });
@@ -175,7 +161,7 @@ app.get("/patient-blood-test-results", verifyPatient, (req, res) => {
   });
 });
 
-app.post("/patient-change-address", verifyPatient, (req, res) => {
+app.post("/patient-change-address", PATIENT_GUARD, (req, res) => {
   const newAddress = req.body.newAddress;
   db.query(
     PATIENT_SQL.changeAddress,
@@ -188,7 +174,7 @@ app.post("/patient-change-address", verifyPatient, (req, res) => {
     }
   );
 });
-app.post("/patient-change-phone", verifyPatient, (req, res) => {
+app.post("/patient-change-phone", PATIENT_GUARD, (req, res) => {
   const newPhone = req.body.newPhone;
   db.query(
     PATIENT_SQL.changePhone,
@@ -201,7 +187,7 @@ app.post("/patient-change-phone", verifyPatient, (req, res) => {
     }
   );
 });
-app.post("/patient-change-email", verifyPatient, (req, res) => {
+app.post("/patient-change-email", PATIENT_GUARD, (req, res) => {
   const newEmail = req.body.newEmail;
   db.query(
     PATIENT_SQL.changeEmail,
@@ -215,7 +201,7 @@ app.post("/patient-change-email", verifyPatient, (req, res) => {
   );
 });
 
-app.post("/patient-change-password", verifyPatient, (req, res) => {
+app.post("/patient-change-password", PATIENT_GUARD, (req, res) => {
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
   db.query(PATIENT_SQL.selectPassword, req.patientId, (qerr, qres) => {
@@ -247,7 +233,7 @@ app.post("/patient-change-password", verifyPatient, (req, res) => {
   });
 });
 
-app.get("/patient-components", verifyPatient, (req, res) => {
+app.get("/patient-components", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.components, (err, result) => {
     if (err) {
       res.send({ err: err });
@@ -282,9 +268,9 @@ app.post("/doctor-authentication", (req, res) => {
       bcrypt.compare(password, result[0].doctor_password, (error, response) => {
         if (response) {
           const doctorId = result[0].doctor_id;
-          const token = jwt.sign({ doctorId }, DOCTOR_TOKEN_SECRET);
+          const token = jwt.sign({ doctorId }, CONFIG.token.doctorTokenSecret);
           res.cookie("token", token, {
-            maxAge: COOKIE_LIFE_EXPECTANCY,
+            maxAge: CONFIG.token.lifeExpectancy,
           });
           res.send({ authed: true, message: "Sikeres belépés" });
         } else {
@@ -297,7 +283,7 @@ app.post("/doctor-authentication", (req, res) => {
   });
 });
 
-app.get("/patients", verifyDoctor, (req, res) => {
+app.get("/patients", DOCTOR_GUARD, (req, res) => {
   db.query(DOCTOR_SQL.allPatients, (err, result) => {
     if (err) {
       res.send({ err: err });
@@ -306,7 +292,7 @@ app.get("/patients", verifyDoctor, (req, res) => {
   });
 });
 
-app.post("/selectPatient", verifyDoctor, (req, res) => {
+app.post("/selectPatient", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
   console.log(id);
   db.query(DOCTOR_SQL.selectPatient, [id], (err, result) => {
@@ -318,7 +304,7 @@ app.post("/selectPatient", verifyDoctor, (req, res) => {
   });
 });
 
-app.post("/add-patient", verifyDoctor, (req, res) => {
+app.post("/add-patient", DOCTOR_GUARD, (req, res) => {
   const name = req.body.name;
   const bloodType = req.body.bloodType;
   const gender = req.body.gender;
@@ -337,87 +323,75 @@ app.post("/add-patient", verifyDoctor, (req, res) => {
   );
 });
 
-app.post("/delete-patient", verifyDoctor, (req, res) => {
+app.post("/delete-patient", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
   db.query(DOCTOR_SQL.deletePatient, id, (err, result) => {
     if (err) {
-      res.send({err:err});
+      res.send({ err: err });
     } else {
       res.send(result);
     }
   });
 });
 
-app.post("/delete_bloodtests_taken", verifyDoctor, (req, res) => {
+app.post("/delete_bloodtests_taken", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
-  
+
   db.query(DOCTOR_SQL.deleteBtaken, id, (err, result) => {
     if (err) {
-      res.send({err:err});
+      res.send({ err: err });
     } else {
       res.send(result);
     }
   });
 });
 
-app.post("/delete_Auth", verifyDoctor, (req, res) => {
+app.post("/delete_Auth", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
-  
+
   db.query(DOCTOR_SQL.deleteAuth, id, (err, result) => {
     if (err) {
-      res.send({err:err});
+      res.send({ err: err });
     } else {
       res.send(result);
     }
   });
 });
 
-app.post("/addPatientBloodTestData", verifyDoctor, (req, res) => {
+app.post("/addPatientBloodTestData", DOCTOR_GUARD, (req, res) => {
   const componentId = req.body.componentId;
   console.log(componentId);
   const componentValue = req.body.componentValue;
   console.log(componentValue);
 
-
   const id = req.body.id;
   console.log(id);
-
 
   const takenById = req.body.takenById;
   console.log(takenById);
   const takenDate = req.body.takenDate;
-  console.log(takenDate)
+  console.log(takenDate);
 
   db.query(
     DOCTOR_SQL.addBloodTestData,
-    [componentId,componentValue,id,takenById,takenDate],
+    [componentId, componentValue, id, takenById, takenDate],
     (err, result) => {
       res.send(result);
     }
   );
 });
 
-
-app.post("/addPassword", verifyDoctor, (req, res) => {
-  
+app.post("/addPassword", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
   console.log(id);
   const password = req.body.password;
 
-  bcrypt.hash(password,12,(berr,bres)=>{
-    db.query(
-      DOCTOR_SQL.addPassword,
-      [bres,id,],
-      (err, result) => {
-        res.send(result);
-      }
-    );
+  bcrypt.hash(password, 12, (berr, bres) => {
+    db.query(DOCTOR_SQL.addPassword, [bres, id], (err, result) => {
+      res.send(result);
+    });
   });
-
 });
-
-
-
 
 /*
     //////////////////////////////

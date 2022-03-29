@@ -1,0 +1,19 @@
+{
+  "mysql": {
+    "user": "root",
+    "host": "localhost",
+    "password": "",
+    "database": "medicloud",
+    "timezone": "+00:00"
+  },
+  "token": {
+    "patientTokenSecret": "e4a874356cbe44ce796ba1c4f5af379d63d3d70ad3105188e735df4667c5dce4fedec1107a99ab91014749c6ad68cb50bc52597a374631e13d3dde946674b0a4f3a403a6692b4e64ddf773d3e5b837b3",
+    "doctorTokenSecret": ")J@NcRfUjXn2r4u7x!A%D*G-KaPdSgVkYp3s6v8y/B?E(H+MbQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$BE)H+MbQeThWmZq4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D(G+KbPeSgVkYp3s6v9y$B&E)H@McQfTjWmZq4t7w!z%C*F-JaNdRgUkXp2r5u8x/A?D(G+KbPeShVmYq3t6v9y$B&E)H@McQfTjWnZr4u7x!z%C*F-JaNdRgUkXp2s5v8y/B?D(G+KbPeShVmYq3t6w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjWnZr4u7x!A%D*G-KaPdSgVkYp2s5v8y/B?E(H+MbQeThWmZq4t6w9z$C&F)J@NcRfUjXn2r5u8x!A%D*G-KaPdSgVkYp3s6v9y$B?E(H+MbQeThWmZq4t7w!z%C*F",
+    "lifeExpectancy": 3600000
+  },
+  "cors": {
+    "origin": ["http://localhost:3000"],
+    "methods": ["GET", "POST"],
+    "credentials": true
+  }
+}
