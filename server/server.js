@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors(CONFIG.cors));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-const db = mysql.createConnection(CONFIG.mysql);
+const db = mysql.createPool(CONFIG.mysql);
 
 /*
     //////////////////////////////
