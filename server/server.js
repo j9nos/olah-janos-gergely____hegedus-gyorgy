@@ -123,9 +123,10 @@ app.get("/patient-profile-data", PATIENT_GUARD, (req, res) => {
 app.get("/patient-blood-test-dates", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.bloodTestDates, [req.patientId], (err, result) => {
     if (err) {
-      res.send({ err: err });
+      res.send({ authed: false, message: "Szerver hiba" });
+    } else {
+      res.send(result);
     }
-    res.send(result);
   });
 });
 
@@ -137,8 +138,9 @@ app.post("/patient-blood-test-results", PATIENT_GUARD, (req, res) => {
     (err, result) => {
       if (err) {
         res.send({ err: err });
+      } else {
+        res.send(result);
       }
-      res.send(result);
     }
   );
 });
@@ -147,8 +149,9 @@ app.get("/patient-blood-test-statistics", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.statistics, [req.patientId], (err, result) => {
     if (err) {
       res.send({ err: err });
+    } else {
+      res.send(result);
     }
-    res.send(result);
   });
 });
 
@@ -156,8 +159,9 @@ app.get("/patient-blood-test-results", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.bloodTestResults, [req.patientId], (err, result) => {
     if (err) {
       res.send({ err: err });
+    } else {
+      res.send(result);
     }
-    res.send(result);
   });
 });
 
@@ -169,8 +173,9 @@ app.post("/patient-change-address", PATIENT_GUARD, (req, res) => {
     (err, result) => {
       if (err) {
         res.send({ message: "Szerver hiba" });
+      } else {
+        res.send({ message: "Lakcím megváltoztatva" });
       }
-      res.send({ message: "Lakcím megváltoztatva" });
     }
   );
 });
@@ -182,8 +187,9 @@ app.post("/patient-change-phone", PATIENT_GUARD, (req, res) => {
     (err, result) => {
       if (err) {
         res.send({ message: "Szerver hiba" });
+      } else {
+        res.send({ message: "Telefonszám megváltoztatva" });
       }
-      res.send({ message: "Telefonszám megváltoztatva" });
     }
   );
 });
@@ -195,8 +201,9 @@ app.post("/patient-change-email", PATIENT_GUARD, (req, res) => {
     (err, result) => {
       if (err) {
         res.send({ message: "Szerver hiba" });
+      } else {
+        res.send({ message: "E-mail cím megváltoztatva" });
       }
-      res.send({ message: "E-mail cím megváltoztatva" });
     }
   );
 });
@@ -237,14 +244,10 @@ app.get("/patient-components", PATIENT_GUARD, (req, res) => {
   db.query(PATIENT_SQL.components, (err, result) => {
     if (err) {
       res.send({ err: err });
+    } else {
+      res.send(result);
     }
-    res.send(result);
   });
-});
-
-app.get("/showmecookie", (req, res) => {
-  console.log(req.cookies.token);
-  res.send();
 });
 
 /*
