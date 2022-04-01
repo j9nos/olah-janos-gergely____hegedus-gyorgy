@@ -207,7 +207,7 @@ function ModalPassword(props) {
             type="password"
             id="input1"
           ></input>
-          <button>Felvetel</button>
+          <button>Felvesz</button>
         </form>
         <button className="close-modal" onClick={props.onQuit}>
           X
