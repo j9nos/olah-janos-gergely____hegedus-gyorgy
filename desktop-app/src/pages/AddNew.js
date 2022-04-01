@@ -53,9 +53,9 @@ function AddNew() {
             <label>Nem</label>
             <label>Taj</label>
             <label>Születési idő</label>
-            <label>Lakcim</label>
+            <label>Lakcím</label>
             <label>Telefonszám</label>
-            <label>Emailcim</label>
+            <label>Email cím</label>
           </div>
           <div className="form-input">
             <input
@@ -75,12 +75,12 @@ function AddNew() {
             ></input>
             <input
               onChange={(e) => setTaj(e.target.value)}
-              type="text"
+              type="number"
               id="input4"
             ></input>
             <input
               onChange={(e) => setBirthdate(e.target.value)}
-              type="text"
+              type="date"
               id="input5"
             ></input>
             <input
@@ -90,12 +90,12 @@ function AddNew() {
             ></input>
             <input
               onChange={(e) => setPhone(e.target.value)}
-              type="text"
+              type="number"
               id="input7"
             ></input>
             <input
               onChange={(e) => setEmail(e.target.value)}
-              type="text"
+              type="email"
               id="input8"
             ></input>
             

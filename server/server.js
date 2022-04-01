@@ -297,12 +297,10 @@ app.get("/patients", DOCTOR_GUARD, (req, res) => {
 
 app.post("/selectPatient", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
-  console.log(id);
   db.query(DOCTOR_SQL.selectPatient, [id], (err, result) => {
     if (err) {
       res.send({ err: err });
     }
-    console.log(result);
     res.send(result);
   });
 });
@@ -363,17 +361,10 @@ app.post("/delete_Auth", DOCTOR_GUARD, (req, res) => {
 
 app.post("/addPatientBloodTestData", DOCTOR_GUARD, (req, res) => {
   const componentId = req.body.componentId;
-  console.log(componentId);
   const componentValue = req.body.componentValue;
-  console.log(componentValue);
-
   const id = req.body.id;
-  console.log(id);
-
   const takenById = req.body.takenById;
-  console.log(takenById);
   const takenDate = req.body.takenDate;
-  console.log(takenDate);
 
   db.query(
     DOCTOR_SQL.addBloodTestData,
@@ -386,7 +377,6 @@ app.post("/addPatientBloodTestData", DOCTOR_GUARD, (req, res) => {
 
 app.post("/addPassword", DOCTOR_GUARD, (req, res) => {
   const id = req.body.id;
-  console.log(id);
   const password = req.body.password;
 
   bcrypt.hash(password, 12, (berr, bres) => {

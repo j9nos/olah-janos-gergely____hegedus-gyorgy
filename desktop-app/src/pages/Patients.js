@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import "./Patients.css";
 import { useNavigate } from "react-router-dom";
-import { reloadOnExpiration, logout } from "../utils/authorization";
 import { VscTrash } from "react-icons/vsc";
 
 function Modal(props) {
@@ -26,7 +25,6 @@ function Modal(props) {
   }
 
   function deleteBloodtests(selected) {
-    console.log(selected.blood_tests_taken_id);
     API.post("/delete_bloodtests_taken", {
       id: selected.blood_tests_taken_id,
     }).then((result) => {
@@ -51,7 +49,7 @@ function Modal(props) {
                 <th>Ideális érték</th>
                 <th>Mért érték</th>
                 <th>Dátum</th>
-                <th>Torles</th>
+                <th>Törlés</th>
               </tr>
             </thead>
             <tbody>
@@ -69,7 +67,10 @@ function Modal(props) {
                     <td>{e.blood_tests_component_value}</td>
                     <td>{e.blood_tests_taken_date.split("T")[0]}</td>
                     <td>
-                      <button className="trashBtn" onClick={() => deleteBloodtests(e)}>
+                      <button
+                        className="trashBtn"
+                        onClick={() => deleteBloodtests(e)}
+                      >
                         <VscTrash />
                       </button>
                     </td>
@@ -99,8 +100,13 @@ function ModalData(props) {
       takenById: takenById,
       takenDate: takenDate,
     }).then((result) => {
-      console.log("siker");
+      handleReset();
     });
+  }
+
+  function handleReset() {
+    document.getElementById("input1").value = "";
+    document.getElementById("input2").value = "";
   }
 
   return (
@@ -117,7 +123,9 @@ function ModalData(props) {
           </div>
           <div className="ModalDataForm-right">
             <select onChange={(e) => setComponentId(e.target.value)}>
-              <option>ertek</option>
+              <option value="" selected disabled hidden>
+                Érték
+              </option>
               <option value="1">Fehérvérsejtszám</option>
               <option value="2">Vörösvértest</option>
               <option value="3">Hematokrit</option>
@@ -145,17 +153,21 @@ function ModalData(props) {
             </select>
 
             <select onChange={(e) => setTakenById(e.target.value)}>
-              <option>ertek</option>
+              <option value="" selected disabled hidden>
+                Érték
+              </option>
               <option value="1">Cseh Andras</option>
             </select>
             <input
               onChange={(e) => setComponentValue(e.target.value)}
-              type="text"
+              type="number"
+              id="input1"
             ></input>
 
             <input
               onChange={(e) => setTakenDate(e.target.value)}
-              type="text"
+              type="date"
+              id="input2"
             ></input>
             <button>Felvesz</button>
           </div>
@@ -176,8 +188,11 @@ function ModalPassword(props) {
       id: props.data.patient_id,
       password: password,
     }).then((result) => {
-      console.log("siker");
+      handleReset();
     });
+  }
+  function handleReset() {
+    document.getElementById("input1").value = "";
   }
 
   return (
@@ -189,7 +204,8 @@ function ModalPassword(props) {
           <label>Jelszó:</label>
           <input
             onChange={(e) => setPassword(e.target.value)}
-            type="text"
+            type="password"
+            id="input1"
           ></input>
           <button>Felvetel</button>
         </form>
@@ -278,7 +294,6 @@ function Patients() {
   }
 
   function deletePatient(selected) {
-    console.log(selected.patient_id);
     API.post("/delete-patient", {
       id: selected.patient_id,
     }).then((result) => {
@@ -287,7 +302,6 @@ function Patients() {
   }
 
   function deleteAuth(selected) {
-    console.log(selected.patient_id);
     API.post("/delete_Auth", {
       id: selected.patient_id,
     }).then((result) => {
@@ -303,7 +317,7 @@ function Patients() {
           <div className="patients-top-left"></div>
           <div className="patients-top-right">
             <button onClick={openModalUp} className="NewPatientBtn">
-              Kivalaszt
+              Kiválaszt
             </button>
             <button onClick={navigatetoAddNew} className="NewPatientBtn">
               Új Páciens
@@ -321,7 +335,7 @@ function Patients() {
             {modalPasswordOn && (
               <ModalPassword data={selected} onQuit={closeModalPassword} />
             )}
-            <input placeholder="Kereses" value={value} onChange={filterData} />
+            <input placeholder="Keresés" value={value} onChange={filterData} />
             {modalOn && <Modal data={selected} onQuit={closeModal} />}
           </div>
         </div>
@@ -331,15 +345,15 @@ function Patients() {
             <table>
               <thead>
                 <tr>
-                  <th>Vercsoport</th>
+                  <th>Várcsoport</th>
                   <th>Név</th>
                   <th>Nem</th>
                   <th>Taj</th>
                   <th>Születési idő</th>
-                  <th>Lakcim</th>
+                  <th>Lakcím</th>
                   <th>Telefonszám</th>
-                  <th>Emailcim</th>
-                  <th>Torles</th>
+                  <th>Email cím</th>
+                  <th>Törlés</th>
                 </tr>
               </thead>
               <tbody>
