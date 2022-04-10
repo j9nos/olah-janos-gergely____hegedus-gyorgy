@@ -142,7 +142,6 @@ tr:hover td {
   border: 2px solid rgb(136, 255, 0);
   background: transparent;
   font-size: 15px;
-  transition: ease-out 0.3s;
   cursor: pointer;
   color: white;
   
@@ -253,7 +252,6 @@ tr:hover td {
   border: 2px solid rgb(136, 255, 0);
   background: transparent;
   font-size: 15px;
-  transition: ease-out 0.3s;
   cursor: pointer;
   color: white;
   margin: 60px;
@@ -279,7 +277,6 @@ select option {
   border: 2px solid rgb(136, 255, 0);
   background-color: rgb(136, 255, 0);
   font-size: 15px;
-  transition: ease-out 0.3s;
   cursor: pointer;
   color: white;
   margin-left: -460px;
@@ -308,7 +305,6 @@ select option {
   border: 2px solid rgb(136, 255, 0);
   background-color: rgb(136, 255, 0);
   font-size: 15px;
-  transition: ease-out 0.3s;
   cursor: pointer;
   color: white;
 }
@@ -337,5 +333,36 @@ select option {
     overflow: auto;
     border: 2px solid rgb(136, 255, 0);
     height: 380px;
+  }
+}
+@media (max-height:800px){
+  .modalData-content{
+    width: 900px;
+    height: 550px;
+  }
+  .modal-table-container{
+    height: 350px;
+  }
+  .ModalDataContent{
+    width: 900px;
+    height: 550px;
+  }
+  .ModalDataForm{
+    height: 300px;
+  }
+  .ModalDataForm-right > input{
+    margin: 30px;
+  }
+  .ModalDataForm-right > select{
+    
+    width: 250px;
+    height: 40px;
+    font-size: 15px;
+    margin: 30px;
+  
+  }
+  .ModalDataForm-left > h1{
+    font-size: 30px;
+    margin: 30px;
   }
 }
