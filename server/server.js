@@ -91,7 +91,11 @@ app.post("/patient-authentication", (req, res) => {
         (error, response) => {
           if (response) {
             const patientId = result[0].patient_id;
-            const token = jwt.sign({patientId}, CONFIG.token.patientTokenSecret, {expiresIn:CONFIG.token.lifeExpectancy})
+            const token = jwt.sign(
+              { patientId },
+              CONFIG.token.patientTokenSecret,
+              { expiresIn: CONFIG.token.lifeExpectancy }
+            );
             res.cookie("token", token, {
               maxAge: CONFIG.token.lifeExpectancy,
             });
@@ -248,7 +252,9 @@ app.post("/doctor-authentication", (req, res) => {
       bcrypt.compare(password, result[0].doctor_password, (error, response) => {
         if (response) {
           const doctorId = result[0].doctor_id;
-          const token = jwt.sign({ doctorId }, CONFIG.token.doctorTokenSecret);
+          const token = jwt.sign({ doctorId }, CONFIG.token.doctorTokenSecret, {
+            expiresIn: CONFIG.token.lifeExpectancy,
+          });
           res.cookie("token", token, {
             maxAge: CONFIG.token.lifeExpectancy,
           });
