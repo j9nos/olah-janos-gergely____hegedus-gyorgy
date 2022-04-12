@@ -192,39 +192,44 @@ app.post("/patient-change-email", PATIENT_GUARD, (req, res) => {
 app.post("/patient-change-password", PATIENT_GUARD, (req, res) => {
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
-  db.query(PATIENT_SQL.selectPassword, req.patientId, (qerr, qres) => {
-    if (qerr) {
-      res.send({ message: "Szerver hiba" });
-    } else if (qres.length > 0) {
-      bcrypt.compare(oldPassword, qres[0].patient_password, (berr, bres) => {
-        if (bres) {
-          bcrypt.hash(newPassword, 12, (berr2, bres2) => {
-            db.query(
-              PATIENT_SQL.changePassword,
-              [bres2, req.patientId],
-              (qerr2, qres2) => {
-                if (qerr2) {
-                  res.send({ message: "Szerver hiba" });
-                } else {
-                  res.send({ message: "Jelszó megváltoztatva" });
+
+  if (newPassword.length > 0) {
+    db.query(PATIENT_SQL.selectPassword, req.patientId, (qerr, qres) => {
+      if (qerr) {
+        res.send({ message: "Szerver hiba" });
+      } else if (qres.length > 0) {
+        bcrypt.compare(oldPassword, qres[0].patient_password, (berr, bres) => {
+          if (bres) {
+            bcrypt.hash(newPassword, 12, (berr2, bres2) => {
+              db.query(
+                PATIENT_SQL.changePassword,
+                [bres2, req.patientId],
+                (qerr2, qres2) => {
+                  if (qerr2) {
+                    res.send({ message: "Szerver hiba" });
+                  } else {
+                    res.send({ message: "Jelszó megváltoztatva" });
+                  }
                 }
-              }
-            );
-          });
-        } else {
-          res.send({ message: "Nem ez a jelenlegi jelszavad" });
-        }
-      });
-    } else {
-      res.send({ message: "Szerver hiba" });
-    }
-  });
+              );
+            });
+          } else {
+            res.send({ message: "Nem ez a jelenlegi jelszavad" });
+          }
+        });
+      } else {
+        res.send({ message: "Szerver hiba" });
+      }
+    });
+  } else {
+    res.send({ message: "Új jelszó nem lehet üres" });
+  }
 });
 
 app.get("/patient-components", PATIENT_GUARD, (req, res) => {
-  db.query(PATIENT_SQL.components, (err, result) => {
-    if (err) {
-      res.send({ err: err });
+  db.query(PATIENT_SQL.components, (qerr, result) => {
+    if (qerr) {
+      res.send({ message: "Szerver hiba" });
     } else {
       res.send(result);
     }
