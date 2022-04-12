@@ -6,10 +6,11 @@
     * Asztali alkalmazás
 * [Oláh János Gergely](https://github.com/j9nos)
     * Reszponzív Web alkalmazás
+    * Szerver kialakítása
 * Közösen készült
     * Adatbázis
     * Dokumentáció
-    * Szerver
+    * API requestek kezelése
 ## A program használata:
 
 1) Szerver [README.md](https://github.com/j9nos/olah-janos-gergely____hegedus-gyorgy/tree/master/server/README.md)
