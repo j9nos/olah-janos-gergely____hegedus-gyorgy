@@ -12,9 +12,9 @@
     * Szerver
 ## A program használata:
 
-1) Szerver [README.md]()
-2) Asztali alkalmazás [README.md]()
-3) Reszponzív Web alakalmazás [README.md]()
+1) Szerver [README.md](https://github.com/j9nos/olah-janos-gergely____hegedus-gyorgy/tree/master/server/README.md)
+2) Asztali alkalmazás [README.md](https://github.com/j9nos/olah-janos-gergely____hegedus-gyorgy/blob/master/desktop-app/README.md)
+3) Reszponzív Web alakalmazás [README.md](https://github.com/j9nos/olah-janos-gergely____hegedus-gyorgy/tree/master/responsive-app/README.md)
 
 ## Ismertető
 
