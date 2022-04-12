@@ -91,10 +91,7 @@ app.post("/patient-authentication", (req, res) => {
         (error, response) => {
           if (response) {
             const patientId = result[0].patient_id;
-            const token = jwt.sign(
-              { patientId },
-              CONFIG.token.patientTokenSecret
-            );
+            const token = jwt.sign({patientId}, CONFIG.token.patientTokenSecret, {expiresIn:CONFIG.token.lifeExpectancy})
             res.cookie("token", token, {
               maxAge: CONFIG.token.lifeExpectancy,
             });
@@ -143,26 +140,6 @@ app.post("/patient-blood-test-results", PATIENT_GUARD, (req, res) => {
       }
     }
   );
-});
-
-app.get("/patient-blood-test-statistics", PATIENT_GUARD, (req, res) => {
-  db.query(PATIENT_SQL.statistics, [req.patientId], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    } else {
-      res.send(result);
-    }
-  });
-});
-
-app.get("/patient-blood-test-results", PATIENT_GUARD, (req, res) => {
-  db.query(PATIENT_SQL.bloodTestResults, [req.patientId], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    } else {
-      res.send(result);
-    }
-  });
 });
 
 app.post("/patient-change-address", PATIENT_GUARD, (req, res) => {
