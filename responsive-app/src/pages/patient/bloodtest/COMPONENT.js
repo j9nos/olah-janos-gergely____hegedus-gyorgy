@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./component.css";
 import API from "../../../utils/API";
 import INFO from "./INFO";
 

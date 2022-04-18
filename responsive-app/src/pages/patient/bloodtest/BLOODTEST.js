@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../../../utils/API";
 import VISUALIZATION from "./VISUALIZATION";
+import "./bloodtest.css";
 
 const BLOODTEST = (props) => {
   useEffect(() => {

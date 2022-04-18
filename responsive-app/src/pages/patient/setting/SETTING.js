@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import { RiCloseCircleFill } from "react-icons/ri";
 import { useEffect, useState } from "react";
-
+import "./setting.css";
 import { BiSlider } from "react-icons/bi";
 import { IoIosSave } from "react-icons/io";
 import API from "../../../utils/API";

@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 import { getVisualizationData } from "../../../utils/dataRefinery";
+import "./visualization.css";
 
 const VISUALIZATION = (props) => {
   const data = getVisualizationData(props.rawData);
