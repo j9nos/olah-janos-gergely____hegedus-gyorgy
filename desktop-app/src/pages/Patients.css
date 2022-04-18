@@ -348,21 +348,22 @@ select option {
     height: 550px;
   }
   .ModalDataForm{
+    margin: 40px;
     height: 300px;
   }
   .ModalDataForm-right > input{
-    margin: 30px;
+    margin: 20px;
   }
   .ModalDataForm-right > select{
     
     width: 250px;
     height: 40px;
     font-size: 15px;
-    margin: 30px;
+    margin: 20px;
   
   }
   .ModalDataForm-left > h1{
     font-size: 30px;
-    margin: 30px;
+    margin: 22px;
   }
 }
